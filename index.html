@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/images/y2.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yellow Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/geist-font/1.0.0/fonts/geist-sans/style.min.css">
+    <style>
+        /* Chat Widget Styling with Yellow Solutions Theme */
+        #chat-widget-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(247, 144, 49, 0.1);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            font-family: 'Geist Sans', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        #chat-widget-header {
+            background: linear-gradient(135deg, #F79031 0%, #FF6B35 100%);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        #chat-widget-header .header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        #chat-widget-header .title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        #chat-widget-header .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        #chat-widget-header button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        #chat-widget-header button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        #chat-widget-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: white;
+        }
+
+        #chat-widget-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chat-widget-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        #chat-widget-body::-webkit-scrollbar-thumb {
+            background: #F79031;
+            border-radius: 3px;
+        }
+
+        #chat-widget-body::-webkit-scrollbar-thumb:hover {
+            background: #e67e22;
+        }
+
+        #chat-widget-body p {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            word-wrap: break-word;
+            line-height: 1.4;
+            max-width: 85%;
+        }
+
+        #chat-widget-body .bot-message {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            color: #1f2937;
+            border-radius: 12px 12px 12px 4px;
+            margin-right: auto;
+        }
+
+        #chat-widget-body .user-message {
+            background: linear-gradient(135deg, #F79031 0%, #FF6B35 100%);
+            color: white;
+            border-radius: 12px 12px 4px 12px;
+            margin-left: auto;
+        }
+
+        #chat-widget-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 12px;
+            background: white;
+            border-radius: 0 0 16px 16px;
+        }
+
+        #chat-widget-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 24px;
+            outline: none;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        #chat-widget-input:focus {
+            border-color: #F79031;
+            box-shadow: 0 0 0 3px rgba(247, 144, 49, 0.1);
+        }
+
+        #chat-widget-input::placeholder {
+            color: #9ca3af;
+        }
+
+        #chat-widget-send {
+            background: linear-gradient(135deg, #F79031 0%, #FF6B35 100%);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(247, 144, 49, 0.3);
+        }
+
+        #chat-widget-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(247, 144, 49, 0.4);
+        }
+
+        #chat-widget-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #F79031 0%, #FF6B35 100%);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(247, 144, 49, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        #chat-widget-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(247, 144, 49, 0.4);
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px 12px 12px 4px;
+            margin-bottom: 15px;
+            max-width: 85%;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #F79031;
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typingDot {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Animation for chat opening */
+        #chat-widget-container.show {
+            animation: chatSlideIn 0.3s ease-out;
+        }
+
+        @keyframes chatSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            #chat-widget-container {
+                background: #111111;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(247, 144, 49, 0.2);
+            }
+
+            #chat-widget-body {
+                background: #111111;
+            }
+
+            #chat-widget-body .bot-message {
+                background: #1f2937;
+                border-color: #374151;
+                color: #f9fafb;
+            }
+
+            #chat-widget-footer {
+                background: #111111;
+                border-top-color: #374151;
+            }
+
+            #chat-widget-input {
+                background: #1f2937;
+                border-color: #374151;
+                color: #f9fafb;
+            }
+
+            #chat-widget-input::placeholder {
+                color: #6b7280;
+            }
+
+            .typing-indicator {
+                background: #1f2937;
+                border-color: #374151;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #chat-widget-container {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                bottom: 0;
+                right: 0;
+                top: 0;
+                left: 0;
+            }
+
+            #chat-widget-header {
+                border-radius: 0;
+                padding: 20px;
+            }
+
+            #chat-widget-footer {
+                border-radius: 0;
+                padding: 20px;
+            }
+
+            #chat-widget-button {
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Custom Chat Widget -->
+    <!-- Chat Widget Button -->
+    <!-- <button id="chat-widget-button">💬</button> -->
+
+    <!-- Chat Widget -->
+    <div id="chat-widget-container">
+        <div id="chat-widget-header">
+            <div class="header-content">
+                <div class="title">Yellow Solutions</div>
+                <div class="subtitle">We're here to help!</div>
+            </div>
+            <button onclick="closeChatWidget()">✖</button>
+        </div>
+        <div id="chat-widget-body">
+            <p class="bot-message"><strong>Hi 👋, how can we help?</strong></p>
+        </div>
+        <div id="chat-widget-footer">
+            <input type="text" id="chat-widget-input" placeholder="Type your message here...">
+            <button id="chat-widget-send">➤</button>
+        </div>
+    </div>
+
+    <!-- Chat Widget Script -->
+    <script>
+        window.ChatWidgetConfig = {
+            webhook: {
+                url: 'https://anshdoultani.app.n8n.cloud/webhook/56e8629e-990d-4551-929d-05820925c8cd/chat',
+                route: 'general'
+            },
+            style: {
+                primaryColor: '#F79031',
+                secondaryColor: '#FF6B35',
+                position: 'right',
+                backgroundColor: '#ffffff',
+                fontColor: '#333333'
+            }
+        };
+
+        // Generate a unique chat ID for every page load/session
+        let currentChatId = null;
+
+        function generateNewChatId() {
+            // Generate a more unique ID using timestamp + random string
+            const timestamp = Date.now().toString(36);
+            const randomStr = Math.random().toString(36).substr(2, 9);
+            const sessionId = `chat_${timestamp}_${randomStr}`;
+            
+            currentChatId = sessionId;
+            console.log('New chat session started:', currentChatId);
+            return currentChatId;
+        }
+
+        function getChatId() {
+            // Always return the current session's chat ID
+            // If no ID exists, generate a new one
+            if (!currentChatId) {
+                return generateNewChatId();
+            }
+            return currentChatId;
+        }
+
+        // Initialize a new chat session when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            generateNewChatId();
+        });
+
+        // Show chat widget and hide bubble
+        document.getElementById("chat-widget-button").addEventListener("click", function() {
+            const container = document.getElementById("chat-widget-container");
+            container.style.display = "flex";
+            container.classList.add("show");
+            document.getElementById("chat-widget-button").style.display = "none";
+            
+            // Focus on input
+            setTimeout(() => {
+                document.getElementById("chat-widget-input").focus();
+            }, 300);
+        });
+
+        // Close chat widget and show bubble
+        function closeChatWidget() {
+            document.getElementById("chat-widget-container").style.display = "none";
+            document.getElementById("chat-widget-container").classList.remove("show");
+            document.getElementById("chat-widget-button").style.display = "flex";
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            let chatBody = document.getElementById("chat-widget-body");
+            let typingIndicator = document.createElement("div");
+            typingIndicator.className = "typing-indicator";
+            typingIndicator.id = "typing-indicator";
+            typingIndicator.innerHTML = `
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <span style="color: #6b7280; font-size: 12px;">Yellow Solutions is typing...</span>
+            `;
+            chatBody.appendChild(typingIndicator);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById("typing-indicator");
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Send message function
+        function sendMessage() {
+            let message = document.getElementById("chat-widget-input").value;
+            if (message.trim() === "") return;
+
+            let chatBody = document.getElementById("chat-widget-body");
+            let newMessage = document.createElement("p");
+            newMessage.textContent = message;
+            newMessage.className = "user-message";
+            chatBody.appendChild(newMessage);
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            let chatId = getChatId();
+
+            fetch(window.ChatWidgetConfig.webhook.url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chatId: chatId,
+                    message: message,
+                    route: window.ChatWidgetConfig.webhook.route
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Hide typing indicator
+                hideTypingIndicator();
+                
+                let botMessage = document.createElement("p");
+                botMessage.innerHTML = data.output || "Sorry, I couldn't understand that.";
+                botMessage.className = "bot-message";
+                chatBody.appendChild(botMessage);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                hideTypingIndicator();
+                
+                let errorMessage = document.createElement("p");
+                errorMessage.textContent = "Sorry, there was an error processing your message. Please try again.";
+                errorMessage.className = "bot-message";
+                chatBody.appendChild(errorMessage);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            });
+
+            document.getElementById("chat-widget-input").value = "";
+        }
+
+        // Send message on button click
+        document.getElementById("chat-widget-send").addEventListener("click", sendMessage);
+
+        // Send message on Enter key press
+        document.getElementById("chat-widget-input").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        // Close chat widget on Escape key
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") {
+                const container = document.getElementById("chat-widget-container");
+                if (container.style.display === "flex") {
+                    closeChatWidget();
+                }
+            }
+        });
+
+        // Optional: Generate new chat ID when user navigates to a new page
+        // This ensures each page visit gets a fresh chat session
+        window.addEventListener('beforeunload', function() {
+            // You can add any cleanup logic here if needed
+            console.log('Chat session ending:', currentChatId);
+        });
+
+        // For SPA navigation (if using React Router), you can also listen for route changes
+        // and generate new chat IDs when needed
+        window.addEventListener('popstate', function() {
+            generateNewChatId();
+            console.log('Route changed, new chat session:', currentChatId);
+        });
+    </script>
+  </body>
+</html>
