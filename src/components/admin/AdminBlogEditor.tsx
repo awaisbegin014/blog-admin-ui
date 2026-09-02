@@ -163,7 +163,7 @@ function buildInitialState(blog?: DbBlogPost | null): FormState {
       read_time: blog.read_time ?? '',
       tags: blog.tags ?? [],
       featured: blog.featured ?? false,
-      target_sites: blog.target_sites && blog.target_sites.length > 0 ? blog.target_sites : ['yellowagency'],
+      target_sites: blog.target_sites && blog.target_sites.length > 0 ? blog.target_sites : ['yellowagency', 'yellowtools'],
       status: ((blog as DbBlogPost & { status?: 'draft' | 'published' }).status) ?? 'draft',
       date: blog.date ?? new Date().toISOString().split('T')[0],
     };
@@ -171,7 +171,7 @@ function buildInitialState(blog?: DbBlogPost | null): FormState {
   return {
     title: '', slug: '', category: '', author: '',
     excerpt: '', content: '', image: '', read_time: '',
-    tags: [], featured: false, target_sites: ['yellowagency'], status: 'published',
+    tags: [], featured: false, target_sites: ['yellowagency', 'yellowtools'], status: 'published',
     date: new Date().toISOString().split('T')[0],
   };
 }
@@ -237,7 +237,7 @@ const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({ existingBlog, onSucce
       read_time: form.read_time || estimateReadTime(form.content),
       tags: form.tags,
       featured: form.featured,
-      target_sites: form.target_sites && form.target_sites.length > 0 ? form.target_sites : ['yellowagency'],
+      target_sites: form.target_sites && form.target_sites.length > 0 ? form.target_sites : ['yellowagency', 'yellowtools'],
       status: form.status,
       date: form.date || new Date().toISOString().split('T')[0],
     };
@@ -636,6 +636,61 @@ const AdminBlogEditor: React.FC<AdminBlogEditorProps> = ({ existingBlog, onSucce
                 {/* Tag pill input */}
                 <Field label="Keywords / Tags" htmlFor="tags" hint="Type a keyword and press Enter to add it.">
                   <TagInput value={form.tags} onChange={(tags) => set('tags', tags)} />
+                </Field>
+
+                {/* Target Websites Selection */}
+                <Field label="Publish Destinations" hint="Choose which websites should display this blog post:">
+                  <div className="space-y-3 mt-1.5 p-4 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-900/60">
+                    <label className="flex items-start gap-3 cursor-pointer select-none group">
+                      <input
+                        type="checkbox"
+                        checked={form.target_sites.includes('yellowagency') || form.target_sites.includes('all')}
+                        onChange={(e) => {
+                          const isChecked = e.target.checked;
+                          const current = form.target_sites.filter(s => s !== 'all');
+                          const updated = isChecked
+                            ? [...new Set([...current, 'yellowagency'])]
+                            : current.filter(s => s !== 'yellowagency');
+                          set('target_sites', updated);
+                        }}
+                        className="mt-0.5 w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary focus:ring-2 cursor-pointer"
+                      />
+                      <div>
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                          Yellow Agency
+                        </span>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Show this article on Yellow Agency (Marketing & Client site)
+                        </p>
+                      </div>
+                    </label>
+
+                    <div className="border-t border-gray-200 dark:border-gray-800" />
+
+                    <label className="flex items-start gap-3 cursor-pointer select-none group">
+                      <input
+                        type="checkbox"
+                        checked={form.target_sites.includes('yellowtools') || form.target_sites.includes('all')}
+                        onChange={(e) => {
+                          const isChecked = e.target.checked;
+                          const current = form.target_sites.filter(s => s !== 'all');
+                          const updated = isChecked
+                            ? [...new Set([...current, 'yellowtools'])]
+                            : current.filter(s => s !== 'yellowtools');
+                          set('target_sites', updated);
+                        }}
+                        className="mt-0.5 w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary focus:ring-2 cursor-pointer"
+                      />
+                      <div>
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                          Yellow Tools
+                        </span>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Show this article on Yellow Tools (Knowledge Hub & Guides)
+                        </p>
+                      </div>
+                    </label>
+                  </div>
                 </Field>
 
               </div>
