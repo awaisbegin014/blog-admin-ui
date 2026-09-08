@@ -2,9 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import WhyChooseUs from './components/WhyChooseUs';
 import Services from './components/Services';
 import About from './components/About';
+import Portfolio from './components/Portfolio';
 import Offices from './components/Offices';
+import Pricing from './components/Pricing';
+import TaglineCTA from './components/TaglineCTA';
+import PlatformsSection from './components/PlatformsSection';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import BlogsSection from './components/BlogsSection';
@@ -88,11 +93,15 @@ function App() {
               <Route path="/" element={
                 <main>
                   <Hero />
+                  <WhyChooseUs />
                   <Services />
                   <About />
-                  {/* <Portfolio /> */}
+                  <Portfolio />
                   <BlogsSection />
                   <Offices />
+                  <Pricing />
+                  <TaglineCTA />
+                  <PlatformsSection />
                   <Testimonials />
                   <Contact />
                 </main>
