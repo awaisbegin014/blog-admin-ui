@@ -1,60 +1,78 @@
 -- ============================================================
--- Yellow Solutions — Supabase blog_posts table setup
+-- Yellow Solutions — Complete Supabase blog_posts setup
 -- Run this in your Supabase dashboard:
 --   Project → SQL Editor → New query → paste → Run
 -- ============================================================
 
--- 1. Create the table
+-- 1. Create the table (includes ALL columns used by Blog Admin,
+--    Yellow Agency, and Yellow Tools)
 CREATE TABLE IF NOT EXISTS public.blog_posts (
-  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  slug        TEXT UNIQUE NOT NULL,
-  title       TEXT NOT NULL,
-  excerpt     TEXT,
-  content     TEXT,
-  image       TEXT,
-  category    TEXT,
-  author      TEXT,
-  date        TEXT,
-  read_time   TEXT,
-  tags        TEXT[]  DEFAULT '{}',
-  featured    BOOLEAN DEFAULT false,
-  status      TEXT    DEFAULT 'draft'   CHECK (status IN ('draft', 'published')),
-  created_at  TIMESTAMPTZ DEFAULT now(),
-  updated_at  TIMESTAMPTZ
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug            TEXT UNIQUE NOT NULL,
+  title           TEXT NOT NULL,
+  excerpt         TEXT,
+  content         TEXT,
+  image           TEXT,
+  category        TEXT,
+  author          TEXT,
+  date            TEXT DEFAULT CURRENT_DATE::text,
+  read_time       TEXT,
+  tags            TEXT[]     DEFAULT '{}',
+  featured        BOOLEAN    DEFAULT false,
+  is_pinned       BOOLEAN    DEFAULT false,
+  target_sites    TEXT[]     DEFAULT '{all}',
+  canonical_site  TEXT,
+  status          TEXT       DEFAULT 'draft' CHECK (status IN ('draft', 'published')),
+  created_at      TIMESTAMPTZ DEFAULT now(),
+  updated_at      TIMESTAMPTZ
 );
 
--- 2. Enable Row-Level Security (recommended)
+-- 2. Indexes for fast lookups
+CREATE INDEX IF NOT EXISTS idx_blog_posts_slug       ON public.blog_posts(slug);
+CREATE INDEX IF NOT EXISTS idx_blog_posts_status     ON public.blog_posts(status);
+CREATE INDEX IF NOT EXISTS idx_blog_posts_date       ON public.blog_posts(date DESC);
+CREATE INDEX IF NOT EXISTS idx_blog_posts_is_pinned  ON public.blog_posts(is_pinned);
+CREATE INDEX IF NOT EXISTS idx_blog_posts_category   ON public.blog_posts(category);
+
+-- 3. Enable Row-Level Security
 ALTER TABLE public.blog_posts ENABLE ROW LEVEL SECURITY;
 
--- 3. Public read policy — anyone can read PUBLISHED posts
+-- 4. RLS Policies
+--    Public can read published posts
 CREATE POLICY "Public can read published posts"
   ON public.blog_posts FOR SELECT
   USING (status = 'published');
 
--- 4. Anon full-access policy for Admin Console
---    WARNING: This is for development/testing only.
---    Before going live, replace this with authenticated-user policies.
-CREATE POLICY "Anon full access (dev only)"
+--    Anon can also read all posts (needed because Blog Admin uses
+--    the anon key with its local-admin bypass for write operations)
+CREATE POLICY "Anon full access"
   ON public.blog_posts FOR ALL
   USING (true)
   WITH CHECK (true);
 
+--    Authenticated users have full access
+CREATE POLICY "Authenticated users full access"
+  ON public.blog_posts FOR ALL
+  TO authenticated
+  USING (true)
+  WITH CHECK (true);
+
 -- ============================================================
--- Optional: seed with one sample post to test the table
+-- 5. Storage bucket for blog cover images
 -- ============================================================
-/*
-INSERT INTO public.blog_posts (slug, title, excerpt, content, category, author, date, read_time, tags, featured, status)
-VALUES (
-  'hello-world',
-  'Hello World — Yellow Solutions Blog',
-  'Our first blog post. Welcome to the Yellow Solutions content hub.',
-  '<h2>Welcome</h2><p>This is our first post. Stay tuned for more!</p>',
-  'Business',
-  'Yellow Team',
-  '2026-03-30',
-  '2 min read',
-  ARRAY['Yellow Solutions', 'Announcement'],
-  true,
-  'published'
-);
-*/
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('blog-images', 'blog-images', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Storage policies: anyone can read, anon/auth can upload & delete
+CREATE POLICY "Public read blog images"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'blog-images');
+
+CREATE POLICY "Allow upload blog images"
+  ON storage.objects FOR INSERT
+  WITH CHECK (bucket_id = 'blog-images');
+
+CREATE POLICY "Allow delete blog images"
+  ON storage.objects FOR DELETE
+  USING (bucket_id = 'blog-images');
