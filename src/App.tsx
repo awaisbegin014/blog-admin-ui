@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import DeviceShowcase from './components/DeviceShowcase';
 import WhyChooseUs from './components/WhyChooseUs';
 import Services from './components/Services';
 import About from './components/About';
@@ -93,6 +94,7 @@ function App() {
               <Route path="/" element={
                 <main>
                   <Hero />
+                  <DeviceShowcase />
                   <WhyChooseUs />
                   <Services />
                   <About />

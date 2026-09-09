@@ -336,7 +336,7 @@ const Hero: React.FC = () => {
               </a>
               <a
                 href="#contact"
-                className="btn bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white min-w-[160px] group"
+                className="btn bg-transparent border-2 border-yellow-400 text-yellow-400 hover:bg-gradient-to-r hover:from-primary hover:via-amber-400 hover:to-yellow-400 hover:text-gray-950 hover:border-transparent min-w-[160px] group font-bold transition-all shadow-sm hover:shadow-lg hover:shadow-yellow-400/20"
               >
                 <span>Get Started</span>
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />

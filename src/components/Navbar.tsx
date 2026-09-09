@@ -766,11 +766,7 @@ const Navbar: React.FC = () => {
             <a
               href="/yellowmarketing"
               onClick={handleNavigation}
-              className={`px-5 py-2.5 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-sm ${
-                isTransparent
-                  ? 'bg-primary/20 backdrop-blur-sm text-white hover:bg-primary/30 border border-white/20'
-                  : 'bg-gradient-to-r from-primary to-secondary text-white hover:from-primary/95 hover:to-secondary/95 shadow-lg hover:shadow-primary/20'
-              }`}
+              className="px-5 py-2.5 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-sm bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20"
             >
               Yellow Marketing
             </a>
@@ -778,11 +774,7 @@ const Navbar: React.FC = () => {
             <a
               href="#contact"
               onClick={handleNavigation}
-              className={`btn px-6 py-2.5 text-sm font-bold rounded-xl transition-all ${
-                isTransparent
-                  ? 'bg-primary/20 backdrop-blur-sm text-white hover:bg-primary/30 border border-white/20'
-                  : 'btn-primary shadow-lg shadow-primary/20'
-              }`}
+              className="px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-yellow-400 via-amber-400 to-primary text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20"
             >
               Get Started
             </a>
@@ -830,7 +822,7 @@ const Navbar: React.FC = () => {
             <a
               href="/yellowmarketing"
               onClick={handleNavigation}
-              className="block w-full text-center px-4 py-3 mt-2 rounded-lg font-medium bg-gradient-to-r from-primary to-secondary text-white hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all"
+              className="block w-full text-center px-4 py-3 mt-2 rounded-lg font-bold bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 shadow-lg shadow-yellow-400/20 hover:brightness-105 transition-all"
             >
               Yellow Marketing
             </a>
@@ -857,7 +849,7 @@ const Navbar: React.FC = () => {
             <a
               href="#contact"
               onClick={handleNavigation}
-              className="block w-full text-center mt-6 btn btn-primary py-3"
+              className="block w-full text-center mt-6 py-3 rounded-lg font-bold bg-gradient-to-r from-yellow-400 via-amber-400 to-primary text-gray-950 shadow-lg shadow-yellow-400/20 hover:brightness-105 transition-all"
             >
               Get Started
             </a>
