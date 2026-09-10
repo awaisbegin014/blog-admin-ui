@@ -1,171 +1,233 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { testimonials } from '../data/content';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
-import anime from 'animejs';
 
 const Testimonials: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  
+  const [visibleCards, setVisibleCards] = useState<number>(4);
+  const [isPaused, setIsPaused] = useState(false);
+  const count = testimonials.length;
+
+  // Responsive card count calculation
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextTestimonial();
-    }, 8000);
-    
-    return () => clearInterval(interval);
-  }, [activeIndex]);
+    const updateVisible = () => {
+      if (window.innerWidth >= 1024) {
+        setVisibleCards(4);
+      } else if (window.innerWidth >= 640) {
+        setVisibleCards(2);
+      } else {
+        setVisibleCards(1);
+      }
+    };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            anime({
-              targets: '.testimonial-section',
-              opacity: [0, 1],
-              translateY: [20, 0],
-              duration: 600,
-              easing: 'easeOutExpo',
-              complete: () => {
-                anime({
-                  targets: '.testimonial-card',
-                  scale: [0.95, 1],
-                  opacity: [0, 1],
-                  duration: 500,
-                  easing: 'easeOutExpo'
-                });
-              }
-            });
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
+    updateVisible();
+    window.addEventListener('resize', updateVisible);
+    return () => window.removeEventListener('resize', updateVisible);
   }, []);
-  
-  const nextTestimonial = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-    setTimeout(() => setIsAnimating(false), 300);
+
+  // Triple buffer to support infinite circular sliding
+  const allCards = useMemo(() => [...testimonials, ...testimonials, ...testimonials], []);
+  const [currentIndex, setCurrentIndex] = useState(count);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const isMovingRef = useRef(false);
+  const touchStartX = useRef<number | null>(null);
+
+  const cardWidth = 100 / visibleCards;
+
+  const handleNext = useCallback(() => {
+    if (isMovingRef.current) return;
+    isMovingRef.current = true;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev + 1);
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    if (isMovingRef.current) return;
+    isMovingRef.current = true;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev - 1);
+  }, []);
+
+  const handleTransitionEnd = () => {
+    isMovingRef.current = false;
+
+    // Seamless wrap-around without animation jump
+    if (currentIndex >= count * 2) {
+      setIsTransitioning(false);
+      setCurrentIndex((prev) => prev - count);
+    } else if (currentIndex < count) {
+      setIsTransitioning(false);
+      setCurrentIndex((prev) => prev + count);
+    }
   };
-  
-  const prevTestimonial = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
-    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-    setTimeout(() => setIsAnimating(false), 300);
+
+  // Re-enable transition if it was turned off for a wrap reset
+  useEffect(() => {
+    if (!isTransitioning) {
+      const raf = requestAnimationFrame(() => {
+        setIsTransitioning(true);
+      });
+      return () => cancelAnimationFrame(raf);
+    }
+  }, [isTransitioning]);
+
+  // Auto-sliding: moves after exactly 1.5 seconds lag
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setTimeout(() => {
+      handleNext();
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [currentIndex, isPaused, handleNext]);
+
+  // Touch swipe support
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
   };
-  
-  const goToTestimonial = (index: number) => {
-    if (isAnimating || index === activeIndex) return;
-    setIsAnimating(true);
-    setActiveIndex(index);
-    setTimeout(() => setIsAnimating(false), 300);
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 45) {
+      handleNext();
+    } else if (diff < -45) {
+      handlePrev();
+    }
+    touchStartX.current = null;
   };
-  
-  const renderStars = (rating: number) => {
-    return Array(5).fill(0).map((_, i) => (
-      <Star 
-        key={i} 
-        className={`w-5 h-5 ${i < rating ? 'text-primary fill-primary' : 'text-gray-300 dark:text-gray-600'}`} 
-      />
-    ));
+
+  const activeDot = ((currentIndex % count) + count) % count;
+
+  const handleGoTo = (targetIdx: number) => {
+    if (isMovingRef.current) return;
+    const delta = targetIdx - activeDot;
+    if (delta !== 0) {
+      isMovingRef.current = true;
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => prev + delta);
+    }
   };
 
   return (
-    <section id="testimonials" ref={containerRef} className="section-padding bg-white dark:bg-black">
-      <div className="container testimonial-section opacity-0 relative z-10">
-        <h2 className="section-title">
-          <span className="heading">Client</span> <span className="gradient-text">Testimonials</span>
-        </h2>
-        <p className="section-subtitle">
-          What our clients say about our software solutions and services
-        </p>
-        
-        <div className="relative max-w-4xl mx-auto px-8 md:px-12">
-          <button 
-            onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center z-10 text-primary hover:bg-primary hover:text-white dark:hover:bg-primary transition-all duration-300 transform hover:scale-110 border border-gray-200 dark:border-gray-700"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          
-          <button 
-            onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center z-10 text-primary hover:bg-primary hover:text-white dark:hover:bg-primary transition-all duration-300 transform hover:scale-110 border border-gray-200 dark:border-gray-700"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-          
-          <div className="overflow-hidden py-12">
-            <div 
-              className="flex transition-transform duration-300 ease-in-out"
-              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+    <section
+      id="testimonials"
+      className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-[#f5781e] via-[#f99820] to-[#fcc319] text-gray-950 select-none"
+    >
+      {/* Ambient background glows for premium depth */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/25 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-300/30 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="mb-10 md:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="max-w-3xl">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-950 tracking-tight leading-tight">
+              Proven Results, Real Impact — See Why Fast-Growing Brands Trust Us
+            </h2>
+          </div>
+
+          {/* Navigation Arrows (matching black circle button style from card) */}
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              onClick={handlePrev}
+              className="w-12 h-12 rounded-full bg-gray-950 hover:bg-black border border-black/10 text-white flex items-center justify-center transition-all duration-200 active:scale-95 hover:scale-105 shadow-xl cursor-pointer"
+              aria-label="Previous testimonial"
             >
-              {testimonials.map((testimonial, index) => (
-                <div 
-                  key={testimonial.name}
-                  className="w-full flex-shrink-0 px-4"
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="w-12 h-12 rounded-full bg-gray-950 hover:bg-black border border-black/10 text-white flex items-center justify-center transition-all duration-200 active:scale-95 hover:scale-105 shadow-xl cursor-pointer"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+
+        {/* Carousel Viewport (pauses when hovering over any card) */}
+        <div
+          className="overflow-hidden pt-6 pb-6 -mx-3"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="flex"
+            style={{
+              transform: `translateX(-${currentIndex * cardWidth}%)`,
+              transition: isTransitioning
+                ? 'transform 700ms cubic-bezier(0.25, 1, 0.5, 1)'
+                : 'none',
+            }}
+            onTransitionEnd={handleTransitionEnd}
+          >
+            {allCards.map((item, idx) => (
+              <div
+                key={`${item.name}-${idx}`}
+                className="shrink-0 px-3"
+                style={{ width: `${cardWidth}%` }}
+              >
+                <div
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
+                  className="bg-white text-gray-900 rounded-3xl p-7 md:p-8 flex flex-col justify-between relative shadow-none h-full min-h-[260px] md:min-h-[280px] text-center border border-white/60 transition-all duration-300 hover:-translate-y-1.5"
                 >
-                  <div className="testimonial-card bg-gray-50 dark:bg-gray-900 p-8 md:p-10 text-center opacity-0 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800">
-                    <div className="relative w-20 h-20 mx-auto mb-6">
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full opacity-20 scale-110"></div>
-                      <img 
-                        src={testimonial.image} 
-                        alt={testimonial.name}
-                        className="w-full h-full object-cover rounded-full border-4 border-white dark:border-gray-800 shadow-md"
+                  {/* Distinctive Quote Badge at Top-Right */}
+                  <div className="absolute -top-3.5 right-6 text-gray-950 select-none pointer-events-none z-10">
+                    <svg className="w-10 h-10 fill-current" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                    </svg>
+                  </div>
+
+                  {/* 5 Solid Gold Stars */}
+                  <div className="flex justify-center items-center gap-1.5 mb-4 text-[#f59e0b]">
+                    {[...Array(5)].map((_, starIndex) => (
+                      <Star
+                        key={starIndex}
+                        className={`w-5 h-5 ${
+                          starIndex < item.rating
+                            ? 'fill-[#f59e0b] text-[#f59e0b]'
+                            : 'fill-gray-200 text-gray-200'
+                        }`}
                       />
-                    </div>
-                    
-                    <div className="mb-6">
-                      <svg className="w-12 h-12 text-primary/20 mx-auto mb-4" fill="currentColor" viewBox="0 0 32 32">
-                        <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14H8c0-1.1.9-2 2-2V8zm14 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-1.1.9-2 2-2V8z"></path>
-                      </svg>
-                      
-                      <p className="text-gray-700 dark:text-gray-300 italic mb-6 text-lg leading-relaxed">"{testimonial.quote}"</p>
-                      
-                      <div className="flex justify-center mb-4">
-                        {renderStars(testimonial.rating)}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        <span className="heading">{testimonial.name}</span>
-                      </h4>
-                      <p className="text-primary font-medium">{testimonial.company}</p>
-                    </div>
+                    ))}
+                  </div>
+
+                  {/* Testimonial Quote Text */}
+                  <p className="text-gray-700 text-sm md:text-[15px] leading-relaxed text-center font-normal flex-1 flex items-center justify-center">
+                    "{item.quote}"
+                  </p>
+
+                  {/* Client Info */}
+                  <div className="mt-5 pt-3 border-t border-gray-100 flex flex-col items-center">
+                    <span className="text-xs font-bold text-gray-900 tracking-wider uppercase">
+                      {item.name}
+                    </span>
+                    <span className="text-[11px] text-gray-500 font-medium">
+                      {item.company}
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="flex justify-center space-x-2 mt-6">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToTestimonial(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === activeIndex 
-                    ? 'bg-primary scale-125' 
-                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+              </div>
             ))}
           </div>
+        </div>
+
+        {/* Indicator Dots */}
+        <div className="flex justify-center items-center gap-2 mt-8">
+          {testimonials.map((_, dotIdx) => (
+            <button
+              key={dotIdx}
+              onClick={() => handleGoTo(dotIdx)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                dotIdx === activeDot
+                  ? 'w-8 bg-gray-950 shadow-md'
+                  : 'w-2.5 bg-black/20 hover:bg-black/40'
+              }`}
+              aria-label={`Go to slide ${dotIdx + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>

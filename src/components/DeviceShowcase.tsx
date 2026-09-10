@@ -1279,52 +1279,6 @@ const DeviceShowcase: React.FC = () => {
           </button>
         </div>
 
-        {/* ─── Bottom Project Info & Interactive Slide Pills ─── */}
-        <div className="text-center mt-10">
-          <div className="inline-flex items-center gap-2 mb-1.5">
-            <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-              {current.category}
-            </span>
-            <span className="text-gray-500">•</span>
-            <span className="text-xs font-mono text-gray-400">
-              {current.domain}
-            </span>
-          </div>
-
-          <h3
-            className={`text-xl md:text-2xl font-bold text-white mb-2 transition-all duration-450 ${
-              isTransitioning ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
-            }`}
-          >
-            {current.name}
-          </h3>
-
-          <p
-            className={`text-xs md:text-sm text-gray-400 max-w-xl mx-auto mb-6 transition-all duration-450 ${
-              isTransitioning ? 'opacity-0' : 'opacity-100'
-            }`}
-          >
-            {current.headline}
-          </p>
-
-          {/* Interactive Slide Thumbnail Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {showcaseSlides.map((site, i) => (
-              <button
-                key={site.id}
-                onClick={() => goToSlide(i)}
-                className={`transition-all duration-300 cursor-pointer px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 ${
-                  i === activeIndex
-                    ? 'bg-primary text-black shadow-lg shadow-primary/30 scale-105'
-                    : 'bg-white/10 text-gray-400 hover:text-white hover:bg-white/15'
-                }`}
-                aria-label={`View ${site.name}`}
-              >
-                <span>{site.name}</span>
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

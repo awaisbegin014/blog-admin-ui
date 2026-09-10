@@ -497,3 +497,59 @@
 
 /* Selection highlight */
 .tiptap ::selection { background: rgba(247, 144, 49, 0.2); }
+
+/* Portfolio Window Smooth Hover Scroll & Zoom */
+.portfolio-window-img {
+  object-fit: cover;
+  object-position: top;
+  transition: object-position 7.5s ease-in-out;
+}
+
+.group:hover .portfolio-window-img {
+  object-position: bottom;
+}
+
+.portfolio-logo-img {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .portfolio-logo-img {
+  transform: scale(1.06);
+}
+
+/* Pricing Card Compact Feature List Scrollbar */
+.pricing-feature-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+}
+
+.pricing-feature-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.pricing-feature-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pricing-feature-list::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.35);
+  border-radius: 9999px;
+}
+
+.pricing-feature-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.6);
+}
+
+.group:hover .pricing-feature-list {
+  scrollbar-color: rgba(0, 0, 0, 0.35) transparent;
+}
+
+.group:hover .pricing-feature-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.group:hover .pricing-feature-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.55);
+}
