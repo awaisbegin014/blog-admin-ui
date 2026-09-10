@@ -124,73 +124,10 @@
 
 
 
-import React, { useRef, useEffect } from 'react';
-import { CheckCircle } from 'lucide-react';
-import anime from 'animejs';
+import React from 'react';
 
 const About: React.FC = () => {
-  const features = [
-    'Agile methodology for adaptable project management',
-    'User-centered design approach for intuitive experiences',
-    'Continuous integration and deployment practices',
-    'Rigorous testing and quality assurance protocols',
-    'Ongoing maintenance and support services',
-    'Transparent communication throughout the process'
-  ];
-
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const timeline = anime.timeline({
-              easing: 'easeOutExpo',
-              duration: 1000
-            });
-
-            timeline
-              .add({
-                targets: '.about-title',
-                opacity: [0, 1],
-                translateX: ['50%', '0%'],
-              })
-              .add({
-                targets: '.about-content',
-                opacity: [0, 1],
-                translateX: ['100%', '0%'],
-              }, '-=800')
-              .add({
-                targets: '.feature-item',
-                opacity: [0, 1],
-                translateX: [100, 0],
-                delay: anime.stagger(100)
-              }, '-=600');
-
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section id="about" className="py-8 md:py-16 -mt-8 md:-mt-16 relative overflow-hidden bg-gray-50 dark:bg-gray-900">
-        <img
-          src="/images/industry.png"
-          alt="about"
-          className="w-full max-h-[400px] md:max-h-[600px] object-cover -mt-6 lg:-mt-16 md:-mt-20"
-        />
-    </section>
-  );
+  return null;
 };
 
 export default About;
