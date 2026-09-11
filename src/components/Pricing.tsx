@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Check } from 'lucide-react';
 import { pricingCategories } from '../data/content';
+import PackagesRibbon from './ui/PackagesRibbon';
 
 const Pricing: React.FC = () => {
   const [activeId, setActiveId] = useState(pricingCategories[0].id);
@@ -9,18 +10,50 @@ const Pricing: React.FC = () => {
   return (
     <section id="pricing" className="section-padding bg-white dark:bg-black">
       <div className="container">
-        <h2 className="section-title">
-          <span className="heading">Design That Sells.</span>{' '}
-          <span className="gradient-text">Cost That Fits.</span>
-        </h2>
-        <p className="section-subtitle">
-          Professional web design and digital solutions made affordable. Premium quality tailored to your budget and growth stage.
-          <br className="hidden sm:block" />
-          Every plan can be customized - reach out for a tailored quote.
-        </p>
+        {/* Intro: "Our Packages" ribbon + headline */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16 mb-16 md:mb-20">
+          <div className="w-full max-w-md lg:max-w-lg mx-auto">
+            <PackagesRibbon />
+          </div>
 
-        {/* Category tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          <div className="text-center lg:text-left">
+            {/* Two-tone accent bar */}
+            <div className="flex h-1.5 w-56 mx-auto lg:mx-0 mb-6 rounded-full overflow-hidden">
+              <span className="w-1/3 bg-gray-950 dark:bg-white" />
+              <span className="flex-1 bg-gradient-to-r from-primary via-amber-400 to-yellow-400" />
+            </div>
+
+            <h2 className="text-4xl md:text-5xl lg:text-[3.4rem] font-bold leading-[1.2] text-gray-900 dark:text-white mb-6">
+              Design <span className="text-primary">That Sells.</span> Cost{' '}
+              <span className="bg-[linear-gradient(transparent_62%,#FACC15_62%)] dark:bg-[linear-gradient(transparent_62%,rgba(250,204,21,0.45)_62%)]">
+                That Fits.
+              </span>
+            </h2>
+
+            <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8">
+              Professional web design and digital solutions made affordable. Premium quality tailored to your
+              budget and growth stage. Every plan can be customized - reach out for a tailored quote.
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+              <a
+                href="#contact"
+                className="px-8 py-3.5 rounded-full font-bold bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 shadow-lg shadow-yellow-400/25 hover:brightness-105 hover:scale-105 transition-all duration-300"
+              >
+                Get a Free Quote
+              </a>
+              <a
+                href="#pricing-plans"
+                className="px-8 py-3.5 rounded-full text-sm font-semibold uppercase tracking-wide bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors duration-300"
+              >
+                Let&apos;s Get Started
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Category tabs — "Let's Get Started" scrolls here */}
+        <div id="pricing-plans" className="scroll-mt-28 flex flex-wrap justify-center gap-2 mb-10">
           {pricingCategories.map((category) => (
             <button
               key={category.id}
