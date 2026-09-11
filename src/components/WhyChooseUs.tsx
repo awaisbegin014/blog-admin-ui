@@ -15,10 +15,10 @@ const SatisfactionBadge: React.FC = () => (
     <path d="M32 6L35.5 10.5L41 9L43 14.5L48.5 15.5L48.5 21L53.5 24L51.5 29.5L55 34L51.5 38.5L53.5 44L48.5 47L48.5 52.5L43 53.5L41 59L35.5 57.5L32 62L28.5 57.5L23 59L21 53.5L15.5 52.5L15.5 47L10.5 44L12.5 38.5L9 34L12.5 29.5L10.5 24L15.5 21L15.5 15.5L21 14.5L23 9L28.5 10.5L32 6Z" />
     {/* Inner ring banner */}
     <rect x="13" y="27" width="38" height="14" rx="2" className="fill-current" />
-    {/* 3 Stars */}
-    <path d="M23 31L24.2 33.6L27 34L25 36L25.5 38.7L23 37.4L20.5 38.7L21 36L19 34L21.8 33.6L23 31Z" fill="#ffffff" />
-    <path d="M32 30L33.3 32.8L36.3 33.2L34.1 35.3L34.7 38.3L32 36.9L29.3 38.3L29.9 35.3L27.7 33.2L30.7 32.8L32 30Z" fill="#ffffff" />
-    <path d="M41 31L42.2 33.6L45 34L43 36L43.5 38.7L41 37.4L38.5 38.7L39 36L37 34L39.8 33.6L41 31Z" fill="#ffffff" />
+    {/* 3 Stars — contrast against the badge, which flips navy→white in dark mode */}
+    <path d="M23 31L24.2 33.6L27 34L25 36L25.5 38.7L23 37.4L20.5 38.7L21 36L19 34L21.8 33.6L23 31Z" className="fill-white dark:fill-gray-950" />
+    <path d="M32 30L33.3 32.8L36.3 33.2L34.1 35.3L34.7 38.3L32 36.9L29.3 38.3L29.9 35.3L27.7 33.2L30.7 32.8L32 30Z" className="fill-white dark:fill-gray-950" />
+    <path d="M41 31L42.2 33.6L45 34L43 36L43.5 38.7L41 37.4L38.5 38.7L39 36L37 34L39.8 33.6L41 31Z" className="fill-white dark:fill-gray-950" />
   </svg>
 );
 
@@ -127,18 +127,22 @@ const topFourItems = [
   {
     icon: <SatisfactionBadge />,
     title: '100% Customer Satisfaction',
+    description: "We don't stop until you're thrilled with the result — your happiness is the real deliverable.",
   },
   {
     icon: <CustomizedDesignIcon />,
     title: 'Customized Design',
+    description: 'No templates. Every design is built from scratch around your brand and your goals.',
   },
   {
     icon: <RevisionsIcon />,
     title: 'Unlimited Free Revisions',
+    description: "Keep refining until it's exactly right — extra rounds are always on us, no fine print.",
   },
   {
     icon: <PersonalizedSupportIcon />,
     title: 'Personalized Support',
+    description: 'A dedicated point of contact who actually knows your project, not a random ticket queue.',
   },
 ];
 
@@ -156,33 +160,39 @@ const WhyChooseUs: React.FC = () => {
           </p>
         </div>
 
-        {/* ─── Row 1: 4 Items with Vertical Divider Lines ─── */}
+        {/* ─── Row 1: 4 Items as Cards ─── */}
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-200 dark:divide-gray-800 border-x-0 sm:border-x border-gray-200 dark:border-gray-800">
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {topFourItems.map((item) => (
               <div
                 key={item.title}
-                className="group flex flex-col items-center justify-start text-center px-6 py-8 sm:py-4 transition-all duration-300"
+                className="group flex flex-col items-center justify-start text-center px-5 sm:px-6 py-8"
               >
-                <div className="mb-6 flex items-center justify-center h-20 md:h-24">
+                <div className="mb-5 flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24">
                   {item.icon}
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white max-w-[200px] leading-snug">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-snug mb-2 transition-colors duration-300 group-hover:text-primary">
                   {item.title}
                 </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
 
           {/* ─── Row 2: 5th Item Centered Underneath ─── */}
-          <div className="mt-14 md:mt-20 flex justify-center">
-            <div className="group flex flex-col items-center justify-center text-center px-6 py-2 transition-all duration-300">
-              <div className="mb-6 flex items-center justify-center h-20 md:h-24">
+          <div className="mt-6 sm:mt-8 flex justify-center">
+            <div className="group flex flex-col items-center justify-center text-center px-6 sm:px-10 py-8 w-full xs:w-auto xs:max-w-sm">
+              <div className="mb-5 flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24">
                 <RoundTheClockIcon />
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white max-w-[220px] leading-snug">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-snug mb-2 transition-colors duration-300 group-hover:text-primary">
                 Round-the-Clock Availability
               </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-xs">
+                Support across time zones for our US, German and global clients, so you're never left waiting.
+              </p>
             </div>
           </div>
         </div>

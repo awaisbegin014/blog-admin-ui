@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import anime from "animejs";
 import RotatingText from "./ui/RotatingText";
+import { serviceImages } from "./ui/ServiceArt";
 
 const iconComponents: Record<string, React.ElementType> = {
   Code,
@@ -83,10 +84,16 @@ const Services: React.FC = () => {
     const updateDimensions = () => {
       if (!sliderRef.current) return;
       const width = sliderRef.current.clientWidth;
+
+      // Decide card count off the viewport width, not the slider's own width —
+      // the slider sits inside a max-w-7xl container, so its width is capped
+      // well below 1280px even on very large screens, and the "4 cards" tier
+      // would never be reached if measured against itself.
+      const viewportWidth = window.innerWidth;
       let count = 4;
-      if (width < 640) count = 1;
-      else if (width < 1024) count = 2;
-      else if (width < 1280) count = 3;
+      if (viewportWidth < 640) count = 1;
+      else if (viewportWidth < 1024) count = 2;
+      else if (viewportWidth < 1280) count = 3;
       else count = 4;
 
       const computedWidth = (width - (count - 1) * gap) / count;
@@ -188,8 +195,25 @@ const Services: React.FC = () => {
   const getIcon = (iconName: string) => {
     const IconComponent = iconComponents[iconName];
     return IconComponent ? (
-      <IconComponent className="w-10 h-10 text-primary mb-4 transition-all duration-300 group-hover:text-gray-950 dark:group-hover:text-gray-950 group-hover:scale-110" />
+      <IconComponent className="w-10 h-10 text-primary transition-all duration-300 group-hover:text-gray-950 dark:group-hover:text-gray-950 group-hover:scale-110" />
     ) : null;
+  };
+
+  // Illustration for the card header — falls back to the line icon if a
+  // service doesn't have a dedicated illustration yet.
+  const getArt = (service: ServiceItem) => {
+    const src = serviceImages[service.title];
+    return src ? (
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        draggable={false}
+        className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+      />
+    ) : (
+      getIcon(service.icon)
+    );
   };
 
   // Touch & Mouse Drag handlers for interactive sliding
@@ -318,7 +342,7 @@ const Services: React.FC = () => {
                 {/* Restored Decent & Professional Card Structure with Original Gradient Hover */}
                 <div
                   onClick={() => handleServiceClick(service)}
-                  className="service-card relative min-h-[380px] h-full flex flex-col justify-between p-8 rounded-2xl overflow-hidden
+                  className="service-card relative min-h-[480px] h-full flex flex-col justify-between p-8 rounded-2xl overflow-hidden
                   bg-white dark:bg-gray-900 border-4 border-yellow-400 dark:border-yellow-400 shadow-sm hover:shadow-2xl hover:shadow-primary/25
                   hover:border-yellow-400
                   transition-all duration-300 transform hover:-translate-y-2
@@ -327,14 +351,17 @@ const Services: React.FC = () => {
                   {/* Vibrant Orange & Yellow Gradient Hover Effect (No Slide, Just Pure Gradient) */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-                  {/* Watermark Index Badge in Top Right */}
-                  <span className="absolute top-6 right-7 text-3xl font-black text-gray-100 dark:text-gray-800 group-hover:text-black/15 dark:group-hover:text-black/15 transition-colors duration-300 select-none z-10">
-                    {String(service.originalIndex).padStart(2, "0")}
-                  </span>
-
                   {/* Card Content Body */}
                   <div className="relative z-10 flex flex-col flex-grow">
-                    {getIcon(service.icon)}
+                    {/* Illustration Panel */}
+                    <div className="relative -mx-2 -mt-2 mb-5 h-40 sm:h-44 rounded-xl bg-primary-50 dark:bg-gray-100 flex items-center justify-center px-4 pt-6 pb-3 overflow-hidden">
+                      <div className="w-full h-full flex items-center justify-center">{getArt(service)}</div>
+
+                      {/* Watermark Index Badge, painted above the illustration */}
+                      <span className="absolute top-2 right-3 text-2xl font-black text-primary/25 select-none">
+                        {String(service.originalIndex).padStart(2, "0")}
+                      </span>
+                    </div>
 
                     <h3 className="text-2xl font-bold mb-4 group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-300 text-gray-900 dark:text-white cursor-pointer leading-snug">
                       {service.title}

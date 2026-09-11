@@ -767,7 +767,24 @@ export const pricingCategories: PricingCategory[] = [
 // ---------------------------------------------------------------------------
 // Technologies & platforms
 // ---------------------------------------------------------------------------
-export const platforms: string[] = [
-  'React', 'Node.js', 'Next.js', 'WordPress', 'Shopify', 'WooCommerce',
-  'Flutter', 'AWS', 'Google Cloud', 'Google Ads', 'Meta Ads', 'Supabase'
+export interface Platform {
+  name: string;
+  logo: string;
+  /** Dark/black logo that would disappear on the dark theme — render it white there. */
+  monoInDark?: boolean;
+}
+
+export const platforms: Platform[] = [
+  { name: 'React', logo: 'https://cdn.simpleicons.org/react' },
+  { name: 'Node.js', logo: 'https://cdn.simpleicons.org/nodedotjs' },
+  { name: 'Next.js', logo: 'https://cdn.simpleicons.org/nextdotjs', monoInDark: true },
+  { name: 'WordPress', logo: 'https://cdn.simpleicons.org/wordpress' },
+  { name: 'Shopify', logo: 'https://cdn.simpleicons.org/shopify' },
+  { name: 'WooCommerce', logo: 'https://cdn.simpleicons.org/woocommerce' },
+  { name: 'Flutter', logo: 'https://cdn.simpleicons.org/flutter' },
+  { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', monoInDark: true },
+  { name: 'Google Cloud', logo: 'https://cdn.simpleicons.org/googlecloud' },
+  { name: 'Google Ads', logo: 'https://cdn.simpleicons.org/googleads' },
+  { name: 'Meta Ads', logo: 'https://cdn.simpleicons.org/meta' },
+  { name: 'Supabase', logo: 'https://cdn.simpleicons.org/supabase' }
 ];

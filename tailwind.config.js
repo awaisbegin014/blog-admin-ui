@@ -4,6 +4,9 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        xs: '480px',
+      },
       colors: {
         primary: {
           DEFAULT: '#F79031',
@@ -108,6 +111,13 @@ export default {
         'float': 'float 5s ease-in-out infinite',
         'gradient': 'gradient 15s ease infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'marquee': 'marquee 32s linear infinite',
+        'marquee-reverse': 'marquee-reverse 32s linear infinite',
+        // Device showcase carousel — 800ms must match SLIDE_MS in DeviceShowcase.tsx
+        'showcase-out-left': 'showcase-out-left 800ms cubic-bezier(0.65, 0, 0.35, 1) both',
+        'showcase-in-right': 'showcase-in-right 800ms cubic-bezier(0.65, 0, 0.35, 1) both',
+        'showcase-out-right': 'showcase-out-right 800ms cubic-bezier(0.65, 0, 0.35, 1) both',
+        'showcase-in-left': 'showcase-in-left 800ms cubic-bezier(0.65, 0, 0.35, 1) both',
       },
       keyframes: {
         float: {
@@ -118,6 +128,31 @@ export default {
           '0%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
           '100%': { backgroundPosition: '0% 50%' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        'marquee-reverse': {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        // Full viewport width so a set is fully off-screen (the section clips it)
+        'showcase-out-left': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-100vw)' },
+        },
+        'showcase-in-right': {
+          '0%': { transform: 'translateX(100vw)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        'showcase-out-right': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(100vw)' },
+        },
+        'showcase-in-left': {
+          '0%': { transform: 'translateX(-100vw)' },
+          '100%': { transform: 'translateX(0)' },
         },
       },
       backgroundImage: {

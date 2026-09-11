@@ -302,7 +302,7 @@
 
 import React from 'react';
 import { navItems, services } from '../data/content';
-import { Facebook, Linkedin, Instagram } from 'lucide-react';
+import { Facebook, Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const slugify = (s: string) =>
@@ -352,20 +352,22 @@ const Footer: React.FC = () => {
   const serviceColumns = [serviceList.slice(0, half), serviceList.slice(half)];
 
   return (
-    <footer className="bg-black text-white pt-12 pb-6">
+    <footer className="bg-black text-white pt-16 pb-8">
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-10 gap-y-12">
           {/* Company Info */}
-          <div>
-            <a href="/" onClick={handleNavigation}>
+          <div className="lg:col-span-3">
+            <a href="/" onClick={handleNavigation} className="inline-block">
+              {/* The logo PNG has ~22% transparent padding on the left; the
+                  negative margin lines the wordmark up with the text below. */}
               <img
                 src="/images/logotwo.png"
                 alt="Yellow Solutions Logo – Light"
-                className="w-40 h-auto object-contain"
+                className="h-16 w-auto object-contain -ml-10"
               />
             </a>
 
-            <p className="mt-4 text-gray-400 text-sm leading-relaxed">
+            <p className="mt-5 text-gray-400 text-sm leading-relaxed max-w-xs">
               Transforming ideas into powerful software solutions. Your trusted
               partner in digital innovation.
             </p>
@@ -398,11 +400,11 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">
+          <div className="lg:col-span-2">
+            <h3 className="text-lg font-semibold mb-6 text-white">
               <span className="heading">Quick Links</span>
             </h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-3 text-sm">
               {navItems.map((item) => (
                 <li key={item.title}>
                   <a
@@ -417,14 +419,14 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Services (2-column layout on desktop) */}
-          <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-4 text-white">
+          {/* Services (2-column layout; full-width row on tablets) */}
+          <div className="md:col-span-2 lg:col-span-4">
+            <h3 className="text-lg font-semibold mb-6 text-white">
               <span className="heading">Our Services</span>
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
               {serviceColumns.map((col, colIdx) => (
-                <ul key={colIdx} className="space-y-2 text-sm">
+                <ul key={colIdx} className="space-y-3 text-sm leading-snug">
                   {col.map((service) => {
                     const to = service.slug
                       ? `/service/${service.slug}`
@@ -445,10 +447,72 @@ const Footer: React.FC = () => {
               ))}
             </div>
           </div>
+
+          {/* Contact Information (details + hours side by side on tablets) */}
+          <div className="md:col-span-2 lg:col-span-3">
+            <h3 className="text-lg font-semibold mb-6 text-white">
+              <span className="heading">Contact Information</span>
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8">
+              <div className="space-y-5">
+                <div className="flex items-start gap-3">
+                  <Mail className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <div className="min-w-0">
+                    <h4 className="text-sm font-medium text-white mb-1">Email</h4>
+                    <a
+                      href="mailto:info@theyellowsolutions.com"
+                      className="text-gray-400 text-sm break-words hover:text-white transition-colors"
+                    >
+                      info@theyellowsolutions.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Phone className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <div>
+                    <h4 className="text-sm font-medium text-white mb-1">Phone</h4>
+                    <a
+                      href="tel:+12012103607"
+                      className="text-gray-400 text-sm hover:text-white transition-colors"
+                    >
+                      +1 (201) 210-3607
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <div>
+                    <h4 className="text-sm font-medium text-white mb-1">Address</h4>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      1225 Cailloux Blvd N, Apt. 1103<br />
+                      Kerrville, TX 78028
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="self-start rounded-xl bg-primary/10 border border-primary/20 p-5">
+                <h4 className="text-sm font-semibold text-white">Business Hours</h4>
+                <p className="text-xs text-gray-500 mt-0.5 mb-4">US Central Time</p>
+                <dl className="space-y-2.5 text-sm">
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className="text-gray-400">Mon – Fri</dt>
+                    <dd className="text-white font-medium whitespace-nowrap">8:00 AM – 6:00 PM</dd>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className="text-gray-400">Sat – Sun</dt>
+                    <dd className="text-gray-500 whitespace-nowrap">Closed</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-6 mt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-gray-800 pt-8 mt-14 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-500 text-xs text-center md:text-left">
             © {new Date().getFullYear()} Yellow Solutions. All rights reserved.
           </p>

@@ -114,6 +114,17 @@
     }
   }
 
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateX(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
   .rotate-hover {
     @apply transition-transform duration-300 hover:rotate-3;
   }

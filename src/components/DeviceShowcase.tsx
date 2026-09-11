@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   ChevronLeft,
   ChevronRight,
@@ -1091,46 +1091,149 @@ const showcaseSlides: SlideItem[] = [
   },
 ];
 
+// Must match the 800ms showcase-* animations in tailwind.config.js.
+const SLIDE_MS = 800;
+
+/* One full set of devices (tablet · desktop · phone) showing a single project.
+   Rendered twice during a change: the outgoing set slides out while the
+   incoming set, with the next project's design, slides in. */
+const DeviceGroup: React.FC<{ slide: SlideItem }> = ({ slide }) => (
+  <>
+    {/* ─── Tablet Device (Left, z-20) ─── */}
+    <div className="hidden md:block relative z-20 -mr-6 lg:-mr-8 mb-2 self-end transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+      <div className="relative w-[210px] lg:w-[245px]">
+        <div className="bg-gray-800/95 rounded-[1.5rem] p-2.5 shadow-2xl shadow-black/90 border border-gray-700/80 ring-1 ring-white/10">
+          {/* Tablet Camera Notch */}
+          <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-10 h-1 bg-gray-700 rounded-full z-20" />
+
+          {/* Tablet Screen Container */}
+          <div className="relative w-full aspect-[3/4] rounded-xl overflow-hidden bg-gray-950">
+            {slide.tabletView}
+          </div>
+        </div>
+
+        {/* Device Label */}
+        <div className="text-center mt-3">
+          <span className="text-[10.5px] font-bold text-gray-400 uppercase tracking-widest bg-black/50 px-3 py-1 rounded-full border border-white/5">
+            Tablet (3:4)
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {/* ─── Desktop Monitor (Center, z-10) ─── */}
+    <div className="relative z-10">
+      <div className="relative w-[340px] sm:w-[460px] md:w-[540px] lg:w-[640px]">
+        {/* Monitor Screen Frame */}
+        <div className="bg-gray-800/95 rounded-t-2xl p-2.5 shadow-2xl shadow-black/95 border border-gray-700/80 border-b-0 ring-1 ring-white/10">
+          {/* Browser Top Window Bar */}
+          <div className="flex items-center gap-1.5 mb-2 px-1">
+            <div className="flex items-center gap-1">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+              <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+            </div>
+            <div className="flex-1 mx-2">
+              <div className="h-5 bg-gray-900/90 rounded-md flex items-center px-3 border border-white/10">
+                <span className="text-[9px] text-gray-300 font-mono truncate">
+                  https://{slide.domain}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Screen Content */}
+          <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-gray-950">
+            {slide.desktopView}
+          </div>
+        </div>
+
+        {/* Realistic Monitor Stand */}
+        <div className="flex flex-col items-center">
+          <div className="w-28 h-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-sm border-x border-b border-gray-600/50" />
+          <div className="w-44 h-2.5 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-800 rounded-b-lg shadow-2xl border-b border-gray-500/40" />
+        </div>
+
+        {/* Device Label */}
+        <div className="text-center mt-3">
+          <span className="text-[10.5px] font-bold text-gray-400 uppercase tracking-widest bg-black/50 px-3 py-1 rounded-full border border-white/5">
+            Desktop Monitor (16:10)
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {/* ─── Phone Device (Right, z-30 — IN FRONT so it's 100% visible!) ─── */}
+    <div className="hidden sm:block relative z-30 -ml-6 lg:-ml-8 mb-2 self-end transform rotate-3 hover:rotate-0 transition-transform duration-500">
+      <div className="relative w-[115px] md:w-[130px] lg:w-[150px]">
+        {/* Phone Outer Shell */}
+        <div className="bg-gray-800/95 rounded-[1.8rem] p-2 shadow-2xl shadow-black/95 border border-gray-700/80 ring-1 ring-white/10">
+          {/* Phone Speaker Notch */}
+          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-gray-800 rounded-b-xl z-20 flex items-center justify-center">
+            <div className="w-6 h-1 bg-gray-700 rounded-full" />
+          </div>
+
+          {/* Phone Screen Container */}
+          <div className="relative w-full aspect-[9/19] rounded-[1.3rem] overflow-hidden bg-gray-950">
+            {slide.mobileView}
+          </div>
+        </div>
+
+        {/* Device Label */}
+        <div className="text-center mt-3">
+          <span className="text-[10.5px] font-bold text-gray-400 uppercase tracking-widest bg-black/50 px-3 py-1 rounded-full border border-white/5">
+            Mobile (9:19)
+          </span>
+        </div>
+      </div>
+    </div>
+  </>
+);
+
 /* ──────────────────────────────────────────────────────────────
    MAIN COMPONENT: Device Showcase Slider
    ────────────────────────────────────────────────────────────── */
 const DeviceShowcase: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  // The set currently sliding out, and which way the carousel is moving.
+  const [outgoing, setOutgoing] = useState<{ index: number; direction: 'next' | 'prev' } | null>(null);
+  // Ref guard keeps goToSlide stable — otherwise the auto-advance timer below
+  // can capture a stale "animating" flag and silently skip the move.
+  const animatingRef = useRef(false);
 
-  const goToSlide = useCallback(
-    (index: number) => {
-      if (isTransitioning) return;
-      setIsTransitioning(true);
-      setActiveIndex(index);
-      setTimeout(() => setIsTransitioning(false), 450);
-    },
-    [isTransitioning]
-  );
+  const goToSlide = useCallback((from: number, to: number, direction: 'next' | 'prev') => {
+    if (animatingRef.current || from === to) return;
+    animatingRef.current = true;
+    setOutgoing({ index: from, direction });
+    setActiveIndex(to);
+    setTimeout(() => {
+      animatingRef.current = false;
+      setOutgoing(null);
+    }, SLIDE_MS);
+  }, []);
 
   const goNext = useCallback(() => {
-    goToSlide((activeIndex + 1) % showcaseSlides.length);
+    goToSlide(activeIndex, (activeIndex + 1) % showcaseSlides.length, 'next');
   }, [activeIndex, goToSlide]);
 
   const goPrev = useCallback(() => {
-    goToSlide((activeIndex - 1 + showcaseSlides.length) % showcaseSlides.length);
+    goToSlide(activeIndex, (activeIndex - 1 + showcaseSlides.length) % showcaseSlides.length, 'prev');
   }, [activeIndex, goToSlide]);
 
-  // Auto-slide every 5.5 seconds
+  // Auto-advance: 0.8s slide + ~3.7s on screen. Keyed on activeIndex (via
+  // goNext) so the countdown restarts after any change, including manual clicks.
+  // Deliberately not paused on hover: the section fills most of the viewport,
+  // so a hover pause meant it almost never moved while someone was viewing it.
   useEffect(() => {
-    if (isHovered) return;
-    const interval = setInterval(goNext, 5500);
-    return () => clearInterval(interval);
-  }, [isHovered, goNext]);
+    const timer = setTimeout(goNext, 4500);
+    return () => clearTimeout(timer);
+  }, [goNext]);
 
   const current = showcaseSlides[activeIndex];
 
   return (
     <section
       className="relative py-16 md:py-24 bg-gradient-to-b from-black via-gray-950 to-white dark:to-black overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Background Ambience Glow */}
       <div className="absolute inset-0 pointer-events-none">
@@ -1154,7 +1257,7 @@ const DeviceShowcase: React.FC = () => {
         </div>
 
         {/* Device Mockup Display Container */}
-        <div className="relative flex items-end justify-center gap-0 max-w-6xl mx-auto pt-2">
+        <div className="relative max-w-6xl mx-auto pt-2">
           {/* Navigation Arrow - Left */}
           <button
             onClick={goPrev}
@@ -1164,108 +1267,32 @@ const DeviceShowcase: React.FC = () => {
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          {/* ─── Tablet Device (Left, z-20) ─── */}
-          <div className="hidden md:block relative z-20 -mr-6 lg:-mr-8 mb-2 self-end transform -rotate-3 hover:rotate-0 transition-transform duration-500">
-            <div className="relative w-[210px] lg:w-[245px]">
-              <div className="bg-gray-800/95 rounded-[1.5rem] p-2.5 shadow-2xl shadow-black/90 border border-gray-700/80 ring-1 ring-white/10">
-                {/* Tablet Camera Notch */}
-                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-10 h-1 bg-gray-700 rounded-full z-20" />
-
-                {/* Tablet Screen Container */}
-                <div
-                  className={`relative w-full aspect-[3/4] rounded-xl overflow-hidden bg-gray-950 transition-all duration-450 ${
-                    isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-                  }`}
-                >
-                  {current.tabletView}
-                </div>
+          {/* Sliding stage: during a change the outgoing set is overlaid and
+              slides away, while the incoming set (which sets the height) slides
+              in from the other side with the next project's design. */}
+          <div className="relative">
+            {outgoing && (
+              <div
+                key={`out-${outgoing.index}`}
+                aria-hidden="true"
+                className={`absolute inset-0 flex items-end justify-center pointer-events-none ${
+                  outgoing.direction === 'next' ? 'animate-showcase-out-left' : 'animate-showcase-out-right'
+                }`}
+              >
+                <DeviceGroup slide={showcaseSlides[outgoing.index]} />
               </div>
-
-              {/* Device Label */}
-              <div className="text-center mt-3">
-                <span className="text-[10.5px] font-bold text-gray-400 uppercase tracking-widest bg-black/50 px-3 py-1 rounded-full border border-white/5">
-                  Tablet (3:4)
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* ─── Desktop Monitor (Center, z-10) ─── */}
-          <div className="relative z-10">
-            <div className="relative w-[340px] sm:w-[460px] md:w-[540px] lg:w-[640px]">
-              {/* Monitor Screen Frame */}
-              <div className="bg-gray-800/95 rounded-t-2xl p-2.5 shadow-2xl shadow-black/95 border border-gray-700/80 border-b-0 ring-1 ring-white/10">
-                {/* Browser Top Window Bar */}
-                <div className="flex items-center gap-1.5 mb-2 px-1">
-                  <div className="flex items-center gap-1">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                  </div>
-                  <div className="flex-1 mx-2">
-                    <div className="h-5 bg-gray-900/90 rounded-md flex items-center px-3 border border-white/10">
-                      <span
-                        className={`text-[9px] text-gray-300 font-mono truncate transition-all duration-450 ${
-                          isTransitioning ? 'opacity-0' : 'opacity-100'
-                        }`}
-                      >
-                        https://{current.domain}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Desktop Screen Content */}
-                <div
-                  className={`relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-gray-950 transition-all duration-450 ${
-                    isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-                  }`}
-                >
-                  {current.desktopView}
-                </div>
-              </div>
-
-              {/* Realistic Monitor Stand */}
-              <div className="flex flex-col items-center">
-                <div className="w-28 h-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-b-sm border-x border-b border-gray-600/50" />
-                <div className="w-44 h-2.5 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-800 rounded-b-lg shadow-2xl border-b border-gray-500/40" />
-              </div>
-
-              {/* Device Label */}
-              <div className="text-center mt-3">
-                <span className="text-[10.5px] font-bold text-gray-400 uppercase tracking-widest bg-black/50 px-3 py-1 rounded-full border border-white/5">
-                  Desktop Monitor (16:10)
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* ─── Phone Device (Right, z-30 — IN FRONT so it's 100% visible!) ─── */}
-          <div className="hidden sm:block relative z-30 -ml-6 lg:-ml-8 mb-2 self-end transform rotate-3 hover:rotate-0 transition-transform duration-500">
-            <div className="relative w-[115px] md:w-[130px] lg:w-[150px]">
-              {/* Phone Outer Shell */}
-              <div className="bg-gray-800/95 rounded-[1.8rem] p-2 shadow-2xl shadow-black/95 border border-gray-700/80 ring-1 ring-white/10">
-                {/* Phone Speaker Notch */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-gray-800 rounded-b-xl z-20 flex items-center justify-center">
-                  <div className="w-6 h-1 bg-gray-700 rounded-full" />
-                </div>
-
-                {/* Phone Screen Container */}
-                <div
-                  className={`relative w-full aspect-[9/19] rounded-[1.3rem] overflow-hidden bg-gray-950 transition-all duration-450 ${
-                    isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-                  }`}
-                >
-                  {current.mobileView}
-                </div>
-              </div>
-
-              {/* Device Label */}
-              <div className="text-center mt-3">
-                <span className="text-[10.5px] font-bold text-gray-400 uppercase tracking-widest bg-black/50 px-3 py-1 rounded-full border border-white/5">
-                  Mobile (9:19)
-                </span>
-              </div>
+            )}
+            <div
+              key={`in-${activeIndex}`}
+              className={`flex items-end justify-center ${
+                outgoing
+                  ? outgoing.direction === 'next'
+                    ? 'animate-showcase-in-right'
+                    : 'animate-showcase-in-left'
+                  : ''
+              }`}
+            >
+              <DeviceGroup slide={current} />
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -26,7 +26,6 @@ import MarketingServiceDetail from './components/MarketingServiceDetail';
 import AdminPage from './components/admin/AdminPage';
 import AdminLogin from './components/admin/AdminLogin';
 import ProtectedRoute from './components/admin/ProtectedRoute';
-import PromoBanner from './components/ui/PromoBanner';
 import './utils/translator'; // Import translator to initialize global function
 
 // Component to handle scroll to top on route change
@@ -41,22 +40,6 @@ const ScrollToTop: React.FC = () => {
 };
 
 function App() {
-  const [showPromo, setShowPromo] = useState(false);
-
-  const location = useLocation();
-
-  useEffect(() => {
-    // Show promo on every homepage visit after a 3-second delay
-    if (location.pathname === '/') {
-      const timer = setTimeout(() => {
-        setShowPromo(true);
-      }, 2000);
-      return () => clearTimeout(timer);
-    } else {
-      setShowPromo(false);
-    }
-  }, [location.pathname]);
-
   useEffect(() => {
     // Close language dropdown when clicking outside
     const handleClickOutside = (event: MouseEvent) => {
@@ -72,7 +55,6 @@ function App() {
 
   return (
     <>
-      {showPromo && <PromoBanner onClose={() => setShowPromo(false)} />}
       <ScrollToTop />
       <Routes>
         {/* ── Admin console (full-screen, no Navbar/Footer) ───────────── */}

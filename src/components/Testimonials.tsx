@@ -194,8 +194,10 @@ const Testimonials: React.FC = () => {
                     ))}
                   </div>
 
-                  {/* Testimonial Quote Text */}
-                  <p className="text-gray-700 text-sm md:text-[15px] leading-relaxed text-center font-normal flex-1 flex items-center justify-center">
+                  {/* Testimonial Quote Text — this card stays white in both themes, so
+                      avoid text-gray-600/700/800: index.css lightens those under .dark
+                      (and Tailwind copies that override into their dark: variants too) */}
+                  <p className="text-gray-900 text-sm md:text-[15px] leading-relaxed text-center font-normal flex-1 flex items-center justify-center">
                     "{item.quote}"
                   </p>
 
