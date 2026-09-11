@@ -48,7 +48,7 @@ const TaglineCTA: React.FC = () => {
 
         {/* Right: featured plan card */}
         <div className="lg:col-span-5">
-          <div className="rounded-3xl border-2 border-gray-950/80 bg-white/10 backdrop-blur-sm p-7 sm:p-8">
+          <div className="rounded-3xl border-2 border-gray-950/80 bg-white/10 backdrop-blur-sm p-7 sm:p-8 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:border-gray-950 hover:bg-white/25 hover:shadow-2xl hover:shadow-black/30 motion-reduce:transition-none motion-reduce:hover:transform-none">
             <h3 className="text-2xl font-bold text-gray-950 dark:text-gray-950">{featuredTier.name}</h3>
             {featuredTier.originalPrice && (
               <p className="mt-1 text-sm font-semibold text-gray-950/60 line-through">{featuredTier.originalPrice}</p>
