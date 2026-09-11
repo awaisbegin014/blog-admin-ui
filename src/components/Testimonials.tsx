@@ -110,7 +110,7 @@ const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="py-20 md:py-28 relative overflow-hidden bg-gradient-to-br from-[#f5781e] via-[#f99820] to-[#fcc319] text-gray-950 select-none"
+      className="py-12 md:py-16 relative overflow-hidden bg-gradient-to-br from-[#f5781e] via-[#f99820] to-[#fcc319] text-gray-950 select-none"
     >
       {/* Ambient background glows for premium depth */}
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/25 rounded-full blur-3xl pointer-events-none" />

@@ -24,7 +24,7 @@
   }
 
   .section-padding {
-    @apply py-16 md:py-24;
+    @apply py-12 md:py-16;
   }
 
   .section-title {
@@ -231,6 +231,32 @@
     66% { 
       transform: translateY(5px) rotate(-1deg); 
     }
+  }
+
+  /* Zero-G Space Float animations for cards */
+  @keyframes spaceFloatA {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(0.8deg);
+    }
+  }
+
+  @keyframes spaceFloatB {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(18px) rotate(-0.8deg);
+    }
+  }
+
+  .space-float-wrapper {
+    will-change: transform;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   @keyframes shimmer {

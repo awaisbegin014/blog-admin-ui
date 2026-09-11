@@ -10,8 +10,9 @@ import Portfolio from './components/Portfolio';
 import Offices from './components/Offices';
 import Pricing from './components/Pricing';
 import TaglineCTA from './components/TaglineCTA';
-import PlatformsSection from './components/PlatformsSection';
+import EcommercePlatforms from './components/EcommercePlatforms';
 import Testimonials from './components/Testimonials';
+import MasteryAwards from './components/MasteryAwards';
 import Contact from './components/Contact';
 import BlogsSection from './components/BlogsSection';
 import BlogsPage from './components/BlogsPage';
@@ -79,14 +80,14 @@ function App() {
                   <DeviceShowcase />
                   <WhyChooseUs />
                   <Services />
-                  <About />
                   <Portfolio />
                   <BlogsSection />
                   <Offices />
                   <Pricing />
                   <TaglineCTA />
-                  <PlatformsSection />
+                  <EcommercePlatforms />
                   <Testimonials />
+                  <MasteryAwards />
                   <Contact />
                 </main>
               } />

@@ -3,7 +3,7 @@ import React from 'react';
 /* ─── 1. Rosette Badge with Stars (100% Customer Satisfaction) ─── */
 const SatisfactionBadge: React.FC = () => (
   <svg
-    className="w-20 h-20 md:w-24 md:h-24 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ const SatisfactionBadge: React.FC = () => (
 /* ─── 2. Laptop with Gears and Wrench (Customized Design) ─── */
 const CustomizedDesignIcon: React.FC = () => (
   <svg
-    className="w-20 h-20 md:w-24 md:h-24 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ const CustomizedDesignIcon: React.FC = () => (
 /* ─── 3. Document with Pencil and Circular Arrows (Unlimited Free Revisions) ─── */
 const RevisionsIcon: React.FC = () => (
   <svg
-    className="w-20 h-20 md:w-24 md:h-24 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ const RevisionsIcon: React.FC = () => (
 /* ─── 4. Team with Curved Arrow (Personalized Support) ─── */
 const PersonalizedSupportIcon: React.FC = () => (
   <svg
-    className="w-20 h-20 md:w-24 md:h-24 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@ const PersonalizedSupportIcon: React.FC = () => (
 /* ─── 5. 24/7 Clock/Headset (Round-the-Clock Availability) ─── */
 const RoundTheClockIcon: React.FC = () => (
   <svg
-    className="w-20 h-20 md:w-24 md:h-24 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ const RoundTheClockIcon: React.FC = () => (
   </svg>
 );
 
-const topFourItems = [
+const whyChooseItems = [
   {
     icon: <SatisfactionBadge />,
     title: '100% Customer Satisfaction',
@@ -144,14 +144,19 @@ const topFourItems = [
     title: 'Personalized Support',
     description: 'A dedicated point of contact who actually knows your project, not a random ticket queue.',
   },
+  {
+    icon: <RoundTheClockIcon />,
+    title: 'Round-the-Clock Availability',
+    description: "Support across time zones for our US, German and global clients, so you're never left waiting.",
+  },
 ];
 
 const WhyChooseUs: React.FC = () => {
   return (
-    <section id="why-us" className="py-16 md:py-24 bg-white dark:bg-black">
+    <section id="why-us" className="pt-10 md:pt-14 pb-2 md:pb-4 bg-white dark:bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-8 md:mb-10">
           <h2 className="section-title">
             <span className="heading">Why We're the</span> <span className="gradient-text">Best Choice</span>
           </h2>
@@ -160,40 +165,25 @@ const WhyChooseUs: React.FC = () => {
           </p>
         </div>
 
-        {/* ─── Row 1: 4 Items as Cards ─── */}
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {topFourItems.map((item) => (
+        {/* ─── 5 Items in One Line on Desktop, responsive wrap when shrunk ─── */}
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-wrap justify-center -mx-2 sm:-mx-3 lg:-mx-2 xl:-mx-3">
+            {whyChooseItems.map((item) => (
               <div
                 key={item.title}
-                className="group flex flex-col items-center justify-start text-center px-5 sm:px-6 py-8"
+                className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2 sm:px-3 lg:px-2 xl:px-3 py-6 group flex flex-col items-center justify-start text-center"
               >
-                <div className="mb-5 flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24">
+                <div className="mb-4 sm:mb-5 flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20">
                   {item.icon}
                 </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-snug mb-2 transition-colors duration-300 group-hover:text-primary">
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white leading-snug mb-2 transition-colors duration-300 group-hover:text-primary">
                   {item.title}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
                   {item.description}
                 </p>
               </div>
             ))}
-          </div>
-
-          {/* ─── Row 2: 5th Item Centered Underneath ─── */}
-          <div className="mt-6 sm:mt-8 flex justify-center">
-            <div className="group flex flex-col items-center justify-center text-center px-6 sm:px-10 py-8 w-full xs:w-auto xs:max-w-sm">
-              <div className="mb-5 flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24">
-                <RoundTheClockIcon />
-              </div>
-              <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-snug mb-2 transition-colors duration-300 group-hover:text-primary">
-                Round-the-Clock Availability
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-xs">
-                Support across time zones for our US, German and global clients, so you're never left waiting.
-              </p>
-            </div>
           </div>
         </div>
       </div>

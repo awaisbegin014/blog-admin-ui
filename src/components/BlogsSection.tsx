@@ -88,7 +88,7 @@ const BlogsSection: React.FC = () => {
   const rightColumn = homepageBlogs.slice(5, 8);
 
   return (
-    <section id="blogs" className="section-padding bg-gray-50 dark:bg-gray-900 pb-0" ref={containerRef}>
+    <section id="blogs" className="pt-4 pb-3 md:pt-6 md:pb-4 bg-white dark:bg-black" ref={containerRef}>
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left Side - Content */}

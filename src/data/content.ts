@@ -15,75 +15,72 @@ export const services: Service[] = [
   {
     icon: 'Code',
     title: 'Web Development',
-    description: 'Create stunning, responsive websites and web applications that deliver exceptional user experiences across all devices and platforms.'
+    description: 'Fast, responsive websites and web applications built to scale and convert.'
   },
   {
     icon: 'Smartphone',
     title: 'App Development',
-    description: 'Native and cross-platform mobile applications that engage users and elevate your brand on iOS and Android platforms.'
+    description: 'Native and cross-platform mobile apps for iOS and Android that engage users.'
   },
   {
     icon: 'BarChart',
     title: 'Digital Marketing',
-    description: 'Comprehensive digital marketing strategies that drive growth, increase brand visibility, and convert prospects into customers.'
+    description: 'Data-driven marketing strategies to grow visibility, qualified leads, and revenue.'
   },
   {
     icon: 'Users',
     title: 'Social Media Management and Content Creation',
-    description: 'Professional social media management with engaging content creation to build your brand presence and community.'
+    description: 'Engaging content creation and social management to grow your brand community.'
   },
   {
     icon: 'Gauge',
     title: 'Search Engine Optimization',
-    description: 'Search engine optimization strategies that improve your website visibility and drive organic traffic to boost your online presence.'
+    description: 'Targeted SEO strategies to improve search ranking and drive steady organic traffic.'
   },
   {
     icon: 'Blocks',
     title: 'AI Automations / AI Business Automation',
-    description: 'Intelligent automation solutions that streamline your business processes and increase efficiency using cutting-edge AI technology.'
+    description: 'Streamline workflows and eliminate repetitive tasks with custom AI automation.'
   },
   {
     icon: 'Layers',
     title: 'AI Chat Bots and Voice Agents',
-    description: 'Advanced conversational AI solutions including chatbots and voice agents to enhance customer service and engagement.'
+    description: 'Smart AI chatbots and voice agents to enhance customer engagement 24/7.'
   },
   {
     icon: 'Users',
     title: 'Customer Support',
-    description: 'Multi-channel support via chat, calls, email, and social media - ensuring quick resolutions, smooth order handling, and happier customers.'
-  }
-
-  ,
-
+    description: 'Multi-channel support via chat, calls, and email for fast customer resolutions.'
+  },
   {
     icon: 'Shield',
     title: 'Point of Sale',
-    description: 'Point of Sale systems that streamline transactions, inventory management, and business operations for retail and service businesses.'
+    description: 'Modern POS systems that streamline transactions and inventory in real time.'
   },
   {
     icon: 'Code',
     title: 'Customer Relationship Management',
-    description: 'Customer Relationship Management solutions that help you manage customer interactions, sales processes, and business relationships.'
+    description: 'Centralized CRM solutions to manage customer interactions, sales, and retention.'
   },
   {
     icon: 'Blocks',
     title: 'Generative AI',
-    description: 'Generative AI solutions that create content, automate creative processes, and enhance productivity through advanced AI models.'
+    description: 'Generative AI models to create content and automate creative workflows.'
   },
   {
     icon: 'Users',
     title: 'User interface and experience design',
-    description: 'User interface and experience design services that create intuitive, beautiful, and user-centered digital products.'
+    description: 'Intuitive, user-centered UI/UX designs crafted for modern digital products.'
   },
   {
     icon: 'Layers',
     title: 'Software as a Service',
-    description: 'Software as a Service development for scalable, cloud-based applications that serve businesses and consumers globally.'
+    description: 'Scalable, secure cloud SaaS applications engineered for high user adoption.'
   },
   {
     icon: 'BarChart',
     title: 'Data Analytics',
-    description: 'Transform raw data into actionable insights with advanced analytics, visualization, and business intelligence solutions.'
+    description: 'Transform raw data into actionable insights with custom analytics dashboards.'
   }
 ];
 

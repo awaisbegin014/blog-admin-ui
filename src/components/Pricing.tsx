@@ -8,7 +8,7 @@ const Pricing: React.FC = () => {
   const active = pricingCategories.find((c) => c.id === activeId) ?? pricingCategories[0];
 
   return (
-    <section id="pricing" className="section-padding bg-white dark:bg-black">
+    <section id="pricing" className="pt-2 sm:pt-4 md:pt-6 pb-16 md:pb-24 bg-white dark:bg-black">
       <div className="container">
         {/* Intro: "Our Packages" ribbon + headline */}
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16 mb-16 md:mb-20">
@@ -24,10 +24,7 @@ const Pricing: React.FC = () => {
             </div>
 
             <h2 className="text-4xl md:text-5xl lg:text-[3.4rem] font-bold leading-[1.2] text-gray-900 dark:text-white mb-6">
-              Design <span className="text-primary">That Sells.</span> Cost{' '}
-              <span className="bg-[linear-gradient(transparent_62%,#FACC15_62%)] dark:bg-[linear-gradient(transparent_62%,rgba(250,204,21,0.45)_62%)]">
-                That Fits.
-              </span>
+              Design <span className="text-primary">That Sells.</span> Cost That Fits.
             </h2>
 
             <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8">

@@ -39,14 +39,14 @@ const Offices: React.FC = () => {
   }, []);
 
   return (
-    <section id="offices" className="bg-gray-50 dark:bg-gray-900 section-padding">
+    <section id="offices" className="bg-white dark:bg-black pt-2 pb-6 md:pt-4 md:pb-8">
       {/* ── Section heading ────────────────────────────────────────────────── */}
-      <div className="container text-center mb-16">
+      <div className="container text-center mb-6 md:mb-8">
         <h2 className="section-title">
           <span className="heading">Our</span>{' '}
           <span className="gradient-text">Offices</span>
         </h2>
-        <p className="section-subtitle">
+        <p className="section-subtitle mb-0">
           Visit our global locations where innovation meets excellence
         </p>
       </div>
@@ -60,10 +60,11 @@ const Offices: React.FC = () => {
           {/* Card shell */}
           <div className="
             flex flex-col md:flex-row
-            bg-white dark:bg-gray-800
-            rounded-3xl shadow-xl hover:shadow-2xl
+            bg-white dark:bg-gray-900
+            rounded-3xl shadow-[0_15px_45px_rgba(0,0,0,0.08)] dark:shadow-[0_15px_45px_rgba(0,0,0,0.5)]
+            hover:shadow-2xl
             transition-all duration-500 hover:-translate-y-2
-            overflow-hidden border border-gray-100 dark:border-gray-700
+            overflow-hidden border border-gray-100 dark:border-gray-800
             isolate
           ">
 

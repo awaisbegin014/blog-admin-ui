@@ -39,40 +39,85 @@ const Contact: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const hasAnimatedRef = useRef(false);
+
   useEffect(() => {
+    const triggerPopUp = () => {
+      if (hasAnimatedRef.current) return;
+      hasAnimatedRef.current = true;
+
+      // Make section visible
+      anime({
+        targets: '.contact-section',
+        opacity: [0, 1],
+        duration: 400,
+        easing: 'linear',
+      });
+
+      // Headline fades in with subtle slide
+      anime({
+        targets: '.contact-headline',
+        opacity: [0, 1],
+        translateY: [30, 0],
+        duration: 700,
+        easing: 'easeOutExpo',
+      });
+
+      // Form pops up from below with spring bounce
+      anime({
+        targets: '.contact-form',
+        opacity: [0, 1],
+        translateY: [180, 0],
+        scale: [0.92, 1],
+        duration: 950,
+        easing: 'cubicBezier(0.18, 0.89, 0.32, 1.15)',
+      });
+    };
+
+    // Listen for manual trigger from "Let's Get Started" in MasteryAwards
+    window.addEventListener('trigger-contact-popup', triggerPopUp);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: '.contact-section',
-              opacity: [0, 1],
-              translateY: [20, 0],
-              duration: 600,
-              easing: 'easeOutExpo',
-              complete: () => {
-                anime({
-                  targets: ['.contact-headline', '.contact-form'],
-                  scale: [0.95, 1],
-                  opacity: [0, 1],
-                  delay: anime.stagger(100),
-                  duration: 500,
-                  easing: 'easeOutExpo'
-                });
-              }
-            });
+            triggerPopUp();
             observer.disconnect();
           }
         });
       },
-      { threshold: 0.2 }
+      {
+        // Early trigger as visitor approaches or enters the section
+        rootMargin: '120px 0px 0px 0px',
+        threshold: 0.1,
+      }
     );
 
     if (containerRef.current) {
       observer.observe(containerRef.current);
     }
 
-    return () => observer.disconnect();
+    // Also observe mastery-awards section if present so the form pops up as visitor scrolls to it
+    const masterySection = document.getElementById('mastery-awards');
+    if (masterySection) {
+      const masteryObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              triggerPopUp();
+              masteryObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      masteryObserver.observe(masterySection);
+    }
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('trigger-contact-popup', triggerPopUp);
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {

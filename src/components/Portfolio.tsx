@@ -130,13 +130,13 @@ const Portfolio: React.FC = () => {
   const items = currentCategory.items;
 
   return (
-    <section id="portfolio" className="py-20 md:py-28 bg-white dark:bg-black transition-colors">
+    <section id="portfolio" className="pt-4 pb-4 md:pt-6 md:pb-6 bg-white dark:bg-black transition-colors">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Decorative Accent Line (Modeled on reference site) */}
         <div className="w-16 h-1.5 bg-gradient-to-r from-[#f5781e] via-[#f99820] to-[#fcc319] rounded-full mb-4" />
 
         {/* Section Heading & Subtitle */}
-        <div className="max-w-4xl mb-12 md:mb-16 text-left">
+        <div className="max-w-4xl mb-6 md:mb-8 text-left">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-950 dark:text-white leading-[1.15]">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f5781e] via-[#f99820] to-[#fcc319]">
               Web Design
