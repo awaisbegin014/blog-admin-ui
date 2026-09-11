@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect, useCallback } from 'react';
-import { ArrowRight, User, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, User } from 'lucide-react';
 
 interface ScreenSlide {
   id: string;
@@ -101,18 +101,20 @@ const MasteryAwards: React.FC = () => {
   return (
     <section
       id="mastery-awards"
-      className="relative py-24 sm:py-28 lg:py-36 bg-gradient-to-r from-[#070a14] via-[#130d0e] to-[#6d2508] text-white overflow-hidden"
+      className="relative py-16 md:py-20 text-white overflow-hidden"
+      style={{
+        background:
+          'radial-gradient(ellipse 70% 80% at 85% 50%, rgba(247, 144, 49, 0.4), transparent 70%), radial-gradient(ellipse 60% 70% at 15% 40%, rgba(255, 107, 53, 0.35), transparent 70%), linear-gradient(105deg, #0a0a0a 0%, #1f1006 22%, #3a1806 48%, #6b2c09 74%, #b34e09 100%)',
+      }}
     >
-      {/* ─── Theme Ambient Glows (Orange / Amber / Warm Flame) ─── */}
-      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] rounded-full bg-blue-900/15 blur-[160px] pointer-events-none" />
-      <div className="absolute -right-20 top-0 bottom-0 w-[55%] bg-gradient-to-l from-[#ea580c]/30 via-[#c2410c]/20 to-transparent pointer-events-none" />
-      <div className="absolute top-1/4 -right-16 w-[550px] h-[550px] rounded-full bg-gradient-to-br from-primary via-secondary to-amber-500 opacity-45 blur-[140px] pointer-events-none" />
-      <div className="absolute -bottom-20 right-1/4 w-[480px] h-[480px] rounded-full bg-amber-400/20 blur-[150px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full bg-primary/10 blur-[180px] pointer-events-none" />
+      {/* ─── Ambient Glow Blobs ─── */}
+      <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/20 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 right-10 w-[30rem] h-[30rem] rounded-full bg-secondary/25 blur-3xl" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-accent/10 blur-[140px]" />
 
-      {/* ─── Floating Background Website Wireframe Pages (Atmospheric Depth) ─── */}
+      {/* ─── Faint Angled Background Mockups (Visual Depth) ─── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-        {/* 1. Left Card: Mobile/Tablet Restaurant Showcase (tilted -12deg) */}
+        {/* Left card mockup */}
         <div className="absolute -left-12 sm:left-4 top-10 w-[300px] sm:w-[380px] aspect-[9/14] rounded-3xl border border-white/15 bg-white/[0.03] backdrop-blur-[2px] p-6 transform -rotate-12 opacity-25 shadow-2xl">
           <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
             <span className="font-serif italic text-sm text-white/70">Logan</span>
@@ -121,11 +123,11 @@ const MasteryAwards: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
             </div>
           </div>
-          <p className="text-[10px] uppercase tracking-widest text-primary font-bold mb-1">Welcome to</p>
+          <p className="text-[10px] uppercase tracking-widest text-amber-300 font-bold mb-1">Welcome to</p>
           <h4 className="font-serif text-lg text-white font-bold leading-tight mb-3">
             California Cuisine in the Heart of the Bay
           </h4>
-          <div className="w-full aspect-[16/10] rounded-xl bg-gradient-to-br from-amber-500/20 to-transparent border border-white/10 mb-4 flex items-center justify-center">
+          <div className="w-full aspect-[16/10] rounded-xl bg-gradient-to-br from-rose-500/20 to-transparent border border-white/10 mb-4 flex items-center justify-center">
             <span className="text-[10px] text-white/40 italic">Fresh Seasonal Menu</span>
           </div>
           <div className="space-y-2">
@@ -134,7 +136,7 @@ const MasteryAwards: React.FC = () => {
           </div>
         </div>
 
-        {/* 2. Center/Right Card: Desktop Menu Layout behind the laptop (tilted +8deg) */}
+        {/* Right card mockup behind laptop */}
         <div className="absolute right-4 sm:right-16 -top-8 w-[380px] sm:w-[480px] aspect-[4/3] rounded-3xl border border-white/15 bg-white/[0.04] backdrop-blur-[2px] p-6 sm:p-8 transform rotate-8 opacity-30 shadow-2xl">
           <div className="text-center mb-6">
             <h4 className="text-xl sm:text-2xl font-serif text-white/90 font-bold mb-2">
@@ -148,59 +150,50 @@ const MasteryAwards: React.FC = () => {
             <div className="p-3 rounded-xl bg-white/[0.05] border border-white/10">
               <div className="w-full h-16 rounded-lg bg-amber-500/20 mb-2" />
               <div className="h-2.5 w-20 bg-white/40 rounded mb-1" />
-              <div className="h-2 w-12 bg-primary/50 rounded" />
+              <div className="h-2 w-12 bg-white/30 rounded" />
             </div>
             <div className="p-3 rounded-xl bg-white/[0.05] border border-white/10">
               <div className="w-full h-16 rounded-lg bg-rose-500/20 mb-2" />
               <div className="h-2.5 w-20 bg-white/40 rounded mb-1" />
-              <div className="h-2 w-12 bg-primary/50 rounded" />
-            </div>
-          </div>
-        </div>
-
-        {/* 3. Bottom Dish Showcase Card (tilted -5deg) */}
-        <div className="absolute right-1/4 -bottom-16 w-[340px] sm:w-[420px] h-[220px] rounded-3xl border border-white/15 bg-white/[0.03] backdrop-blur-[2px] p-6 transform -rotate-5 opacity-25 shadow-2xl">
-          <div className="flex items-center gap-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-amber-500/30 to-primary/20 border border-white/20 shrink-0" />
-            <div>
-              <p className="text-xs uppercase tracking-wider text-amber-400 font-bold mb-1">Fresh &amp; Delicious</p>
-              <h5 className="font-serif text-base text-white font-bold leading-snug">
-                Artisan Crafted Culinary Experiences
-              </h5>
+              <div className="h-2 w-12 bg-white/30 rounded" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* ─── Main Content Grid ─── */}
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* ─── Left Column: Headline, Copy & Action ─── */}
+          {/* ─── Left Column: Exact Headline, Copy & CTA ─── */}
           <div className="lg:col-span-6 text-center lg:text-left">
-            <h2 className="text-4xl sm:text-5xl lg:text-[3.65rem] font-extrabold text-white leading-[1.12] mb-6 tracking-tight drop-shadow-sm">
+            {/* Main Headline */}
+            <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.12] tracking-tight mb-6 drop-shadow-sm">
               Mastery Proven <br />
               Through Multiple <br />
               Awards
             </h2>
 
-            <p className="text-gray-200 text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8 font-normal">
-              Our team is adept at designing websites that guide, convert, and sell. Today, our web design agency is among the best companies in the world, having multiple awards to its name. We are proud that we have always been successful in what we wanted.
+            {/* Body Copy */}
+            <p className="text-base sm:text-lg text-white/90 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0 mb-8">
+              Our team is adept at designing websites that guide, convert, and sell. Today, our web design agency is
+              among the best companies in the world, having multiple awards to its name. We are proud that we have
+              always been successful in what we wanted.
             </p>
 
-            <div className="flex justify-center lg:justify-start">
+            {/* CTA Button Row */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5">
               <a
                 href="#contact"
                 onClick={handleGetStarted}
-                className="group inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-4 rounded-full bg-white text-[#0f2444] font-bold text-sm tracking-wider uppercase shadow-[0_10px_35px_rgba(0,0,0,0.3)] hover:bg-primary hover:text-white hover:shadow-primary/40 hover:scale-105 active:scale-95 transition-all duration-300"
+                className="group inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-4 rounded-full bg-white text-primary-900 font-bold text-sm tracking-wider uppercase shadow-[0_12px_35px_rgba(0,0,0,0.35)] hover:bg-gray-100 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
               >
-                Let&apos;s Get Started
+                LET&apos;S GET STARTED
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
 
-          {/* ─── Right Column: MacBook Pro Mockup with Auto-Sliding Screens ─── */}
-          <div className="lg:col-span-6 flex justify-center">
+          {/* ─── Right Column: Laptop Mockup with Auto-Sliding Screens & Floating Badge ─── */}
+          <div className="lg:col-span-6 flex justify-center items-center">
             <div
               className="group relative w-full max-w-[540px] sm:max-w-[580px] lg:max-w-[620px] drop-shadow-[0_30px_60px_rgba(0,0,0,0.95)]"
               onMouseEnter={() => setIsPaused(true)}

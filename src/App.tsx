@@ -85,10 +85,10 @@ function App() {
                   <Offices />
                   <Pricing />
                   <TaglineCTA />
-                  <EcommercePlatforms />
-                  <Testimonials />
-                  <MasteryAwards />
                   <Contact />
+                  <EcommercePlatforms />
+                  <MasteryAwards />
+                  <Testimonials />
                 </main>
               } />
               <Route path="/careers" element={<Careers />} />

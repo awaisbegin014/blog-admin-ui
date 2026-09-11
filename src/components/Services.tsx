@@ -259,12 +259,12 @@ const Services: React.FC = () => {
   return (
     <section
       id="services"
-      className="pt-4 pb-6 md:pt-6 md:pb-8 bg-white dark:bg-black relative overflow-hidden"
+      className="py-16 md:py-20 bg-white dark:bg-black relative overflow-hidden"
       ref={containerRef}
     >
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         {/* Heading Section - Original Full Width Centered */}
-        <div className="services-title opacity-0 text-center max-w-4xl mx-auto mb-6 sm:mb-8">
+        <div className="services-title opacity-0 text-center max-w-4xl mx-auto mb-12 md:mb-16">
           <h2 className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-gray-900 dark:text-white">
             <span className="heading">Our Services - Redefining</span>
             <RotatingText

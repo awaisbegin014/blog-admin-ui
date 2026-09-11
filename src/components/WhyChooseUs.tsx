@@ -153,10 +153,10 @@ const whyChooseItems = [
 
 const WhyChooseUs: React.FC = () => {
   return (
-    <section id="why-us" className="pt-10 md:pt-14 pb-2 md:pb-4 bg-white dark:bg-black">
+    <section id="why-us" className="py-16 md:py-20 bg-white dark:bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="text-center mb-8 md:mb-10">
+        <div className="text-center mb-12 md:mb-16">
           <h2 className="section-title">
             <span className="heading">Why We're the</span> <span className="gradient-text">Best Choice</span>
           </h2>

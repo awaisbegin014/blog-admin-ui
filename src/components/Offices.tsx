@@ -39,14 +39,14 @@ const Offices: React.FC = () => {
   }, []);
 
   return (
-    <section id="offices" className="bg-white dark:bg-black pt-2 pb-6 md:pt-4 md:pb-8">
+    <section id="offices" className="bg-white dark:bg-black py-16 md:py-20">
       {/* ── Section heading ────────────────────────────────────────────────── */}
-      <div className="container text-center mb-6 md:mb-8">
+      <div className="container text-center mb-12 md:mb-16">
         <h2 className="section-title">
           <span className="heading">Our</span>{' '}
           <span className="gradient-text">Offices</span>
         </h2>
-        <p className="section-subtitle mb-0">
+        <p className="section-subtitle">
           Visit our global locations where innovation meets excellence
         </p>
       </div>

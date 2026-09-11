@@ -8,7 +8,7 @@ const Pricing: React.FC = () => {
   const active = pricingCategories.find((c) => c.id === activeId) ?? pricingCategories[0];
 
   return (
-    <section id="pricing" className="pt-2 sm:pt-4 md:pt-6 pb-16 md:pb-24 bg-white dark:bg-black">
+    <section id="pricing" className="py-16 md:py-20 bg-white dark:bg-black">
       <div className="container">
         {/* Intro: "Our Packages" ribbon + headline */}
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16 mb-16 md:mb-20">

@@ -42,7 +42,7 @@ const PackagesRibbon: React.FC = () => (
       }
     `}</style>
 
-    <svg viewBox="0 25 560 455" className="w-full h-auto overflow-visible" role="img" aria-label="Our packages">
+    <svg viewBox="0 0 560 480" className="w-full h-auto overflow-visible" role="img" aria-label="Our packages">
       <defs>
         <linearGradient id="packages-ribbon-top" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stopColor="#F79031" />

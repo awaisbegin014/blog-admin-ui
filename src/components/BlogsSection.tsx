@@ -88,7 +88,7 @@ const BlogsSection: React.FC = () => {
   const rightColumn = homepageBlogs.slice(5, 8);
 
   return (
-    <section id="blogs" className="pt-4 pb-3 md:pt-6 md:pb-4 bg-white dark:bg-black" ref={containerRef}>
+    <section id="blogs" className="py-16 md:py-20 bg-white dark:bg-black" ref={containerRef}>
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left Side - Content */}
@@ -121,7 +121,7 @@ const BlogsSection: React.FC = () => {
           </div>
 
           {/* Right Side - Blog Cards Grid / Skeleton */}
-          <div ref={rightSectionRef} className="relative h-[700px] overflow-visible lg:h-[800px]">
+          <div ref={rightSectionRef} className="relative h-[620px] overflow-visible lg:h-[650px]">
             {loading ? (
               <div className="flex items-center justify-center h-full">
                 <div className="flex flex-col items-center gap-4 text-gray-400">

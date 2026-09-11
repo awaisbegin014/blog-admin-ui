@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, ArrowRight, Search } from 'lucide-react';
+import { ChevronDown, Search } from 'lucide-react';
 import anime from 'animejs';
 import { countries, defaultCountry, Country } from '../data/countries';
 
@@ -169,17 +169,17 @@ const Contact: React.FC = () => {
 
   return (
     <section id="contact" className="relative bg-white dark:bg-gray-950">
-      {/* Black band behind the headline, tinted with the navbar's yellow-marketing gradient */}
-      <div className="absolute inset-x-0 top-0 h-[360px] sm:h-[400px] lg:h-[420px] bg-black overflow-hidden">
+      {/* Dark brand-tinted band behind the headline, sized to fit it (not the taller form card) */}
+      <div className="absolute inset-x-0 top-0 h-[360px] sm:h-[400px] lg:h-[440px] bg-black overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-black" />
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-20 rounded-full blur-3xl" />
         <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-gradient-to-tr from-yellow-400 via-amber-400 to-primary opacity-10 rounded-full blur-3xl" />
       </div>
 
-      <div className="container contact-section opacity-0 relative py-16 lg:py-20" ref={containerRef}>
+      <div className="container contact-section opacity-0 relative py-16 md:py-20" ref={containerRef}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 lg:items-start">
           {/* Left: headline */}
-          <div className="contact-headline opacity-0 text-white lg:pt-4">
+          <div className="contact-headline opacity-0 text-white">
             <h2 className="font-poppins text-4xl sm:text-5xl font-extrabold mb-5 leading-[1.1] text-white">
               You&apos;ve Got <span className="gradient-text">Questions?</span>
             </h2>
@@ -188,8 +188,8 @@ const Contact: React.FC = () => {
             </p>
           </div>
 
-          {/* Right: card with form */}
-          <div className="contact-form opacity-0 rounded-2xl bg-white dark:bg-gray-900 border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-6 sm:p-8">
+          {/* Right: raised white card — taller than the band, so it pops out below it */}
+          <div className="contact-form opacity-0 relative rounded-3xl bg-white border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-6 sm:p-8">
             {submitted ? (
               <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-8 text-center">
                 <div className="w-16 h-16 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -206,7 +206,7 @@ const Contact: React.FC = () => {
               </div>
             ) : (
               <>
-                <h3 className="text-gray-900 dark:text-white text-2xl sm:text-3xl font-bold mb-6">
+                <h3 className="text-gray-900 text-2xl sm:text-3xl font-bold mb-6">
                   It's Quick &amp; <span className="gradient-text">Easy</span>
                 </h3>
 
@@ -218,7 +218,7 @@ const Contact: React.FC = () => {
                       placeholder="Enter your name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-5 py-4 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                      className="w-full rounded-xl bg-gray-50 border border-gray-200 px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
                       required
                     />
                     <input
@@ -227,19 +227,19 @@ const Contact: React.FC = () => {
                       placeholder="Enter your Email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-5 py-4 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                      className="w-full rounded-xl bg-gray-50 border border-gray-200 px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
                       required
                     />
                   </div>
 
-                  <div className="flex items-stretch rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-colors">
+                  <div className="flex items-stretch rounded-xl bg-gray-50 border border-gray-200 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-colors">
                     <div className="relative shrink-0" ref={countryDropdownRef}>
                       <button
                         type="button"
                         onClick={() => setIsCountryOpen((prev) => !prev)}
                         aria-haspopup="listbox"
                         aria-expanded={isCountryOpen}
-                        className="h-full flex items-center gap-1.5 pl-4 pr-3 border-r border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
+                        className="h-full flex items-center gap-1.5 pl-4 pr-3 border-r border-gray-200 text-gray-700 hover:text-primary transition-colors"
                       >
                         <span className="text-xs font-bold tracking-wide px-1.5 py-0.5 rounded bg-primary/10 text-primary">
                           {selectedCountry.code}
@@ -301,7 +301,7 @@ const Contact: React.FC = () => {
                       placeholder="(021) 23456789"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="flex-1 min-w-0 px-4 py-4 bg-transparent text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none"
+                      className="flex-1 min-w-0 px-4 py-4 bg-transparent text-gray-900 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
 
@@ -311,7 +311,7 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-5 py-4 text-gray-900 dark:text-white placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                    className="w-full rounded-xl bg-gray-50 border border-gray-200 px-5 py-4 text-gray-900 placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
                     required
                   ></textarea>
 
@@ -338,10 +338,7 @@ const Contact: React.FC = () => {
                         Sending...
                       </span>
                     ) : (
-                      <span className="inline-flex items-center">
-                        <span>Submit</span>
-                        <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                      </span>
+                      <span>Submit</span>
                     )}
                   </button>
                 </form>

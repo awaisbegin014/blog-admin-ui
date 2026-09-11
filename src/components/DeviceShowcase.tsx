@@ -1233,7 +1233,7 @@ const DeviceShowcase: React.FC = () => {
 
   return (
     <section
-      className="relative py-12 md:py-16 bg-gradient-to-b from-black via-gray-950 to-white dark:to-black overflow-hidden"
+      className="relative py-16 md:py-20 bg-gradient-to-b from-black via-gray-950 to-white dark:to-black overflow-hidden"
     >
       {/* Background Ambience Glow */}
       <div className="absolute inset-0 pointer-events-none">

@@ -26,7 +26,7 @@ const platforms: PlatformItem[] = [
 
 const EcommercePlatforms: React.FC = () => {
   return (
-    <section className="py-8 md:py-12 bg-white dark:bg-black">
+    <section className="py-16 md:py-20 bg-white dark:bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Accent Pill */}
         <div className="flex justify-center mb-5">
