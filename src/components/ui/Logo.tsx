@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import logoLight from '../../assests/logo.png';
+import logoDark from '../../assests/logo-white.png';
 
-const Logo: React.FC = () => {
+interface LogoProps {
+  className?: string;
+}
+
+const Logo: React.FC<LogoProps> = ({ className = 'h-16 w-auto object-contain transition-opacity duration-300' }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const location = useLocation();
@@ -28,26 +34,23 @@ const Logo: React.FC = () => {
   const isHomePage = location.pathname === '/';
 
   const shouldShowLogoTwo = isHomePage
-    ? (isDarkMode || !scrolled)  // ✅ Home: dark mode or not scrolled
+    ? (isDarkMode || !scrolled)  // ✅ Home: dark mode or not scrolled (over dark hero)
     : isDarkMode;                // ✅ Other Pages: only dark mode
 
-  const logoSrc = shouldShowLogoTwo
-    ? '/images/logotwo.png'
-    : '/images/logoone1.png';
+  const logoSrc = shouldShowLogoTwo ? logoDark : logoLight;
 
   const logoAlt = shouldShowLogoTwo
-    ? 'Yellow Solutions Logo – Light'
-    : 'Yellow Solutions Logo – Dark';
+    ? 'The Yellow Solutions Logo – Light'
+    : 'The Yellow Solutions Logo – Dark';
 
   return (
-    <a href="#home">
-      <img
-        src={logoSrc}
-        alt={logoAlt}
-        className="w-full h-20 object-contain transition-opacity duration-300"
-      />
-    </a>
+    <img
+      src={logoSrc}
+      alt={logoAlt}
+      className={className}
+    />
   );
 };
 
 export default Logo;
+

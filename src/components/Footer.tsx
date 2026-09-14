@@ -301,6 +301,7 @@
 
 
 import React from 'react';
+import footerLogo from '../assests/logo-white.png';
 import { navItems, services } from '../data/content';
 import { Facebook, Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -358,12 +359,10 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div className="lg:col-span-3">
             <a href="/" onClick={handleNavigation} className="inline-block">
-              {/* The logo PNG has ~22% transparent padding on the left; the
-                  negative margin lines the wordmark up with the text below. */}
               <img
-                src="/images/logotwo.png"
-                alt="Yellow Solutions Logo – Light"
-                className="h-16 w-auto object-contain -ml-10"
+                src={footerLogo}
+                alt="The Yellow Solutions Logo"
+                className="h-16 w-auto object-contain"
               />
             </a>
 

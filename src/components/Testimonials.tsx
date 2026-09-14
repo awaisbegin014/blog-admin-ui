@@ -110,11 +110,11 @@ const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="py-16 md:py-20 relative overflow-hidden bg-gradient-to-br from-[#f5781e] via-[#f99820] to-[#fcc319] text-gray-950 select-none"
+      className="py-16 md:py-20 relative overflow-hidden bg-gradient-to-b from-[#fcc319] via-[#f79a20] to-[#ef6c14] text-gray-950 select-none"
     >
       {/* Ambient background glows for premium depth */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/25 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-300/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-300/25 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

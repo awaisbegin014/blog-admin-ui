@@ -170,7 +170,7 @@ const Contact: React.FC = () => {
   return (
     <section id="contact" className="relative bg-white dark:bg-gray-950">
       {/* Dark brand-tinted band behind the headline, sized to fit it (not the taller form card) */}
-      <div className="absolute inset-x-0 top-0 h-[360px] sm:h-[400px] lg:h-[440px] bg-black overflow-hidden">
+      <div className="absolute inset-x-0 top-0 h-[300px] sm:h-[320px] lg:h-[340px] bg-black overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-black to-black" />
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-20 rounded-full blur-3xl" />
         <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-gradient-to-tr from-yellow-400 via-amber-400 to-primary opacity-10 rounded-full blur-3xl" />
@@ -189,7 +189,7 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Right: raised white card — taller than the band, so it pops out below it */}
-          <div className="contact-form opacity-0 relative rounded-3xl bg-white border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-6 sm:p-8">
+          <div className="contact-form opacity-0 relative w-full lg:max-w-[540px] lg:ml-auto rounded-3xl bg-white border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-5 sm:p-6">
             {submitted ? (
               <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-8 text-center">
                 <div className="w-16 h-16 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -206,19 +206,19 @@ const Contact: React.FC = () => {
               </div>
             ) : (
               <>
-                <h3 className="text-gray-900 text-2xl sm:text-3xl font-bold mb-6">
+                <h3 className="text-gray-900 text-2xl font-bold mb-4">
                   It's Quick &amp; <span className="gradient-text">Easy</span>
                 </h3>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input
                       type="text"
                       name="name"
                       placeholder="Enter your name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-gray-50 border border-gray-200 px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                      className="w-full rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
                       required
                     />
                     <input
@@ -227,7 +227,7 @@ const Contact: React.FC = () => {
                       placeholder="Enter your Email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-gray-50 border border-gray-200 px-5 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                      className="w-full rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
                       required
                     />
                   </div>
@@ -239,7 +239,7 @@ const Contact: React.FC = () => {
                         onClick={() => setIsCountryOpen((prev) => !prev)}
                         aria-haspopup="listbox"
                         aria-expanded={isCountryOpen}
-                        className="h-full flex items-center gap-1.5 pl-4 pr-3 border-r border-gray-200 text-gray-700 hover:text-primary transition-colors"
+                        className="h-full flex items-center gap-1.5 pl-3.5 pr-2.5 border-r border-gray-200 text-gray-700 hover:text-primary transition-colors"
                       >
                         <span className="text-xs font-bold tracking-wide px-1.5 py-0.5 rounded bg-primary/10 text-primary">
                           {selectedCountry.code}
@@ -301,7 +301,7 @@ const Contact: React.FC = () => {
                       placeholder="(021) 23456789"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="flex-1 min-w-0 px-4 py-4 bg-transparent text-gray-900 placeholder-gray-400 focus:outline-none"
+                      className="flex-1 min-w-0 px-4 py-3 bg-transparent text-gray-900 placeholder-gray-400 focus:outline-none"
                     />
                   </div>
 
@@ -310,15 +310,15 @@ const Contact: React.FC = () => {
                     placeholder="Enter a Brief Description"
                     value={formData.message}
                     onChange={handleChange}
-                    rows={4}
-                    className="w-full rounded-xl bg-gray-50 border border-gray-200 px-5 py-4 text-gray-900 placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
+                    rows={3}
+                    className="w-full rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
                     required
                   ></textarea>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 text-lg rounded-xl font-bold flex items-center justify-center transition-all duration-300 transform hover:scale-[1.02] bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20 group disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+                    className="w-full py-3.5 text-base rounded-xl font-bold flex items-center justify-center transition-all duration-300 transform hover:scale-[1.02] bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20 group disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
                   >
                     {isSubmitting ? (
                       <span className="inline-flex items-center justify-center">
