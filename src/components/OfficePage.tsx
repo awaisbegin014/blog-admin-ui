@@ -373,7 +373,12 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <Phone className="w-5 h-5 text-primary mt-1 mr-3" />
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Phone</h3>
-                    <p className="text-gray-600 dark:text-gray-300">{officeData.phone}</p>
+                    <a
+                      href={`tel:${officeData.phone.replace(/[^0-9+]/g, '')}`}
+                      className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
+                    >
+                      {officeData.phone}
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start">

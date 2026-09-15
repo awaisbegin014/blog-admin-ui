@@ -324,7 +324,12 @@ const DemoModal: React.FC<{
                       <Phone className="w-5 h-5 text-secondary" />
                     </div>
                     <div>
-                      <p className="text-white text-sm font-bold">+1 (201) 210-3607</p>
+                      <a
+                        href="tel:+19342035115"
+                        className="text-white text-sm font-bold hover:text-primary transition-colors"
+                      >
+                        +1 (934) 203-5115
+                      </a>
                     </div>
                   </div>
 

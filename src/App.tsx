@@ -79,6 +79,7 @@ function App() {
                   <Hero />
                   <DeviceShowcase />
                   <WhyChooseUs />
+                  <About />
                   <Services />
                   <Portfolio />
                   <BlogsSection />
@@ -91,6 +92,7 @@ function App() {
                   <Testimonials />
                 </main>
               } />
+              <Route path="/about" element={<About isStandalonePage={true} />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/office/pakistan" element={<Navigate to="/" replace />} />
               <Route path="/office/:country" element={<OfficePage />} />

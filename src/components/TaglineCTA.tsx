@@ -80,8 +80,8 @@ const TaglineCTA: React.FC = () => {
             <div className="mt-7 grid grid-cols-2 divide-x divide-gray-950/30 text-sm">
               <div className="pr-4">
                 <p className="font-semibold text-gray-950">Share Your Idea?</p>
-                <a href="tel:+12012103607" className="font-bold text-gray-950 hover:underline">
-                  +1 (201) 210-3607
+                <a href="tel:+19342035115" className="font-bold text-gray-950 hover:underline">
+                  +1 (934) 203-5115
                 </a>
               </div>
               <div className="pl-4 text-right">

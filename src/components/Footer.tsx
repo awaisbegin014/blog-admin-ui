@@ -472,10 +472,10 @@ const Footer: React.FC = () => {
                   <div>
                     <h4 className="text-sm font-medium text-white mb-1">Phone</h4>
                     <a
-                      href="tel:+12012103607"
+                      href="tel:+19342035115"
                       className="text-gray-400 text-sm hover:text-white transition-colors"
                     >
-                      +1 (201) 210-3607
+                      +1 (934) 203-5115
                     </a>
                   </div>
                 </div>
