@@ -1,0 +1,16 @@
+# Build & Archives
+dist
+dist-ssr
+*.zip
+dist.zip
+
+# Dependencies
+node_modules
+
+# Env & Git
+.git
+.env*
+.vercel
+
+# Logs
+*.log
