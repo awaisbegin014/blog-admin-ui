@@ -13,12 +13,12 @@ interface ContactFormProps {
 
 const OTHER_SERVICE = 'Other / Not sure yet';
 
-// Shared field styles so every control lines up
+// The form sits on a dark brand panel (quote modal + Contact section) in both themes:
+// solid white fields, placeholders as the visible prompt, labels kept for screen readers.
+// dark: variants pin the colours because index.css lightens gray text under .dark.
 const fieldClass =
-  'w-full h-11 rounded-lg bg-gray-50 border border-gray-200 px-3.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors';
-const labelClass = 'block mb-1.5 text-[13px] font-medium text-gray-700 dark:text-gray-200';
-
-const Required = () => <span className="text-primary ml-0.5" aria-hidden="true">*</span>;
+  'w-full h-12 rounded-xl bg-white border-2 border-transparent px-4 text-[15px] text-gray-900 dark:text-gray-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/30 transition-all';
+const labelClass = 'sr-only';
 
 // Shared lead form — used by the Contact section and the "Get a Free Quote" modal.
 // Submissions go to the same Google Form either way.
@@ -114,13 +114,13 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
   if (submitted) {
     return (
       <div className="py-8 px-4 text-center" role="status">
-        <div className="w-14 h-14 rounded-full bg-green-100 dark:bg-green-500/15 flex items-center justify-center mx-auto mb-4">
-          <CheckCircle2 className="w-7 h-7 text-green-600 dark:text-green-400" />
+        <div className="w-14 h-14 rounded-full bg-green-500/15 flex items-center justify-center mx-auto mb-4">
+          <CheckCircle2 className="w-7 h-7 text-green-400" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+        <h3 className="text-xl font-bold text-white dark:text-white mb-2">
           Thank you — we&apos;ve received your request
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm mx-auto leading-relaxed">
+        <p className="text-sm text-gray-300 max-w-sm mx-auto leading-relaxed">
           A member of our team will review your project details and get back to you shortly.
         </p>
         <button
@@ -137,23 +137,23 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
   return (
     <>
       {title && (
-        <h3 className="text-gray-900 dark:text-white text-2xl font-bold mb-5">
+        <h3 className="text-white dark:text-white text-2xl font-bold mb-5">
           {title}
         </h3>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
+      <form onSubmit={handleSubmit} className="space-y-3">
         <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-3">
           <div>
             <label htmlFor={fid('name')} className={labelClass}>
-              Full name<Required />
+              Full name
             </label>
             <input
               id={fid('name')}
               type="text"
               name="name"
               autoComplete="name"
-              placeholder="John Smith"
+              placeholder="Full name *"
               value={formData.name}
               onChange={handleChange}
               autoFocus={autoFocus}
@@ -163,14 +163,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
           </div>
           <div>
             <label htmlFor={fid('email')} className={labelClass}>
-              Work email<Required />
+              Work email
             </label>
             <input
               id={fid('email')}
               type="email"
               name="email"
               autoComplete="email"
-              placeholder="you@company.com"
+              placeholder="Work email *"
               value={formData.email}
               onChange={handleChange}
               className={fieldClass}
@@ -184,7 +184,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
             <label htmlFor={fid('phone')} className={labelClass}>
               Phone number
             </label>
-            <div className="flex items-stretch h-11 rounded-lg bg-gray-50 border border-gray-200 focus-within:bg-white dark:focus-within:bg-gray-900 focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary transition-colors">
+            <div className="flex items-stretch h-12 rounded-xl bg-white border-2 border-transparent shadow-sm focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/30 transition-all">
               <div className="relative shrink-0" ref={countryDropdownRef}>
                 <button
                   type="button"
@@ -192,7 +192,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
                   aria-haspopup="listbox"
                   aria-expanded={isCountryOpen}
                   aria-label={`Country code ${selectedCountry.dial}`}
-                  className="h-full flex items-center gap-0.5 sm:gap-1 pl-2.5 sm:pl-3 pr-1.5 sm:pr-2 border-r border-gray-200 text-sm text-gray-700 dark:text-gray-200 hover:text-primary transition-colors"
+                  className="h-full flex items-center gap-0.5 sm:gap-1 pl-2.5 sm:pl-3 pr-1.5 sm:pr-2 border-r border-black/10 text-[15px] text-gray-900 dark:text-gray-900 hover:text-primary-700 transition-colors"
                 >
                   <span className="font-medium">{selectedCountry.dial}</span>
                   <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform ${isCountryOpen ? 'rotate-180' : ''}`} />
@@ -250,10 +250,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
                 type="tel"
                 name="phone"
                 autoComplete="tel-national"
-                placeholder="555 123 4567"
+                placeholder="Phone number"
                 value={formData.phone}
                 onChange={handleChange}
-                className="flex-1 min-w-0 px-2.5 sm:px-3 bg-transparent text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none"
+                className="flex-1 min-w-0 px-3 bg-transparent text-[15px] text-gray-900 dark:text-gray-900 placeholder-gray-500 focus:outline-none"
               />
             </div>
           </div>
@@ -267,37 +267,37 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
-                className={`${fieldClass} appearance-none pr-9 cursor-pointer dark:[color-scheme:dark] ${formData.service ? '' : '!text-gray-400'}`}
+                className={`${fieldClass} appearance-none pr-10 cursor-pointer [color-scheme:light] ${formData.service ? '' : '!text-gray-500'}`}
               >
-                <option value="" disabled>Select one</option>
+                <option value="" disabled>Service you need</option>
                 {services.map((s) => (
-                  <option key={s.title} value={s.title} className="text-gray-900 dark:text-white">{s.title}</option>
+                  <option key={s.title} value={s.title} className="text-gray-900 dark:text-gray-900">{s.title}</option>
                 ))}
-                <option value={OTHER_SERVICE} className="text-gray-900 dark:text-white">{OTHER_SERVICE}</option>
+                <option value={OTHER_SERVICE} className="text-gray-900 dark:text-gray-900">{OTHER_SERVICE}</option>
               </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
             </div>
           </div>
         </div>
 
         <div>
           <label htmlFor={fid('message')} className={labelClass}>
-            Project details<Required />
+            Project details
           </label>
           <textarea
             id={fid('message')}
             name="message"
-            placeholder="Your project, goals and timeline"
+            placeholder="Tell us about your project, goals and timeline *"
             value={formData.message}
             onChange={handleChange}
-            rows={3}
-            className={`${fieldClass} h-auto py-2.5 resize-none leading-relaxed`}
+            rows={4}
+            className={`${fieldClass} h-auto py-3 resize-none leading-relaxed`}
             required
           ></textarea>
         </div>
 
         {error && (
-          <div className="flex items-start gap-2 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 px-3.5 py-2.5 text-sm text-red-700 dark:text-red-300" role="alert">
+          <div className="flex items-start gap-2 rounded-lg bg-red-500/10 border border-red-500/30 px-3.5 py-2.5 text-sm text-red-300" role="alert">
             <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
             <span>We couldn&apos;t send your request. Please check your connection and try again, or call us directly.</span>
           </div>
@@ -306,7 +306,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn-shine group w-full h-12 text-[15px] rounded-lg font-bold flex items-center justify-center gap-2 transition-all duration-300 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 hover:shadow-xl shadow-lg shadow-yellow-400/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="btn-shine group w-full h-[52px] text-base rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 hover:shadow-xl shadow-lg shadow-yellow-400/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <>
@@ -333,7 +333,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
           )}
         </button>
 
-        <p className="flex items-center justify-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
+        <p className="flex items-center justify-center gap-1.5 text-xs text-gray-400">
           <Lock className="w-3.5 h-3.5" />
           Your information is kept confidential and never shared.
         </p>

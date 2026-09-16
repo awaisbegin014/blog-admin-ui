@@ -24,9 +24,18 @@ const Contact: React.FC = () => {
             </p>
           </Reveal>
 
-          {/* Right: raised white card — taller than the band, so it pops out below it */}
-          <Reveal delay={0.3} className="relative w-full lg:max-w-[540px] lg:ml-auto rounded-3xl bg-white dark:bg-gray-950 border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-5 sm:p-6">
-            <ContactForm title={<>Tell Us About Your <span className="gradient-text">Project</span></>} submitLabel="Send Message" />
+          {/* Right: raised dark brand card (same look as the quote modal) — taller than the band, so it pops out below it */}
+          <Reveal delay={0.3} className="relative w-full lg:max-w-[540px] lg:ml-auto overflow-hidden rounded-3xl bg-gray-950 ring-1 ring-primary/40 shadow-2xl shadow-black/30 p-6 sm:p-8">
+            <div className="pointer-events-none absolute -top-28 -right-24 h-72 w-72 rounded-full bg-primary/25 blur-[90px]" aria-hidden="true" />
+            <div className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-yellow-400/10 blur-[100px]" aria-hidden="true" />
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.06]"
+              style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '22px 22px' }}
+              aria-hidden="true"
+            />
+            <div className="relative">
+              <ContactForm title={<>Tell Us About Your <span className="gradient-text">Project</span></>} submitLabel="Send Message" />
+            </div>
           </Reveal>
         </div>
       </div>

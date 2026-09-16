@@ -58,7 +58,6 @@ const Services: React.FC = () => {
   const [cardWidth, setCardWidth] = useState(0);
   const [offset, setOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [dragStartX, setDragStartX] = useState<number | null>(null);
 
   const gap = 24; // 24px gap for compact, balanced cards
@@ -175,18 +174,6 @@ const Services: React.FC = () => {
     });
   }, [cardWidth, stepWidth]);
 
-  // Auto-slide loop with a 1-second lag pause between moves
-  useEffect(() => {
-    if (isHovered || cardWidth <= 0) return;
-
-    // ~4.5s pause + 920ms animation duration = ~5.5s per cycle
-    const interval = setInterval(() => {
-      slideNext();
-    }, 5500);
-
-    return () => clearInterval(interval);
-  }, [isHovered, cardWidth, slideNext]);
-
   const handleServiceClick = (service: ServiceItem) => {
     const slug = service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+$/, "");
     navigate(`/service/${slug}`);
@@ -226,7 +213,6 @@ const Services: React.FC = () => {
   // Touch & Mouse Drag handlers for interactive sliding
   const handleTouchStart = (e: React.TouchEvent) => {
     setDragStartX(e.touches[0].clientX);
-    setIsHovered(true);
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -236,12 +222,10 @@ const Services: React.FC = () => {
       else if (diff < -50) slidePrev();
     }
     setDragStartX(null);
-    setIsHovered(false);
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setDragStartX(e.clientX);
-    setIsHovered(true);
   };
 
   const handleMouseUp = (e: React.MouseEvent) => {
@@ -251,8 +235,10 @@ const Services: React.FC = () => {
       else if (diff < -50) slidePrev();
     }
     setDragStartX(null);
-    setIsHovered(false);
   };
+
+  const arrowClass =
+    "w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-primary hover:bg-primary hover:text-gray-950 dark:hover:text-gray-950 flex items-center justify-center transition-all duration-500 shadow-sm hover:shadow-lg hover:shadow-primary/25 active:scale-95 cursor-pointer";
 
   const currentWords = impactWords[currentLanguage as keyof typeof impactWords];
 
@@ -282,128 +268,115 @@ const Services: React.FC = () => {
             />
             <span className="heading">across the globe</span>
           </h2>
-
-          {/* Navigation Controls & Status Indicator */}
-          <div className="mt-5 sm:mt-6 flex items-center justify-center gap-4">
-            <button
-              onClick={slidePrev}
-              aria-label="Previous card"
-              className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary flex items-center justify-center transition-all duration-500 shadow-sm hover:shadow-md hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800/80">
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  isHovered ? "bg-yellow-400" : "bg-primary animate-pulse"
-                }`}
-              />
-              <span>{isHovered ? "Paused on Hover" : "Auto-sliding"}</span>
-            </div>
-
-            <button
-              onClick={slideNext}
-              aria-label="Next card"
-              className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary flex items-center justify-center transition-all duration-500 shadow-sm hover:shadow-md hover:scale-105 active:scale-95 cursor-pointer"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
         </div>
 
-        {/* Carousel Container (Overflow Hidden) */}
-        <div
-          ref={sliderRef}
-          className="w-full overflow-hidden relative py-3 sm:py-4 cursor-grab active:cursor-grabbing"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => {
-            setIsHovered(false);
-            setDragStartX(null);
-          }}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-        >
-          {/* Sliding Track */}
-          <div
-            className="flex items-stretch select-none"
-            style={{
-              gap: `${gap}px`,
-              transform: `translateX(-${offset}px)`,
-              transition: isTransitioning
-                ? "transform 900ms cubic-bezier(0.45, 0, 0.25, 1)"
-                : "none",
-            }}
+        {/* Carousel row: previous arrow · cards · next arrow */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          <button
+            onClick={slidePrev}
+            aria-label="Previous card"
+            className={`${arrowClass} shrink-0`}
           >
-            {items.map((service) => (
-              <div
-                key={`${service.title}-${service.originalIndex}`}
-                style={{
-                  width: cardWidth > 0 ? `${cardWidth}px` : "280px",
-                  flex: cardWidth > 0 ? `0 0 ${cardWidth}px` : "0 0 280px",
-                }}
-                className="transition-all duration-500 h-full"
-              >
-                {/* Restored Decent & Professional Card Structure with Original Gradient Hover */}
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          {/* Carousel Container (Overflow Hidden) */}
+          <div
+            ref={sliderRef}
+            className="flex-1 min-w-0 overflow-hidden relative py-3 sm:py-4 cursor-grab active:cursor-grabbing"
+            onMouseLeave={() => setDragStartX(null)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+          >
+            {/* Sliding Track */}
+            <div
+              className="flex items-stretch select-none"
+              style={{
+                gap: `${gap}px`,
+                transform: `translateX(-${offset}px)`,
+                transition: isTransitioning
+                  ? "transform 900ms cubic-bezier(0.45, 0, 0.25, 1)"
+                  : "none",
+              }}
+            >
+              {items.map((service) => (
                 <div
-                  onClick={() => handleServiceClick(service)}
-                  className="service-card relative min-h-[350px] sm:min-h-[370px] h-full flex flex-col justify-between p-5 sm:p-6 rounded-2xl overflow-hidden
-                  bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-primary/25
-                  hover:border-primary dark:hover:border-primary
-                  transition-all duration-500 transform hover:-translate-y-1.5
-                  cursor-pointer group"
+                  key={`${service.title}-${service.originalIndex}`}
+                  style={{
+                    width: cardWidth > 0 ? `${cardWidth}px` : "280px",
+                    flex: cardWidth > 0 ? `0 0 ${cardWidth}px` : "0 0 280px",
+                  }}
+                  className="transition-all duration-500 h-full"
                 >
-                  {/* Vibrant Orange & Yellow Gradient Hover Effect (No Slide, Just Pure Gradient) */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  {/* Restored Decent & Professional Card Structure with Original Gradient Hover */}
+                  <div
+                    onClick={() => handleServiceClick(service)}
+                    className="service-card relative min-h-[350px] sm:min-h-[370px] h-full flex flex-col justify-between p-5 sm:p-6 rounded-2xl overflow-hidden
+                    bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-primary/25
+                    hover:border-primary dark:hover:border-primary
+                    transition-all duration-500 transform hover:-translate-y-1.5
+                    cursor-pointer group"
+                  >
+                    {/* Vibrant Orange & Yellow Gradient Hover Effect (No Slide, Just Pure Gradient) */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                  {/* Card Content Body */}
-                  <div className="relative z-10 flex flex-col flex-grow">
-                    {/* Illustration Panel */}
-                    <div className="relative -mx-1 -mt-1 mb-3.5 h-28 sm:h-32 rounded-xl bg-primary-50 dark:bg-gray-100 flex items-center justify-center px-3 py-2 overflow-hidden">
-                      <div className="w-full h-full flex items-center justify-center">{getArt(service)}</div>
+                    {/* Card Content Body */}
+                    <div className="relative z-10 flex flex-col flex-grow">
+                      {/* Illustration Panel */}
+                      <div className="relative -mx-1 -mt-1 mb-3.5 h-28 sm:h-32 rounded-xl bg-primary-50 dark:bg-gray-100 flex items-center justify-center px-3 py-2 overflow-hidden">
+                        <div className="w-full h-full flex items-center justify-center">{getArt(service)}</div>
 
-                      {/* Watermark Index Badge, painted above the illustration */}
-                      <span className="absolute top-1.5 right-2.5 text-lg sm:text-xl font-black text-primary/25 select-none">
-                        {String(service.originalIndex).padStart(2, "0")}
-                      </span>
+                        {/* Watermark Index Badge, painted above the illustration */}
+                        <span className="absolute top-1.5 right-2.5 text-lg sm:text-xl font-black text-primary/25 select-none">
+                          {String(service.originalIndex).padStart(2, "0")}
+                        </span>
+                      </div>
+
+                      <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-500 text-gray-900 dark:text-white cursor-pointer leading-snug line-clamp-2 min-h-[2.6rem] sm:min-h-[3rem]">
+                        {service.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-950 font-normal transition-colors duration-500 leading-relaxed line-clamp-2 overflow-hidden min-h-[2.5rem] max-h-[2.75rem]">
+                        {formatDescription(service.description, 82)}
+                      </p>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-500 text-gray-900 dark:text-white cursor-pointer leading-snug line-clamp-2 min-h-[2.6rem] sm:min-h-[3rem]">
-                      {service.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-950 font-normal transition-colors duration-500 leading-relaxed line-clamp-2 overflow-hidden min-h-[2.5rem] max-h-[2.75rem]">
-                      {formatDescription(service.description, 82)}
-                    </p>
-                  </div>
-
-                  {/* Clean Bottom Action Bar */}
-                  <div className="relative z-10 mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-gray-100 dark:border-gray-800 group-hover:border-black/15 dark:group-hover:border-black/15 transition-colors duration-500 flex items-center justify-between">
-                    <span className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-primary group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-500">
-                      READ MORE
-                    </span>
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/10 group-hover:bg-gray-950 dark:group-hover:bg-gray-950 flex items-center justify-center text-primary group-hover:text-white transition-all duration-500 group-hover:translate-x-1 shadow-sm">
-                      <svg
-                        className="w-3.5 h-3.5 sm:w-4 sm:h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2.5}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
+                    {/* Clean Bottom Action Bar */}
+                    <div className="relative z-10 mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-gray-100 dark:border-gray-800 group-hover:border-black/15 dark:group-hover:border-black/15 transition-colors duration-500 flex items-center justify-between">
+                      <span className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-primary group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-500">
+                        READ MORE
+                      </span>
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/10 group-hover:bg-gray-950 dark:group-hover:bg-gray-950 flex items-center justify-center text-primary group-hover:text-white transition-all duration-500 group-hover:translate-x-1 shadow-sm">
+                        <svg
+                          className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2.5}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
+          <button
+            onClick={slideNext}
+            aria-label="Next card"
+            className={`${arrowClass} shrink-0`}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </section>

@@ -629,8 +629,9 @@ const Navbar: React.FC = () => {
           : 'bg-white dark:bg-black shadow-md py-2'
       }`}
     >
-      {/* Logo left · links centred between logo and actions · actions right */}
-      <div className="container mx-auto px-4 flex justify-between items-center md:grid md:grid-cols-[auto_1fr_auto] md:gap-6">
+      {/* Logo left · links centred on the page · actions right. Equal 1fr side
+          columns keep the links truly centred; tablets fall back to auto columns. */}
+      <div className="container mx-auto px-4 flex justify-between items-center md:grid md:grid-cols-[auto_1fr_auto] lg:grid-cols-[1fr_auto_1fr] md:gap-6">
         {/* 🔹 Logo always redirects to home */}
         <a href="/" onClick={handleNavigation} className="cursor-pointer justify-self-start">
           <Logo className="h-12 md:h-16 w-auto object-contain transition-opacity duration-300" />
@@ -775,23 +776,6 @@ const Navbar: React.FC = () => {
         {/* Desktop actions */}
         <div className="hidden md:flex items-center justify-self-end gap-3 xl:gap-4">
           <ThemeToggle />
-
-          {/* Click-to-call — no handleNavigation, so the dialer opens normally */}
-          <a
-            href="tel:+19342035115"
-            className={`hidden xl:flex items-center gap-2 text-sm font-semibold whitespace-nowrap transition-colors ${
-              isTransparent
-                ? 'text-white hover:text-white/80'
-                : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary'
-            }`}
-          >
-            <PhoneCall className="w-4 h-4 text-primary" />
-            +1 (934) 203-5115
-          </a>
-          <span
-            aria-hidden="true"
-            className={`hidden xl:block h-6 w-px ${isTransparent ? 'bg-white/60' : 'bg-gray-300 dark:bg-gray-700'}`}
-          />
 
           <button
             type="button"
