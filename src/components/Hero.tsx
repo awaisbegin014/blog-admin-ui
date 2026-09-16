@@ -371,19 +371,6 @@ const Hero: React.FC = () => {
           </div>
         )}
       </div>
-
-      {/* Navigation dots */}
-      <div className="absolute bottom-6 w-full flex justify-center gap-3 z-30">
-        {[0, 1].map((i) => (
-          <button
-            key={i}
-            onClick={() => setActiveSlide(i)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              activeSlide === i ? 'bg-primary scale-125' : 'bg-white/50'
-            }`}
-          />
-        ))}
-      </div>
     </section>
   );
 };

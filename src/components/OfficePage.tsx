@@ -812,7 +812,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
       {/* WhatsApp Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-20 right-6 z-50">
         {/* Message Tooltip */}
         <div 
           className={`absolute bottom-16 right-0 bg-white dark:bg-gray-800 text-gray-900 dark:text-white px-4 py-2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 whitespace-nowrap transition-all duration-500 ${

@@ -289,7 +289,7 @@ const YellowMarketing: React.FC = () => {
       {/* Sticky CTA Button */}
       <button
         onClick={handleContactRedirect}
-        className="fixed bottom-6 right-6 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 z-50 flex items-center font-semibold"
+        className="fixed bottom-20 right-6 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 z-50 flex items-center font-semibold"
       >
         <span>Contact Us</span>
         <ArrowRight className="ml-2 w-5 h-5" />

@@ -18,6 +18,7 @@ import BlogsSection from './components/BlogsSection';
 import BlogsPage from './components/BlogsPage';
 import BlogPost from './components/BlogPost';
 import Footer from './components/Footer';
+import CallBand from './components/CallBand';
 import Careers from './components/Careers';
 import OfficePage from './components/OfficePage';
 import ServicePage from './components/ServicePage';
@@ -102,6 +103,9 @@ function App() {
               <Route path="/blogs/:slug" element={<BlogPost />} />
             </Routes>
             <Footer />
+            {/* Spacer so the fixed call band never covers the end of the footer */}
+            <div className="h-12 md:h-14" aria-hidden="true" />
+            <CallBand />
           </div>
         } />
       </Routes>

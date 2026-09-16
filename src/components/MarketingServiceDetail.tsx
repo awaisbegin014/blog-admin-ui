@@ -1237,7 +1237,7 @@ const MarketingServiceDetail: React.FC = () => {
       {/* Enhanced Floating Action Button */}
       <button
         onClick={handleContactRedirect}
-        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 bg-primary hover:bg-primary/90 text-white p-3 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 z-50 flex items-center font-bold text-sm md:text-base group"
+        className="fixed bottom-16 right-4 md:bottom-20 md:right-6 lg:bottom-24 lg:right-8 bg-primary hover:bg-primary/90 text-white p-3 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 z-50 flex items-center font-bold text-sm md:text-base group"
       >
         <span className="hidden md:inline">Contact Us</span>
         <span className="md:hidden text-xl">💬</span>

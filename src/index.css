@@ -302,6 +302,30 @@
     animation: gradient-shift 8s ease infinite;
   }
 
+  /* "Ready? Click to call" band — whole bar slides in from the left, then
+     stays put and blinks smoothly */
+  @keyframes call-band-in {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes call-band-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  .call-band-slide {
+    animation:
+      call-band-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
+      call-band-blink 2.4s ease-in-out 1.2s infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .call-band-slide {
+      animation: none;
+    }
+  }
+
   /* Smooth transitions */
   .transition-smooth {
     @apply transition-all duration-500 ease-out;
