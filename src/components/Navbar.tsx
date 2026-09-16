@@ -546,7 +546,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, PhoneCall } from 'lucide-react';
 import { navItems, services } from '../data/content';
 import Logo from './ui/Logo';
 import ThemeToggle from './ui/ThemeToggle';
@@ -626,7 +626,7 @@ const Navbar: React.FC = () => {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6 relative">
+        <nav className="hidden md:flex flex-1 items-center gap-1 lg:gap-2 ml-6 lg:ml-12 xl:ml-16 relative">
           <a
             href="#home"
             onClick={handleNavigation}
@@ -760,9 +760,26 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 ml-auto">
+          <div className="flex items-center gap-3 xl:gap-4 ml-auto pl-4">
             <ThemeToggle />
-            
+
+            {/* Click-to-call — no handleNavigation, so the dialer opens normally */}
+            <a
+              href="tel:+19342035115"
+              className={`hidden xl:flex items-center gap-2 text-sm font-semibold whitespace-nowrap transition-colors ${
+                isTransparent
+                  ? 'text-white hover:text-white/80'
+                  : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary'
+              }`}
+            >
+              <PhoneCall className="w-4 h-4 text-primary" />
+              +1 (934) 203-5115
+            </a>
+            <span
+              aria-hidden="true"
+              className={`hidden xl:block h-6 w-px ${isTransparent ? 'bg-white/60' : 'bg-gray-300 dark:bg-gray-700'}`}
+            />
+
             <a
               href="/yellowmarketing"
               onClick={handleNavigation}
@@ -781,26 +798,35 @@ const Navbar: React.FC = () => {
           </div>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden focus:outline-none"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? (
-            <X
-              className={`w-6 h-6 ${
-                scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
-              }`}
-            />
-          ) : (
-            <Menu
-              className={`w-6 h-6 ${
-                scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
-              }`}
-            />
-          )}
-        </button>
+        {/* Mobile click-to-call + menu button */}
+        <div className="md:hidden flex items-center gap-3">
+          <a
+            href="tel:+19342035115"
+            aria-label="Call +1 (934) 203-5115"
+            className="p-2 rounded-full bg-gradient-to-r from-primary via-amber-400 to-yellow-400 shadow-lg shadow-yellow-400/20"
+          >
+            <PhoneCall className="w-5 h-5 text-gray-950" />
+          </a>
+          <button
+            className="focus:outline-none"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <X
+                className={`w-6 h-6 ${
+                  scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
+                }`}
+              />
+            ) : (
+              <Menu
+                className={`w-6 h-6 ${
+                  scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
+                }`}
+              />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
