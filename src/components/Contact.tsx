@@ -15,7 +15,7 @@ const Contact: React.FC = () => {
       <div className="container relative py-16 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 lg:items-start">
           {/* Left: headline */}
-          <Reveal direction="right" distance={30} className="text-white">
+          <Reveal direction="right" className="text-white">
             <h2 className="font-poppins text-4xl sm:text-5xl font-extrabold mb-5 leading-[1.1] text-white">
               You&apos;ve Got <span className="gradient-text">Questions?</span>
             </h2>
@@ -25,7 +25,7 @@ const Contact: React.FC = () => {
           </Reveal>
 
           {/* Right: raised white card — taller than the band, so it pops out below it */}
-          <Reveal distance={60} duration={0.8} delay={0.15} className="relative w-full lg:max-w-[540px] lg:ml-auto rounded-3xl bg-white dark:bg-gray-950 border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-5 sm:p-6">
+          <Reveal delay={0.3} className="relative w-full lg:max-w-[540px] lg:ml-auto rounded-3xl bg-white dark:bg-gray-950 border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-5 sm:p-6">
             <ContactForm title={<>Tell Us About Your <span className="gradient-text">Project</span></>} submitLabel="Send Message" />
           </Reveal>
         </div>

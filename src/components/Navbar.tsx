@@ -560,6 +560,13 @@ const Navbar: React.FC = () => {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const closeQuote = useCallback(() => setQuoteOpen(false), []);
 
+  // Other components (e.g. the footer CTA) open the quote modal via this event
+  useEffect(() => {
+    const openQuote = () => setQuoteOpen(true);
+    window.addEventListener('open-quote-modal', openQuote);
+    return () => window.removeEventListener('open-quote-modal', openQuote);
+  }, []);
+
   const navigate = useNavigate();
   const location = useLocation();
   const isHomePage = location.pathname === '/';
@@ -616,7 +623,7 @@ const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isHomePage
-          ? scrolled
+          ? scrolled || isOpen
             ? 'bg-white dark:bg-black shadow-md py-2'
             : 'bg-transparent py-4'
           : 'bg-white dark:bg-black shadow-md py-2'
@@ -626,7 +633,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex justify-between items-center md:grid md:grid-cols-[auto_1fr_auto] md:gap-6">
         {/* 🔹 Logo always redirects to home */}
         <a href="/" onClick={handleNavigation} className="cursor-pointer justify-self-start">
-          <Logo />
+          <Logo className="h-12 md:h-16 w-auto object-contain transition-opacity duration-300" />
         </a>
 
         {/* Desktop Navigation */}
@@ -746,7 +753,7 @@ const Navbar: React.FC = () => {
             <div className="absolute left-0 mt-2 w-48 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-xl opacity-0 invisible group-hover/company:opacity-100 group-hover/company:visible transition-all duration-300 z-50 overflow-hidden transform origin-top translate-y-2 group-hover/company:translate-y-0">
               <div className="py-2">
                 {[
-                  { title: 'About', href: '#about' },
+                  { title: 'About', href: '#why-us' },
                   { title: 'Offices', href: '#offices' },
                   { title: 'Careers', href: '/careers' },
                   { title: 'Contact', href: '#contact' },
@@ -812,13 +819,13 @@ const Navbar: React.FC = () => {
             {isOpen ? (
               <X
                 className={`w-6 h-6 ${
-                  scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
+                  scrolled || isOpen ? 'text-gray-800 dark:text-gray-200' : 'text-white'
                 }`}
               />
             ) : (
               <Menu
                 className={`w-6 h-6 ${
-                  scrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
+                  scrolled || isOpen ? 'text-gray-800 dark:text-gray-200' : 'text-white'
                 }`}
               />
             )}
@@ -828,7 +835,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="md:hidden bg-white dark:bg-black">
+        <div className="md:hidden bg-white dark:bg-black max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="px-4 pt-4 pb-6 space-y-2">
             {navItems.map((item) => (
               <a

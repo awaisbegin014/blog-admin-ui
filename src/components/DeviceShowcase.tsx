@@ -1093,7 +1093,7 @@ const showcaseSlides: SlideItem[] = [
 ];
 
 // Must match the 800ms showcase-* animations in tailwind.config.js.
-const SLIDE_MS = 800;
+const SLIDE_MS = 1100;
 
 /* One full set of devices (tablet · desktop · phone) showing a single project.
    Rendered twice during a change: the outgoing set slides out while the
@@ -1221,12 +1221,12 @@ const DeviceShowcase: React.FC = () => {
     goToSlide(activeIndex, (activeIndex - 1 + showcaseSlides.length) % showcaseSlides.length, 'prev');
   }, [activeIndex, goToSlide]);
 
-  // Auto-advance: 0.8s slide + ~3.7s on screen. Keyed on activeIndex (via
+  // Auto-advance: 1.1s slide + ~4.4s on screen. Keyed on activeIndex (via
   // goNext) so the countdown restarts after any change, including manual clicks.
   // Deliberately not paused on hover: the section fills most of the viewport,
   // so a hover pause meant it almost never moved while someone was viewing it.
   useEffect(() => {
-    const timer = setTimeout(goNext, 4500);
+    const timer = setTimeout(goNext, 5500);
     return () => clearTimeout(timer);
   }, [goNext]);
 
@@ -1258,12 +1258,12 @@ const DeviceShowcase: React.FC = () => {
         </Reveal>
 
         {/* Device Mockup Display Container */}
-        <Reveal delay={0.1} distance={40} duration={0.8} className="relative max-w-6xl mx-auto pt-2">
+        <Reveal delay={0.3} className="relative max-w-6xl mx-auto pt-2 pb-16 sm:pb-0">
           {/* Navigation Arrow - Left */}
           <button
             onClick={goPrev}
             aria-label="Previous project"
-            className="absolute left-0 md:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/20 text-white hover:bg-primary hover:border-primary hover:text-gray-950 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
+            className="absolute bottom-0 left-[calc(50%-3rem)] sm:bottom-auto sm:left-0 md:-left-8 lg:-left-12 sm:top-1/2 sm:-translate-y-1/2 z-40 w-11 h-11 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/20 text-white hover:bg-primary hover:border-primary hover:text-gray-950 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -1301,7 +1301,7 @@ const DeviceShowcase: React.FC = () => {
           <button
             onClick={goNext}
             aria-label="Next project"
-            className="absolute right-0 md:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/20 text-white hover:bg-primary hover:border-primary hover:text-gray-950 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
+            className="absolute bottom-0 right-[calc(50%-3rem)] sm:bottom-auto sm:right-0 md:-right-8 lg:-right-12 sm:top-1/2 sm:-translate-y-1/2 z-40 w-11 h-11 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/20 text-white hover:bg-primary hover:border-primary hover:text-gray-950 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>

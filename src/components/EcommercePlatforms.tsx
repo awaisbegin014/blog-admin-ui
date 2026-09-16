@@ -58,17 +58,17 @@ const EcommercePlatforms: React.FC = () => {
         </Reveal>
 
         {/* 4 Cards Grid */}
-        <Stagger className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" stagger={0.1}>
+        <Stagger className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-8">
           {platforms.map((platform) => (
             <StaggerItem key={platform.name}>
               <div
-                className="group bg-white rounded-3xl p-8 sm:p-10 border border-gray-100/90 hover:border-primary/40 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_45px_rgba(249,185,24,0.14)] hover:-translate-y-2 transition-all duration-300 flex items-center justify-center aspect-square min-h-[220px]"
+                className="group bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-10 border border-gray-100/90 hover:border-primary/40 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_45px_rgba(249,185,24,0.14)] hover:-translate-y-2 transition-all duration-500 flex items-center justify-center aspect-square sm:min-h-[220px]"
               >
                 <img
                   src={platform.logo}
                   alt={platform.name}
                   loading="lazy"
-                  className="w-full h-full max-h-36 sm:max-h-40 object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full max-h-24 sm:max-h-40 object-contain transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </StaggerItem>

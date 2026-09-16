@@ -143,9 +143,11 @@ const Portfolio: React.FC = () => {
             </span>{' '}
             Solutions
             <br className="hidden sm:inline" /> With A History of{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319]">
-              <CountUp to={1000} suffix="+" />
-            </span>{' '}
+            <CountUp
+              to={1000}
+              suffix="+"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319]"
+            />{' '}
             Satisfied Clients
           </h2>
           <p className="mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed">
@@ -156,7 +158,7 @@ const Portfolio: React.FC = () => {
         {/* ─── Two-Column Layout: Sidebar Tabs + Grid Gallery ─── */}
         <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
           {/* Left Category Tabs */}
-          <Reveal direction="right" className="w-full md:w-60 lg:w-64 flex-shrink-0 flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-3 md:pb-0 scrollbar-none">
+          <Reveal direction="right" className="w-full md:w-60 lg:w-64 flex-shrink-0 flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-1 md:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 sm:mx-0 sm:px-0">
             {portfolioCategories.map((cat) => {
               const isActive = activeTab === cat.id;
               const Icon = cat.icon;
@@ -164,7 +166,7 @@ const Portfolio: React.FC = () => {
                 <button
                   key={cat.id}
                   onClick={() => setActiveTab(cat.id)}
-                  className={`group w-full text-left px-5 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 flex items-center justify-between whitespace-nowrap ${
+                  className={`group w-auto md:w-full shrink-0 text-left px-4 py-2.5 md:px-5 md:py-3.5 rounded-xl font-semibold text-sm md:text-base gap-3 transition-all duration-500 flex items-center justify-between whitespace-nowrap ${
                     isActive
                       ? 'bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319] text-gray-950 shadow-lg shadow-[#f9b918]/30 font-bold scale-[1.02]'
                       : 'text-gray-700 dark:text-gray-300 hover:text-gray-950 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800/70 border border-transparent'
@@ -194,14 +196,14 @@ const Portfolio: React.FC = () => {
 
           {/* Right Gallery Windows Grid — re-keyed per tab so the cards stagger in again on switch */}
           <div className="flex-1 w-full">
-            <Stagger key={activeTab} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7" stagger={0.06}>
+            <Stagger key={activeTab} stagger={0.12} className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-7">
               {items.map((item) => (
                 <StaggerItem
                   key={item.id}
-                  className="portfolio-window group relative rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-800 hover:border-[#f9b918] bg-white dark:bg-gray-900 shadow-md hover:shadow-2xl hover:shadow-[#f9b918]/20 transition-[border-color,box-shadow] duration-300"
+                  className="portfolio-window group relative rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-800 hover:border-[#f9b918] bg-white dark:bg-gray-900 shadow-md hover:shadow-2xl hover:shadow-[#f9b918]/20 transition-[border-color,box-shadow] duration-500"
                 >
                   {/* Window Image Viewport with Hover Scroll Effect */}
-                  <div className="h-[270px] w-full overflow-hidden relative bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
+                  <div className="h-[170px] sm:h-[270px] w-full overflow-hidden relative bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
                     <img
                       src={item.image}
                       alt={item.title}

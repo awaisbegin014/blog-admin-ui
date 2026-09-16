@@ -217,8 +217,8 @@ const Hero: React.FC = () => {
   // Animation for slide content
   useEffect(() => {
     const timeline = anime.timeline({
-      easing: 'easeOutExpo',
-      duration: 1000,
+      easing: 'easeOutCubic',
+      duration: 1400,
     });
 
     timeline
@@ -233,7 +233,7 @@ const Hero: React.FC = () => {
           opacity: [0, 1],
           translateY: [30, 0],
         },
-        '-=800'
+        '-=1000'
       )
       .add(
         {
@@ -241,7 +241,7 @@ const Hero: React.FC = () => {
           opacity: [0, 1],
           translateY: [20, 0],
         },
-        '-=600'
+        '-=900'
       );
 
     return () => timeline.pause();

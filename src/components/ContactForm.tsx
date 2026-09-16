@@ -142,8 +142,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
         </h3>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-3.5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
+        <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-3">
           <div>
             <label htmlFor={fid('name')} className={labelClass}>
               Full name<Required />
@@ -170,7 +170,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
               type="email"
               name="email"
               autoComplete="email"
-              placeholder="john@company.com"
+              placeholder="you@company.com"
               value={formData.email}
               onChange={handleChange}
               className={fieldClass}
@@ -179,7 +179,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-3">
           <div>
             <label htmlFor={fid('phone')} className={labelClass}>
               Phone number
@@ -192,7 +192,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
                   aria-haspopup="listbox"
                   aria-expanded={isCountryOpen}
                   aria-label={`Country code ${selectedCountry.dial}`}
-                  className="h-full flex items-center gap-1 pl-3 pr-2 border-r border-gray-200 text-sm text-gray-700 dark:text-gray-200 hover:text-primary transition-colors"
+                  className="h-full flex items-center gap-0.5 sm:gap-1 pl-2.5 sm:pl-3 pr-1.5 sm:pr-2 border-r border-gray-200 text-sm text-gray-700 dark:text-gray-200 hover:text-primary transition-colors"
                 >
                   <span className="font-medium">{selectedCountry.dial}</span>
                   <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform ${isCountryOpen ? 'rotate-180' : ''}`} />
@@ -250,16 +250,16 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
                 type="tel"
                 name="phone"
                 autoComplete="tel-national"
-                placeholder="(555) 123-4567"
+                placeholder="555 123 4567"
                 value={formData.phone}
                 onChange={handleChange}
-                className="flex-1 min-w-0 px-3 bg-transparent text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none"
+                className="flex-1 min-w-0 px-2.5 sm:px-3 bg-transparent text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none"
               />
             </div>
           </div>
           <div>
             <label htmlFor={fid('service')} className={labelClass}>
-              Service you&apos;re interested in
+              Service
             </label>
             <div className="relative">
               <select
@@ -269,7 +269,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
                 onChange={handleChange}
                 className={`${fieldClass} appearance-none pr-9 cursor-pointer dark:[color-scheme:dark] ${formData.service ? '' : '!text-gray-400'}`}
               >
-                <option value="" disabled>Select a service</option>
+                <option value="" disabled>Select one</option>
                 {services.map((s) => (
                   <option key={s.title} value={s.title} className="text-gray-900 dark:text-white">{s.title}</option>
                 ))}
@@ -287,7 +287,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
           <textarea
             id={fid('message')}
             name="message"
-            placeholder="Briefly describe your project, goals and timeline"
+            placeholder="Your project, goals and timeline"
             value={formData.message}
             onChange={handleChange}
             rows={3}

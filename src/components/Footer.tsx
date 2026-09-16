@@ -302,9 +302,10 @@
 
 import React from 'react';
 import footerLogo from '../assests/logo-white.png';
-import { navItems, services } from '../data/content';
-import { Facebook, Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { services } from '../data/content';
+import { Facebook, Linkedin, Instagram, Mail, Phone, PhoneCall, MapPin, Clock, ArrowRight, ArrowUp, Star } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Reveal, Stagger, StaggerItem } from './ui/Motion';
 
 const slugify = (s: string) =>
   s
@@ -313,13 +314,46 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
 
+const usefulLinks = [
+  { title: 'Why Choose Us', href: '#why-us' },
+  { title: 'Portfolio', href: '#portfolio' },
+  { title: 'Pricing', href: '#pricing' },
+  { title: 'Blogs', href: '/blogs' },
+  { title: 'Careers', href: '/careers' },
+  { title: 'Contact Us', href: '#contact' },
+];
+
+const socialLinks = [
+  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61563924716395', Icon: Facebook },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/yellow-solutionss/', Icon: Linkedin },
+  { label: 'Instagram', href: 'https://www.instagram.com/yellow._solutions/', Icon: Instagram },
+];
+
+// Only the headline services — the full list lives in the Services section
+const FEATURED_SERVICE_COUNT = 6;
+
+// Shorter footer labels so long service titles don't wrap
+const serviceLabels: Record<string, string> = {
+  'Social Media Management and Content Creation': 'Social Media & Content',
+  'Search Engine Optimization': 'SEO',
+  'AI Automations / AI Business Automation': 'AI Automation',
+};
+
+const linkClass = 'text-sm text-gray-400 hover:text-primary transition-colors';
+
+const ColumnHeading: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <h3 className="mb-5 text-sm font-bold uppercase tracking-[0.14em] text-white dark:text-white">
+    {children}
+    <span className="mt-2 block h-0.5 w-8 rounded-full bg-primary" aria-hidden="true" />
+  </h3>
+);
+
 const Footer: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ✅ Same logic as Navbar for smooth scroll + routing
-  // Footer logo: smooth-scroll to the top of the home page (navigating there first if needed)
-  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  // Logo and "Back to top": smooth-scroll to the top of the home page (navigating there first if needed)
+  const handleBackToTop = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     if (location.pathname === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -328,16 +362,12 @@ const Footer: React.FC = () => {
     }
   };
 
+  // ✅ Same logic as Navbar for smooth scroll + routing
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const href = e.currentTarget.getAttribute('href');
 
     if (!href) return;
-
-    if (href === '/') {
-      navigate('/');
-      return;
-    }
 
     if (href.startsWith('#')) {
       if (location.pathname !== '/') {
@@ -355,182 +385,179 @@ const Footer: React.FC = () => {
     }
   };
 
-  // Defensive: ensure we always have an array
-  const serviceList = Array.isArray(services) ? services : [];
-
-  // Split services into 2 nearly equal columns
-  const half = Math.ceil(serviceList.length / 2);
-  const serviceColumns = [serviceList.slice(0, half), serviceList.slice(half)];
+  const featuredServices = services.slice(0, FEATURED_SERVICE_COUNT);
 
   return (
-    <footer className="bg-black text-white pt-16 pb-8">
-      <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-10 gap-y-12">
-          {/* Company Info */}
-          <div className="lg:col-span-3">
-            <a
-              href="/"
-              onClick={handleLogoClick}
-              aria-label="Back to top"
-              title="Back to top"
-              className="group inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-black"
-            >
-              <img
-                src={footerLogo}
-                alt="The Yellow Solutions Logo"
-                className="h-16 w-auto object-contain transition-transform duration-300 ease-out group-hover:-translate-y-1"
-              />
-            </a>
+    <footer className="bg-white dark:bg-black px-3 sm:px-4 pt-6 pb-4">
+      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gray-950 text-white ring-1 ring-white/10">
+        {/* Soft brand glow */}
+        <div className="pointer-events-none absolute -top-40 -right-32 h-80 w-80 rounded-full bg-primary/15 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-72 w-72 rounded-full bg-yellow-400/10 blur-3xl" aria-hidden="true" />
 
-            <p className="mt-5 text-gray-400 text-sm leading-relaxed max-w-xs">
-              Transforming ideas into powerful software solutions. Your trusted
-              partner in digital innovation.
-            </p>
-            <div className="flex space-x-4 mt-6">
-              <a
-                href="https://www.facebook.com/profile.php?id=61563924716395"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-primary transition-colors"
+        {/* CTA banner */}
+        <Reveal className="relative border-b border-white/10 px-5 sm:px-10 lg:px-12 py-7 sm:py-10">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Have a project in mind?</p>
+              <h2 className="mt-2 font-poppins text-2xl sm:text-3xl font-bold leading-tight text-white dark:text-white">
+                Let&apos;s build something <span className="text-primary">great</span> together.
+              </h2>
+              <p className="mt-2 text-sm sm:text-base text-gray-400">
+                Tell us what you need — we&apos;ll reply with ideas, a clear plan and a free estimate.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event('open-quote-modal'))}
+                className="btn-shine group inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl text-sm font-bold bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 shadow-lg shadow-yellow-400/20 hover:brightness-105 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950"
               >
-                <Facebook className="w-4 h-4" />
-              </a>
+                Get a Free Quote
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
               <a
-                href="https://www.linkedin.com/company/yellow-solutionss/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-primary transition-colors"
+                href="tel:+19342035115"
+                className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl text-sm font-semibold text-white ring-1 ring-white/20 hover:ring-primary hover:text-primary transition-colors"
               >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.instagram.com/yellow._solutions/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-gray-700 rounded-full flex items-center justify-center hover:bg-primary transition-colors"
-              >
-                <Instagram className="w-4 h-4" />
+                <PhoneCall className="h-4 w-4" />
+                Call +1 (934) 203-5115
               </a>
             </div>
           </div>
+        </Reveal>
 
-          {/* Quick Links */}
-          <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold mb-6 text-white">
-              <span className="heading">Quick Links</span>
-            </h3>
-            <ul className="space-y-3 text-sm">
-              {navItems.map((item) => (
-                <li key={item.title}>
+        <div className="relative px-5 sm:px-10 lg:px-12 pt-8 sm:pt-12 pb-6">
+          <Stagger className="grid grid-cols-2 lg:grid-cols-12 gap-x-6 sm:gap-x-8 gap-y-10">
+            {/* Brand */}
+            <StaggerItem className="col-span-2 lg:col-span-4 lg:pr-6">
+              <a
+                href="/"
+                onClick={handleBackToTop}
+                aria-label="Back to top"
+                title="Back to top"
+                className="group inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-gray-950"
+              >
+                <img
+                  src={footerLogo}
+                  alt="The Yellow Solutions Logo"
+                  className="h-12 w-auto object-contain transition-transform duration-300 ease-out group-hover:-translate-y-1"
+                />
+              </a>
+
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-400">
+                Websites, apps, AI automation and marketing built around your goals. No templates, no
+                shortcuts — just clean work and a team that has your back.
+              </p>
+
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 ring-1 ring-white/10">
+                <span className="flex" aria-hidden="true">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-primary text-primary" />
+                  ))}
+                </span>
+                <span className="text-xs font-medium text-gray-300">Trusted by 1000+ satisfied clients</span>
+              </div>
+
+              <div className="mt-5 flex items-center gap-3">
+                {socialLinks.map(({ label, href, Icon }) => (
                   <a
-                    href={item.href}
-                    onClick={handleNavigation}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Yellow Solutions on ${label}`}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-gray-300 ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary hover:text-gray-950 hover:ring-primary"
                   >
-                    {item.title}
+                    <Icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+            </StaggerItem>
+
+            {/* Services */}
+            <StaggerItem className="lg:col-span-3 lg:border-l lg:border-white/10 lg:pl-8">
+              <ColumnHeading>Services</ColumnHeading>
+              <ul className="space-y-2.5">
+                {featuredServices.map((service) => (
+                  <li key={service.title}>
+                    <a href={`/service/${slugify(service.title)}`} onClick={handleNavigation} className={linkClass}>
+                      {serviceLabels[service.title] ?? service.title}
+                    </a>
+                  </li>
+                ))}
+                <li className="pt-1">
+                  <a
+                    href="#services"
+                    onClick={handleNavigation}
+                    className="group inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-yellow-300 transition-colors"
+                  >
+                    View all services
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </a>
                 </li>
-              ))}
-            </ul>
-          </div>
+              </ul>
+            </StaggerItem>
 
-          {/* Services (2-column layout; full-width row on tablets) */}
-          <div className="md:col-span-2 lg:col-span-4">
-            <h3 className="text-lg font-semibold mb-6 text-white">
-              <span className="heading">Our Services</span>
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
-              {serviceColumns.map((col, colIdx) => (
-                <ul key={colIdx} className="space-y-3 text-sm leading-snug">
-                  {col.map((service) => {
-                    const to = service.slug
-                      ? `/service/${service.slug}`
-                      : `/service/${slugify(service.title)}`;
-                    return (
-                      <li key={service.title}>
-                        <a
-                          href={to}
-                          onClick={handleNavigation}
-                          className="text-gray-400 hover:text-white transition-colors"
-                        >
-                          {service.title}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact Information (details + hours side by side on tablets) */}
-          <div className="md:col-span-2 lg:col-span-3">
-            <h3 className="text-lg font-semibold mb-6 text-white">
-              <span className="heading">Contact Information</span>
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8">
-              <div className="space-y-5">
-                <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <div className="min-w-0">
-                    <h4 className="text-sm font-medium text-white mb-1">Email</h4>
-                    <a
-                      href="mailto:info@theyellowsolutions.com"
-                      className="text-gray-400 text-sm break-words hover:text-white transition-colors"
-                    >
-                      info@theyellowsolutions.com
+            {/* Useful links */}
+            <StaggerItem className="lg:col-span-2 lg:border-l lg:border-white/10 lg:pl-8">
+              <ColumnHeading>Useful Links</ColumnHeading>
+              <ul className="space-y-2.5">
+                {usefulLinks.map((item) => (
+                  <li key={item.title}>
+                    <a href={item.href} onClick={handleNavigation} className={linkClass}>
+                      {item.title}
                     </a>
-                  </div>
-                </div>
+                  </li>
+                ))}
+              </ul>
+            </StaggerItem>
 
-                <div className="flex items-start gap-3">
-                  <Phone className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <div>
-                    <h4 className="text-sm font-medium text-white mb-1">Phone</h4>
-                    <a
-                      href="tel:+19342035115"
-                      className="text-gray-400 text-sm hover:text-white transition-colors"
-                    >
-                      +1 (934) 203-5115
-                    </a>
-                  </div>
-                </div>
+            {/* Contact */}
+            <StaggerItem className="col-span-2 lg:col-span-3 lg:border-l lg:border-white/10 lg:pl-8">
+              <ColumnHeading>Contact</ColumnHeading>
+              <ul className="space-y-3.5 text-sm">
+                <li>
+                  <a href="tel:+19342035115" className="group flex items-start gap-3 text-gray-400 hover:text-primary transition-colors">
+                    <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    +1 (934) 203-5115
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:info@theyellowsolutions.com" className="group flex items-start gap-3 text-gray-400 hover:text-primary transition-colors break-all">
+                    <Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    info@theyellowsolutions.com
+                  </a>
+                </li>
+                <li className="flex items-start gap-3 text-gray-400">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>1225 Cailloux Blvd N, Apt. 1103, Kerrville, TX 78028</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-400">
+                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>
+                    Mon – Fri, 8:00 AM – 6:00 PM <span className="text-gray-500">(CT)</span>
+                  </span>
+                </li>
+              </ul>
+            </StaggerItem>
+          </Stagger>
 
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                  <div>
-                    <h4 className="text-sm font-medium text-white mb-1">Address</h4>
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      1225 Cailloux Blvd N, Apt. 1103<br />
-                      Kerrville, TX 78028
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="self-start rounded-xl bg-primary/10 border border-primary/20 p-5">
-                <h4 className="text-sm font-semibold text-white">Business Hours</h4>
-                <p className="text-xs text-gray-500 mt-0.5 mb-4">US Central Time</p>
-                <dl className="space-y-2.5 text-sm">
-                  <div className="flex items-center justify-between gap-4">
-                    <dt className="text-gray-400">Mon – Fri</dt>
-                    <dd className="text-white font-medium whitespace-nowrap">8:00 AM – 6:00 PM</dd>
-                  </div>
-                  <div className="flex items-center justify-between gap-4">
-                    <dt className="text-gray-400">Sat – Sun</dt>
-                    <dd className="text-gray-500 whitespace-nowrap">Closed</dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
+          {/* Bottom bar */}
+          <div className="mt-10 flex flex-col-reverse items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
+            <p className="text-center text-xs text-gray-500 sm:text-left">
+              © {new Date().getFullYear()} Yellow Solutions. All rights reserved.
+            </p>
+            <button
+              type="button"
+              onClick={handleBackToTop}
+              className="group inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-primary transition-colors"
+            >
+              Back to top
+              <span className="flex h-7 w-7 items-center justify-center rounded-full ring-1 ring-white/15 transition-all group-hover:bg-primary group-hover:text-gray-950 group-hover:ring-primary">
+                <ArrowUp className="h-3.5 w-3.5" />
+              </span>
+            </button>
           </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8 mt-14 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-xs text-center md:text-left">
-            © {new Date().getFullYear()} Yellow Solutions. All rights reserved.
-          </p>
         </div>
       </div>
     </footer>

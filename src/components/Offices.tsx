@@ -16,16 +16,16 @@ const Offices: React.FC = () => {
               targets: '.office-hero-card',
               opacity: [0, 1],
               translateY: [60, 0],
-              easing: 'easeOutExpo',
-              duration: 900,
+              easing: 'easeOutCubic',
+              duration: 1300,
             });
             anime({
               targets: '.office-badge',
               opacity: [0, 1],
               scale: [0.7, 1],
-              delay: 400,
+              delay: 600,
               easing: 'easeOutBack',
-              duration: 600,
+              duration: 900,
             });
             observer.disconnect();
           }

@@ -45,8 +45,8 @@ const BlogsSection: React.FC = () => {
               targets: '.blogs-section-header',
               opacity: [0, 1],
               translateY: [30, 0],
-              duration: 800,
-              easing: 'easeOutExpo',
+              duration: 1200,
+              easing: 'easeOutCubic',
               // complete: () => {
               //   // Animate blog cards with stagger
               //   anime({

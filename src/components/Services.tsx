@@ -124,8 +124,8 @@ const Services: React.FC = () => {
               targets: ".services-title",
               opacity: [0, 1],
               translateY: [30, 0],
-              easing: "easeOutExpo",
-              duration: 800,
+              easing: "easeOutCubic",
+              duration: 1200,
             });
             observer.disconnect();
           }
@@ -150,7 +150,7 @@ const Services: React.FC = () => {
       setIsTransitioning(false);
       setOffset(0);
       isAnimatingRef.current = false;
-    }, 520); // 500ms transition duration + small margin
+    }, 920); // 900ms transition duration + small margin
   }, [cardWidth, stepWidth]);
 
   // Slide right (previous)
@@ -170,7 +170,7 @@ const Services: React.FC = () => {
         setTimeout(() => {
           setIsTransitioning(false);
           isAnimatingRef.current = false;
-        }, 520);
+        }, 920);
       });
     });
   }, [cardWidth, stepWidth]);
@@ -179,10 +179,10 @@ const Services: React.FC = () => {
   useEffect(() => {
     if (isHovered || cardWidth <= 0) return;
 
-    // 4000ms pause + 520ms animation duration = ~4520ms per cycle
+    // ~4.5s pause + 920ms animation duration = ~5.5s per cycle
     const interval = setInterval(() => {
       slideNext();
-    }, 4520);
+    }, 5500);
 
     return () => clearInterval(interval);
   }, [isHovered, cardWidth, slideNext]);
@@ -195,7 +195,7 @@ const Services: React.FC = () => {
   const getIcon = (iconName: string) => {
     const IconComponent = iconComponents[iconName];
     return IconComponent ? (
-      <IconComponent className="w-10 h-10 text-primary transition-all duration-300 group-hover:text-gray-950 dark:group-hover:text-gray-950 group-hover:scale-110" />
+      <IconComponent className="w-10 h-10 text-primary transition-all duration-500 group-hover:text-gray-950 dark:group-hover:text-gray-950 group-hover:scale-110" />
     ) : null;
   };
 
@@ -288,7 +288,7 @@ const Services: React.FC = () => {
             <button
               onClick={slidePrev}
               aria-label="Previous card"
-              className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+              className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary flex items-center justify-center transition-all duration-500 shadow-sm hover:shadow-md hover:scale-105 active:scale-95 cursor-pointer"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -305,7 +305,7 @@ const Services: React.FC = () => {
             <button
               onClick={slideNext}
               aria-label="Next card"
-              className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+              className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-primary hover:text-primary flex items-center justify-center transition-all duration-500 shadow-sm hover:shadow-md hover:scale-105 active:scale-95 cursor-pointer"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -333,7 +333,7 @@ const Services: React.FC = () => {
               gap: `${gap}px`,
               transform: `translateX(-${offset}px)`,
               transition: isTransitioning
-                ? "transform 500ms cubic-bezier(0.25, 1, 0.5, 1)"
+                ? "transform 900ms cubic-bezier(0.45, 0, 0.25, 1)"
                 : "none",
             }}
           >
@@ -344,7 +344,7 @@ const Services: React.FC = () => {
                   width: cardWidth > 0 ? `${cardWidth}px` : "280px",
                   flex: cardWidth > 0 ? `0 0 ${cardWidth}px` : "0 0 280px",
                 }}
-                className="transition-all duration-300 h-full"
+                className="transition-all duration-500 h-full"
               >
                 {/* Restored Decent & Professional Card Structure with Original Gradient Hover */}
                 <div
@@ -352,11 +352,11 @@ const Services: React.FC = () => {
                   className="service-card relative min-h-[350px] sm:min-h-[370px] h-full flex flex-col justify-between p-5 sm:p-6 rounded-2xl overflow-hidden
                   bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-primary/25
                   hover:border-primary dark:hover:border-primary
-                  transition-all duration-300 transform hover:-translate-y-1.5
+                  transition-all duration-500 transform hover:-translate-y-1.5
                   cursor-pointer group"
                 >
                   {/* Vibrant Orange & Yellow Gradient Hover Effect (No Slide, Just Pure Gradient) */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                   {/* Card Content Body */}
                   <div className="relative z-10 flex flex-col flex-grow">
@@ -370,21 +370,21 @@ const Services: React.FC = () => {
                       </span>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-300 text-gray-900 dark:text-white cursor-pointer leading-snug line-clamp-2 min-h-[2.6rem] sm:min-h-[3rem]">
+                    <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2 group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-500 text-gray-900 dark:text-white cursor-pointer leading-snug line-clamp-2 min-h-[2.6rem] sm:min-h-[3rem]">
                       {service.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-950 font-normal transition-colors duration-300 leading-relaxed line-clamp-2 overflow-hidden min-h-[2.5rem] max-h-[2.75rem]">
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-950 font-normal transition-colors duration-500 leading-relaxed line-clamp-2 overflow-hidden min-h-[2.5rem] max-h-[2.75rem]">
                       {formatDescription(service.description, 82)}
                     </p>
                   </div>
 
                   {/* Clean Bottom Action Bar */}
-                  <div className="relative z-10 mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-gray-100 dark:border-gray-800 group-hover:border-black/15 dark:group-hover:border-black/15 transition-colors duration-300 flex items-center justify-between">
-                    <span className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-primary group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-300">
+                  <div className="relative z-10 mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-gray-100 dark:border-gray-800 group-hover:border-black/15 dark:group-hover:border-black/15 transition-colors duration-500 flex items-center justify-between">
+                    <span className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-primary group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-500">
                       READ MORE
                     </span>
-                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/10 group-hover:bg-gray-950 dark:group-hover:bg-gray-950 flex items-center justify-center text-primary group-hover:text-white transition-all duration-300 group-hover:translate-x-1 shadow-sm">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-primary/10 group-hover:bg-gray-950 dark:group-hover:bg-gray-950 flex items-center justify-center text-primary group-hover:text-white transition-all duration-500 group-hover:translate-x-1 shadow-sm">
                       <svg
                         className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                         fill="none"

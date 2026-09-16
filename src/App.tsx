@@ -19,7 +19,6 @@ import BlogsPage from './components/BlogsPage';
 import BlogPost from './components/BlogPost';
 import Footer from './components/Footer';
 import CallBand from './components/CallBand';
-import ScrollProgress from './components/ui/ScrollProgress';
 import Careers from './components/Careers';
 import OfficePage from './components/OfficePage';
 import ServicePage from './components/ServicePage';
@@ -74,7 +73,6 @@ function App() {
         {/* ── Public site ────────────────────────────────────────────── */}
         <Route path="/*" element={
           <div className="antialiased bg-white">
-            <ScrollProgress />
             <Navbar />
             <Routes>
               <Route path="/" element={
@@ -106,7 +104,7 @@ function App() {
             </Routes>
             <Footer />
             {/* Spacer so the fixed call band never covers the end of the footer */}
-            <div className="h-12 md:h-14" aria-hidden="true" />
+            <div className="h-12 md:h-14 bg-white dark:bg-black" aria-hidden="true" />
             <CallBand />
           </div>
         } />

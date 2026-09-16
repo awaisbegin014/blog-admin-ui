@@ -71,12 +71,12 @@ const Testimonials: React.FC = () => {
     }
   }, [isTransitioning]);
 
-  // Auto-sliding: moves after exactly 1.5 seconds lag
+  // Auto-sliding: moves every 3.5 seconds
   useEffect(() => {
     if (isPaused) return;
     const timer = setTimeout(() => {
       handleNext();
-    }, 1500);
+    }, 3500);
     return () => clearTimeout(timer);
   }, [currentIndex, isPaused, handleNext]);
 
@@ -146,7 +146,7 @@ const Testimonials: React.FC = () => {
         </Reveal>
 
         {/* Carousel Viewport (pauses when hovering over any card) */}
-        <Reveal delay={0.15} distance={32}>
+        <Reveal delay={0.3}>
           <div
             className="overflow-hidden pt-6 pb-6 -mx-3"
             onMouseEnter={() => setIsPaused(true)}
@@ -159,7 +159,7 @@ const Testimonials: React.FC = () => {
               style={{
                 transform: `translateX(-${currentIndex * cardWidth}%)`,
                 transition: isTransitioning
-                  ? 'transform 700ms cubic-bezier(0.25, 1, 0.5, 1)'
+                  ? 'transform 1000ms cubic-bezier(0.45, 0, 0.25, 1)'
                   : 'none',
               }}
               onTransitionEnd={handleTransitionEnd}

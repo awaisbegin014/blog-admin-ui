@@ -12,12 +12,12 @@ const Pricing: React.FC = () => {
     <section id="pricing" className="py-16 md:py-20 bg-white dark:bg-black">
       <div className="container">
         {/* Intro: "Our Packages" ribbon + headline */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16 mb-16 md:mb-20">
-          <Reveal direction="right" distance={40} className="w-full max-w-md lg:max-w-lg mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-6 sm:gap-10 lg:gap-16 mb-12 md:mb-20">
+          <Reveal direction="right" className="w-full max-w-[280px] sm:max-w-md lg:max-w-lg mx-auto">
             <PackagesRibbon />
           </Reveal>
 
-          <Reveal direction="left" distance={40} delay={0.1} className="text-center lg:text-left">
+          <Reveal direction="left" delay={0.3} className="text-center lg:text-left">
             {/* Two-tone accent bar */}
             <div className="flex h-1.5 w-56 mx-auto lg:mx-0 mb-6 rounded-full overflow-hidden">
               <span className="w-1/3 bg-gray-950 dark:bg-white" />
@@ -36,13 +36,13 @@ const Pricing: React.FC = () => {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
               <a
                 href="#contact"
-                className="btn-shine px-8 py-3.5 rounded-full font-bold bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 shadow-lg shadow-yellow-400/25 hover:brightness-105 hover:scale-105 transition-all duration-300"
+                className="btn-shine px-8 py-3.5 rounded-full font-bold bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 shadow-lg shadow-yellow-400/25 hover:brightness-105 hover:scale-105 transition-all duration-500"
               >
                 Get a Free Quote
               </a>
               <a
                 href="#pricing-plans"
-                className="px-8 py-3.5 rounded-full text-sm font-semibold uppercase tracking-wide bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors duration-300"
+                className="px-8 py-3.5 rounded-full text-sm font-semibold uppercase tracking-wide bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors duration-500"
               >
                 Let&apos;s Get Started
               </a>
@@ -57,7 +57,7 @@ const Pricing: React.FC = () => {
               <button
                 key={category.id}
                 onClick={() => setActiveId(category.id)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-500 ${
                   activeId === category.id
                     ? 'bg-gradient-to-r from-primary to-secondary text-gray-950 shadow-lg shadow-primary/30'
                     : 'bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary'
@@ -70,7 +70,7 @@ const Pricing: React.FC = () => {
         </div>
 
         {/* Heading and cards are re-keyed per category so they animate in again on switch */}
-        <Reveal key={`heading-${activeId}`} distance={16} className="text-center mb-10">
+        <Reveal key={`heading-${activeId}`} className="text-center mb-10">
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
             {active.heading}
           </h3>
@@ -94,40 +94,40 @@ const Pricing: React.FC = () => {
           {active.tiers.map((tier) => (
             <StaggerItem key={tier.name} className="h-full">
               <div
-                className="relative h-full flex flex-col justify-between p-5 rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-primary/25 hover:border-primary dark:hover:border-primary transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer"
+                className="relative h-full flex flex-col justify-between p-5 rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-primary/25 hover:border-primary dark:hover:border-primary transition-all duration-500 transform hover:-translate-y-2 group cursor-pointer"
               >
                 {/* Vibrant Orange & Yellow Gradient Hover Effect matching Services section */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
   
                 {tier.highlighted && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-gray-950 text-[10px] font-extrabold uppercase tracking-wider shadow-sm z-20 transition-all duration-300 group-hover:bg-gray-950 group-hover:text-yellow-400 group-hover:shadow-md">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-gray-950 text-[10px] font-extrabold uppercase tracking-wider shadow-sm z-20 transition-all duration-500 group-hover:bg-gray-950 group-hover:text-yellow-400 group-hover:shadow-md">
                     Most Popular
                   </span>
                 )}
   
                 {/* Card Header */}
                 <div className="relative z-10 mb-2">
-                  <h4 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-300 truncate">
+                  <h4 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white group-hover:text-gray-950 dark:group-hover:text-gray-950 transition-colors duration-500 truncate">
                     {tier.name}
                   </h4>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-900 font-medium transition-colors duration-300 line-clamp-2 h-[32px] mt-0.5 leading-snug">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-900 font-medium transition-colors duration-500 line-clamp-2 h-[32px] mt-0.5 leading-snug">
                     {tier.description}
                   </p>
                 </div>
   
                 {/* Price block */}
-                <div className="relative z-10 mb-3 pb-2.5 border-b border-gray-100 dark:border-gray-800 group-hover:border-black/15 dark:group-hover:border-black/15 transition-colors duration-300">
+                <div className="relative z-10 mb-3 pb-2.5 border-b border-gray-100 dark:border-gray-800 group-hover:border-black/15 dark:group-hover:border-black/15 transition-colors duration-500">
                   {tier.originalPrice && (
-                    <div className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 group-hover:text-black/60 dark:group-hover:text-black/60 line-through transition-colors duration-300">
+                    <div className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 group-hover:text-black/60 dark:group-hover:text-black/60 line-through transition-colors duration-500">
                       {tier.originalPrice}
                     </div>
                   )}
                   <div className="flex items-baseline gap-1 mt-0.5">
-                    <span className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white group-hover:text-gray-950 dark:group-hover:text-gray-950 tracking-tight transition-colors duration-300">
+                    <span className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white group-hover:text-gray-950 dark:group-hover:text-gray-950 tracking-tight transition-colors duration-500">
                       {tier.price}
                     </span>
                     {tier.period && (
-                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-800 transition-colors duration-300">
+                      <span className="text-xs font-medium text-gray-500 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-800 transition-colors duration-500">
                         {tier.period}
                       </span>
                     )}
@@ -140,9 +140,9 @@ const Pricing: React.FC = () => {
                     {tier.features.map((feature) => (
                       <li
                         key={feature}
-                        className="flex items-start gap-2 text-xs text-gray-700 dark:text-gray-300 group-hover:text-gray-950 dark:group-hover:text-gray-950 font-medium transition-colors duration-300 leading-snug"
+                        className="flex items-start gap-2 text-xs text-gray-700 dark:text-gray-300 group-hover:text-gray-950 dark:group-hover:text-gray-950 font-medium transition-colors duration-500 leading-snug"
                       >
-                        <Check className="w-3.5 h-3.5 text-primary group-hover:text-gray-950 dark:group-hover:text-gray-950 mt-0.5 shrink-0 transition-colors duration-300" />
+                        <Check className="w-3.5 h-3.5 text-primary group-hover:text-gray-950 dark:group-hover:text-gray-950 mt-0.5 shrink-0 transition-colors duration-500" />
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -152,7 +152,7 @@ const Pricing: React.FC = () => {
                 {/* Bottom CTA Button */}
                 <a
                   href="#contact"
-                  className={`relative z-10 w-full text-center py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${
+                  className={`relative z-10 w-full text-center py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-500 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${
                     tier.highlighted
                       ? 'bg-primary text-gray-950 group-hover:bg-gray-950 group-hover:text-white group-hover:border-gray-950'
                       : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:border-primary group-hover:bg-gray-950 group-hover:text-white group-hover:border-gray-950'
@@ -160,7 +160,7 @@ const Pricing: React.FC = () => {
                 >
                   <span>Get Started</span>
                   <svg
-                    className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                    className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

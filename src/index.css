@@ -74,7 +74,7 @@
   /* Yellow underline that grows from the left on hover */
   .navbar-link::after {
     content: '';
-    @apply absolute left-3 right-3 bottom-1 h-0.5 rounded-full bg-primary origin-left scale-x-0 transition-transform duration-300 ease-out;
+    @apply absolute left-3 right-3 bottom-1 h-0.5 rounded-full bg-primary origin-left scale-x-0 transition-transform duration-500 ease-out;
   }
 
   .navbar-link:hover::after,
@@ -95,7 +95,7 @@
   }
 
   .btn-shine:hover::before {
-    animation: btn-shine 0.8s ease-out;
+    animation: btn-shine 1.2s ease-in-out;
   }
 
   @keyframes btn-shine {
@@ -360,8 +360,8 @@
 
   .call-band-slide {
     animation:
-      call-band-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
-      call-band-blink 2.4s ease-in-out 1.2s infinite;
+      call-band-in 1.6s cubic-bezier(0.33, 1, 0.68, 1) both,
+      call-band-blink 3.6s ease-in-out 1.6s infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {

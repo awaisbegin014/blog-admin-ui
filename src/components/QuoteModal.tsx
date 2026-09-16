@@ -39,7 +39,7 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ open, onClose }) => {
         className="relative w-full max-w-xl max-h-[calc(100vh-1.5rem)] overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden rounded-2xl bg-white dark:bg-gray-950 dark:ring-1 dark:ring-white/10 shadow-2xl animate-quote-pop"
       >
         {/* Header */}
-        <div className="relative flex items-start justify-between gap-4 bg-gray-950 px-6 sm:px-7 py-4 border-b border-white/10">
+        <div className="relative flex items-start justify-between gap-4 bg-gray-950 px-5 sm:px-7 py-3.5 sm:py-4 border-b border-white/10">
           <div>
             <h2 id="quote-modal-title" className="font-poppins text-lg sm:text-xl font-bold text-white dark:text-white leading-snug">
               Get a Free <span className="text-primary">Quote</span>
@@ -59,7 +59,7 @@ const QuoteModal: React.FC<QuoteModalProps> = ({ open, onClose }) => {
         </div>
 
         {/* Form */}
-        <div className="px-6 sm:px-7 py-5">
+        <div className="px-5 sm:px-7 py-4 sm:py-5">
           <ContactForm submitLabel="Request a Free Quote" autoFocus />
         </div>
       </div>

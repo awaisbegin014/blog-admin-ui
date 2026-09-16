@@ -1,11 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion, animate } from 'framer-motion';
 
-// Shared, subtle scroll animations. Every effect plays once, uses only
+// Shared scroll animations. Timing lives here so the whole site moves the same
+// calm, noticeable way. Every effect plays once, uses only
 // opacity/transform, and is skipped for visitors who prefer reduced motion.
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-const VIEWPORT = { once: true, margin: '0px 0px -80px 0px' } as const;
+// Ease-out cubic: an even, gentle glide that stays visible for the whole duration
+const EASE = [0.33, 1, 0.68, 1] as const;
+const DURATION = 1.2;      // seconds for a reveal
+const ITEM_DURATION = 1;   // seconds for each staggered item
+const STAGGER = 0.18;      // seconds between staggered items
+const DISTANCE = 48;       // px travelled while fading in
+// Start once the element is well inside the viewport so the motion is seen
+const VIEWPORT = { once: true, margin: '0px 0px -120px 0px' } as const;
 
 type Direction = 'up' | 'down' | 'left' | 'right' | 'none';
 
@@ -35,8 +42,8 @@ export const Reveal: React.FC<RevealProps> = ({
   className,
   delay = 0,
   direction = 'up',
-  distance = 24,
-  duration = 0.6,
+  distance = DISTANCE,
+  duration = DURATION,
   as = 'div',
 }) => {
   const reduce = useReducedMotion();
@@ -70,7 +77,7 @@ interface StaggerProps {
 }
 
 /** Container whose <StaggerItem> children animate in one after another. */
-export const Stagger: React.FC<StaggerProps> = ({ children, className, stagger = 0.08, delay = 0, style }) => {
+export const Stagger: React.FC<StaggerProps> = ({ children, className, stagger = STAGGER, delay = 0, style }) => {
   const reduce = useReducedMotion();
   if (reduce) return <div className={className} style={style}>{children}</div>;
 
@@ -91,7 +98,7 @@ export const Stagger: React.FC<StaggerProps> = ({ children, className, stagger =
 export const StaggerItem: React.FC<{ children: React.ReactNode; className?: string; distance?: number }> = ({
   children,
   className,
-  distance = 24,
+  distance = DISTANCE,
 }) => {
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
@@ -101,7 +108,7 @@ export const StaggerItem: React.FC<{ children: React.ReactNode; className?: stri
       className={className}
       variants={{
         hidden: { opacity: 0, y: distance },
-        show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+        show: { opacity: 1, y: 0, transition: { duration: ITEM_DURATION, ease: EASE } },
       }}
     >
       {children}
@@ -117,8 +124,12 @@ interface CountUpProps {
   className?: string;
 }
 
-/** Counts from 0 to `to` the first time it scrolls into view. */
-export const CountUp: React.FC<CountUpProps> = ({ to, suffix = '', prefix = '', duration = 1.6, className }) => {
+/**
+ * Counts from 0 to `to` the first time it scrolls into view.
+ * The final value is rendered invisibly to reserve its width, and the counting
+ * number is overlaid on top, so surrounding text never reflows or flickers.
+ */
+export const CountUp: React.FC<CountUpProps> = ({ to, suffix = '', prefix = '', duration = 3, className }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '0px 0px -60px 0px' });
   const reduce = useReducedMotion();
@@ -126,19 +137,22 @@ export const CountUp: React.FC<CountUpProps> = ({ to, suffix = '', prefix = '', 
 
   useEffect(() => {
     if (!inView || reduce) return;
+    // Larger totals count in steps of 10 so the digits don't churn every frame
+    const step = to >= 500 ? 10 : 1;
     const controls = animate(0, to, {
       duration,
-      ease: EASE,
-      onUpdate: (v) => setValue(Math.round(v)),
+      ease: [0.16, 1, 0.3, 1], // fast start, long gentle settle
+      onUpdate: (v) => setValue(Math.min(to, Math.round(v / step) * step)),
     });
     return () => controls.stop();
   }, [inView, reduce, to, duration]);
 
+  const format = (n: number) => `${prefix}${n.toLocaleString()}${suffix}`;
+
   return (
-    <span ref={ref} className={className}>
-      {prefix}
-      {value.toLocaleString()}
-      {suffix}
+    <span ref={ref} className="relative inline-block tabular-nums">
+      <span className={`invisible ${className ?? ''}`} aria-hidden="true">{format(to)}</span>
+      <span className={`absolute inset-0 text-right ${className ?? ''}`}>{format(value)}</span>
     </span>
   );
 };

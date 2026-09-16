@@ -179,7 +179,7 @@ const MasteryAwards: React.FC = () => {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* ─── Left Column: Exact Headline, Copy & CTA ─── */}
-          <Reveal direction="right" distance={40} className="lg:col-span-6 text-center lg:text-left">
+          <Reveal direction="right" className="lg:col-span-6 text-center lg:text-left">
             {/* Main Headline */}
             <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-gray-900 dark:text-gray-900 leading-[1.12] tracking-tight mb-6">
               Mastery Proven <br />
@@ -208,7 +208,7 @@ const MasteryAwards: React.FC = () => {
           </Reveal>
 
           {/* ─── Right Column: Laptop Mockup with Auto-Sliding Screens & Floating Badge ─── */}
-          <Reveal direction="left" distance={40} delay={0.15} className="lg:col-span-6 flex justify-center items-center">
+          <Reveal direction="left" delay={0.3} className="lg:col-span-6 flex justify-center items-center">
             <div
               className="group relative w-full max-w-[540px] sm:max-w-[580px] lg:max-w-[620px] drop-shadow-[0_20px_45px_rgba(0,0,0,0.22)]"
               onMouseEnter={() => setIsPaused(true)}

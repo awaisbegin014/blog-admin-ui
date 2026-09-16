@@ -113,14 +113,14 @@ export default {
         'gradient': 'gradient 15s ease infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'marquee': 'marquee 32s linear infinite',
-        'quote-fade': 'quote-fade 200ms ease-out both',
-        'quote-pop': 'quote-pop 280ms cubic-bezier(0.22, 1, 0.36, 1) both',
+        'quote-fade': 'quote-fade 300ms ease-out both',
+        'quote-pop': 'quote-pop 450ms cubic-bezier(0.33, 1, 0.68, 1) both',
         'marquee-reverse': 'marquee-reverse 32s linear infinite',
-        // Device showcase carousel — 800ms must match SLIDE_MS in DeviceShowcase.tsx
-        'showcase-out-left': 'showcase-out-left 800ms cubic-bezier(0.65, 0, 0.35, 1) both',
-        'showcase-in-right': 'showcase-in-right 800ms cubic-bezier(0.65, 0, 0.35, 1) both',
-        'showcase-out-right': 'showcase-out-right 800ms cubic-bezier(0.65, 0, 0.35, 1) both',
-        'showcase-in-left': 'showcase-in-left 800ms cubic-bezier(0.65, 0, 0.35, 1) both',
+        // Device showcase carousel — 1100ms must match SLIDE_MS in DeviceShowcase.tsx
+        'showcase-out-left': 'showcase-out-left 1100ms cubic-bezier(0.65, 0, 0.35, 1) both',
+        'showcase-in-right': 'showcase-in-right 1100ms cubic-bezier(0.65, 0, 0.35, 1) both',
+        'showcase-out-right': 'showcase-out-right 1100ms cubic-bezier(0.65, 0, 0.35, 1) both',
+        'showcase-in-left': 'showcase-in-left 1100ms cubic-bezier(0.65, 0, 0.35, 1) both',
       },
       keyframes: {
         float: {

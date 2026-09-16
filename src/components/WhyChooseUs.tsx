@@ -4,7 +4,7 @@ import { Reveal, Stagger, StaggerItem } from './ui/Motion';
 /* ─── 1. Rosette Badge with Stars (100% Customer Satisfaction) ─── */
 const SatisfactionBadge: React.FC = () => (
   <svg
-    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-500 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const SatisfactionBadge: React.FC = () => (
 /* ─── 2. Laptop with Gears and Wrench (Customized Design) ─── */
 const CustomizedDesignIcon: React.FC = () => (
   <svg
-    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-500 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ const CustomizedDesignIcon: React.FC = () => (
 /* ─── 3. Document with Pencil and Circular Arrows (Unlimited Free Revisions) ─── */
 const RevisionsIcon: React.FC = () => (
   <svg
-    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-500 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ const RevisionsIcon: React.FC = () => (
 /* ─── 4. Team with Curved Arrow (Personalized Support) ─── */
 const PersonalizedSupportIcon: React.FC = () => (
   <svg
-    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-500 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ const PersonalizedSupportIcon: React.FC = () => (
 /* ─── 5. 24/7 Clock/Headset (Round-the-Clock Availability) ─── */
 const RoundTheClockIcon: React.FC = () => (
   <svg
-    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-300 group-hover:scale-110 group-hover:text-primary"
+    className="w-16 h-16 sm:w-20 sm:h-20 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-[#0f2444] dark:text-white transition-transform duration-500 group-hover:scale-110 group-hover:text-primary"
     viewBox="0 0 64 64"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -168,16 +168,16 @@ const WhyChooseUs: React.FC = () => {
 
         {/* ─── 5 Items in One Line on Desktop, responsive wrap when shrunk ─── */}
         <div className="max-w-7xl mx-auto">
-          <Stagger className="flex flex-wrap justify-center -mx-2 sm:-mx-3 lg:-mx-2 xl:-mx-3" stagger={0.1}>
+          <Stagger className="flex flex-wrap justify-center -mx-2 sm:-mx-3 lg:-mx-2 xl:-mx-3">
             {whyChooseItems.map((item) => (
               <StaggerItem
                 key={item.title}
-                className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2 sm:px-3 lg:px-2 xl:px-3 py-6 group flex flex-col items-center justify-start text-center"
+                className="w-1/2 md:w-1/3 lg:w-1/5 px-2 sm:px-3 lg:px-2 xl:px-3 py-4 sm:py-6 group flex flex-col items-center justify-start text-center"
               >
-                <div className="mb-4 sm:mb-5 flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20 transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-105">
+                <div className="mb-3 sm:mb-5 flex items-center justify-center h-14 w-14 sm:h-20 sm:w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20 transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-105">
                   {item.icon}
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white leading-snug mb-2 transition-colors duration-300 group-hover:text-primary">
+                <h3 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white leading-snug mb-1.5 sm:mb-2 transition-colors duration-500 group-hover:text-primary">
                   {item.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
