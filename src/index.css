@@ -9,6 +9,14 @@
     scroll-behavior: smooth;
   }
 
+  /* No sideways page scroll: clip anything that pokes past the viewport edge
+     (e.g. side-slide reveal animations). `clip`, unlike `hidden`, keeps
+     position: sticky working. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
   body {
     @apply font-inter text-gray-900 dark:text-white bg-white dark:bg-black transition-colors duration-300;
   }
@@ -60,7 +68,43 @@
   }
 
   .navbar-link {
-    @apply text-gray-700 dark:text-gray-300 hover:text-primary transition-colors px-3 py-2 text-sm font-medium transform hover:scale-105;
+    @apply relative text-gray-700 dark:text-gray-300 hover:text-primary transition-colors px-3 py-2 text-sm font-medium;
+  }
+
+  /* Yellow underline that grows from the left on hover */
+  .navbar-link::after {
+    content: '';
+    @apply absolute left-3 right-3 bottom-1 h-0.5 rounded-full bg-primary origin-left scale-x-0 transition-transform duration-300 ease-out;
+  }
+
+  .navbar-link:hover::after,
+  .navbar-link:focus-visible::after {
+    @apply scale-x-100;
+  }
+
+  /* Soft light sweep across a button on hover */
+  .btn-shine {
+    @apply relative overflow-hidden;
+  }
+
+  .btn-shine::before {
+    content: '';
+    @apply absolute inset-y-0 -left-full w-1/2 pointer-events-none;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: skewX(-20deg);
+  }
+
+  .btn-shine:hover::before {
+    animation: btn-shine 0.8s ease-out;
+  }
+
+  @keyframes btn-shine {
+    to { left: 150%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .navbar-link::after { transition: none; }
+    .btn-shine:hover::before { animation: none; }
   }
 
   .navbar-link.active {

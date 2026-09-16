@@ -7,6 +7,7 @@ import {
   Layers,
   Film
 } from 'lucide-react';
+import { Reveal, Stagger, StaggerItem, CountUp } from './ui/Motion';
 
 export interface PortfolioItem {
   id: string;
@@ -132,11 +133,10 @@ const Portfolio: React.FC = () => {
   return (
     <section id="portfolio" className="py-16 md:py-20 bg-white dark:bg-black transition-colors">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Decorative Accent Line (Modeled on reference site) */}
-        <div className="w-16 h-1.5 bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319] rounded-full mb-4" />
-
         {/* Section Heading & Subtitle */}
-        <div className="max-w-4xl mb-12 md:mb-16 text-left">
+        <Reveal className="max-w-4xl mb-12 md:mb-16 text-left">
+          {/* Top Decorative Accent Line (Modeled on reference site) */}
+          <div className="w-16 h-1.5 bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319] rounded-full mb-4" />
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-950 dark:text-white leading-[1.15]">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319]">
               Web Design
@@ -144,19 +144,19 @@ const Portfolio: React.FC = () => {
             Solutions
             <br className="hidden sm:inline" /> With A History of{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319]">
-              1000+
+              <CountUp to={1000} suffix="+" />
             </span>{' '}
             Satisfied Clients
           </h2>
           <p className="mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-3xl leading-relaxed">
             We work having your goals in mind, and hence, never leave you disappointed. Proud that we have a demonstrated history of satisfied clients.
           </p>
-        </div>
+        </Reveal>
 
         {/* ─── Two-Column Layout: Sidebar Tabs + Grid Gallery ─── */}
         <div className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
           {/* Left Category Tabs */}
-          <div className="w-full md:w-60 lg:w-64 flex-shrink-0 flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-3 md:pb-0 scrollbar-none">
+          <Reveal direction="right" className="w-full md:w-60 lg:w-64 flex-shrink-0 flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-3 md:pb-0 scrollbar-none">
             {portfolioCategories.map((cat) => {
               const isActive = activeTab === cat.id;
               const Icon = cat.icon;
@@ -190,15 +190,15 @@ const Portfolio: React.FC = () => {
                 </button>
               );
             })}
-          </div>
+          </Reveal>
 
-          {/* Right Gallery Windows Grid */}
+          {/* Right Gallery Windows Grid — re-keyed per tab so the cards stagger in again on switch */}
           <div className="flex-1 w-full">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            <Stagger key={activeTab} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7" stagger={0.06}>
               {items.map((item) => (
-                <div
+                <StaggerItem
                   key={item.id}
-                  className="portfolio-window group relative rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-800 hover:border-[#f9b918] bg-white dark:bg-gray-900 shadow-md hover:shadow-2xl hover:shadow-[#f9b918]/20 transition-all duration-300"
+                  className="portfolio-window group relative rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-800 hover:border-[#f9b918] bg-white dark:bg-gray-900 shadow-md hover:shadow-2xl hover:shadow-[#f9b918]/20 transition-[border-color,box-shadow] duration-300"
                 >
                   {/* Window Image Viewport with Hover Scroll Effect */}
                   <div className="h-[270px] w-full overflow-hidden relative bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
@@ -211,9 +211,9 @@ const Portfolio: React.FC = () => {
                       loading="lazy"
                     />
                   </div>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </Stagger>
           </div>
         </div>
       </div>

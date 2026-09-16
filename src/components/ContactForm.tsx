@@ -306,7 +306,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ title, submitLabel = 'Submit'
         <button
           type="submit"
           disabled={isSubmitting}
-          className="group w-full h-12 text-[15px] rounded-lg font-bold flex items-center justify-center gap-2 transition-all duration-300 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 hover:shadow-xl shadow-lg shadow-yellow-400/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="btn-shine group w-full h-12 text-[15px] rounded-lg font-bold flex items-center justify-center gap-2 transition-all duration-300 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 hover:shadow-xl shadow-lg shadow-yellow-400/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <>

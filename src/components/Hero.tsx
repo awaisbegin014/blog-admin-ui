@@ -329,7 +329,7 @@ const Hero: React.FC = () => {
             <div className="hero-buttons-0 opacity-0 flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4">
               <a
                 href="#services"
-                className="btn bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 min-w-[160px] group"
+                className="btn btn-shine bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 min-w-[160px] group"
               >
                 <span>Explore Services</span>
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -362,7 +362,7 @@ const Hero: React.FC = () => {
             <div className="hero-buttons-1 opacity-0 flex justify-center lg:justify-start">
               <a
                 href="/yellowmarketing"
-                className="btn bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 min-w-[160px] group"
+                className="btn btn-shine bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 min-w-[160px] group"
               >
                 <span>Learn More</span>
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />

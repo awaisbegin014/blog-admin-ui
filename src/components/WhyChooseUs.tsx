@@ -1,4 +1,5 @@
 import React from 'react';
+import { Reveal, Stagger, StaggerItem } from './ui/Motion';
 
 /* ─── 1. Rosette Badge with Stars (100% Customer Satisfaction) ─── */
 const SatisfactionBadge: React.FC = () => (
@@ -156,24 +157,24 @@ const WhyChooseUs: React.FC = () => {
     <section id="why-us" className="py-16 md:py-20 bg-white dark:bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
-        <div className="text-center mb-12 md:mb-16">
+        <Reveal className="text-center mb-12 md:mb-16">
           <h2 className="section-title">
             <span className="heading">Why We're the</span> <span className="gradient-text">Best Choice</span>
           </h2>
           <p className="section-subtitle">
             Five reasons businesses across the US, Germany and beyond trust Yellow Solutions with their growth
           </p>
-        </div>
+        </Reveal>
 
         {/* ─── 5 Items in One Line on Desktop, responsive wrap when shrunk ─── */}
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center -mx-2 sm:-mx-3 lg:-mx-2 xl:-mx-3">
+          <Stagger className="flex flex-wrap justify-center -mx-2 sm:-mx-3 lg:-mx-2 xl:-mx-3" stagger={0.1}>
             {whyChooseItems.map((item) => (
-              <div
+              <StaggerItem
                 key={item.title}
                 className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-2 sm:px-3 lg:px-2 xl:px-3 py-6 group flex flex-col items-center justify-start text-center"
               >
-                <div className="mb-4 sm:mb-5 flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20">
+                <div className="mb-4 sm:mb-5 flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 lg:h-16 lg:w-16 xl:h-20 xl:w-20 transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-105">
                   {item.icon}
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white leading-snug mb-2 transition-colors duration-300 group-hover:text-primary">
@@ -182,9 +183,9 @@ const WhyChooseUs: React.FC = () => {
                 <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
                   {item.description}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </div>
     </section>

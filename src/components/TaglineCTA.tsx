@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { pricingCategories } from '../data/content';
+import { Reveal } from './ui/Motion';
 
 // Plan featured in the card — pulled from the pricing data so it never drifts
 // from what the pricing section shows.
@@ -27,7 +28,7 @@ const TaglineCTA: React.FC = () => {
         {/* Left: headline + copy. Headings need dark:text-gray-950 — the base
             h1-h6 style turns headings white in dark mode, but this section
             stays orange in both themes. */}
-        <div className="lg:col-span-7">
+        <Reveal direction="right" distance={40} className="lg:col-span-7">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] text-gray-950 dark:text-gray-950 mb-6">
             From Start-Ups to Enterprises - Our Solutions Scale With You
           </h2>
@@ -44,10 +45,10 @@ const TaglineCTA: React.FC = () => {
             Get a Free Quote
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
-        </div>
+        </Reveal>
 
         {/* Right: featured plan card */}
-        <div className="lg:col-span-5">
+        <Reveal direction="left" distance={40} delay={0.15} className="lg:col-span-5">
           <div className="rounded-3xl border-2 border-gray-950/80 bg-white/10 backdrop-blur-sm p-7 sm:p-8 transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:border-gray-950 hover:bg-white/25 hover:shadow-2xl hover:shadow-black/30 motion-reduce:transition-none motion-reduce:hover:transform-none">
             <h3 className="text-2xl font-bold text-gray-950 dark:text-gray-950">{featuredTier.name}</h3>
             {featuredTier.originalPrice && (
@@ -92,7 +93,7 @@ const TaglineCTA: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

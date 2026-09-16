@@ -789,7 +789,7 @@ const Navbar: React.FC = () => {
           <button
             type="button"
             onClick={() => setQuoteOpen(true)}
-            className="px-6 py-2.5 text-sm font-bold rounded-xl whitespace-nowrap transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="btn-shine px-6 py-2.5 text-sm font-bold rounded-xl whitespace-nowrap transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Get a Free Quote
           </button>

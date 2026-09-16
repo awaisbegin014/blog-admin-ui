@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { Reveal } from './ui/Motion';
 import {
   ChevronLeft,
   ChevronRight,
@@ -1242,7 +1243,7 @@ const DeviceShowcase: React.FC = () => {
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         {/* Section Heading */}
-        <div className="text-center mb-10 md:mb-14">
+        <Reveal className="text-center mb-10 md:mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Tailored UX/UI Architecture</span>
@@ -1254,15 +1255,15 @@ const DeviceShowcase: React.FC = () => {
           <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
             We don't use cookie-cutter templates. Every project features custom layouts, tailored UX workflows, and responsive architectures across desktop, tablet, and mobile.
           </p>
-        </div>
+        </Reveal>
 
         {/* Device Mockup Display Container */}
-        <div className="relative max-w-6xl mx-auto pt-2">
+        <Reveal delay={0.1} distance={40} duration={0.8} className="relative max-w-6xl mx-auto pt-2">
           {/* Navigation Arrow - Left */}
           <button
             onClick={goPrev}
             aria-label="Previous project"
-            className="absolute left-0 md:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/20 text-white hover:bg-primary hover:border-primary flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
+            className="absolute left-0 md:-left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/20 text-white hover:bg-primary hover:border-primary hover:text-gray-950 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -1300,11 +1301,11 @@ const DeviceShowcase: React.FC = () => {
           <button
             onClick={goNext}
             aria-label="Next project"
-            className="absolute right-0 md:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/20 text-white hover:bg-primary hover:border-primary flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
+            className="absolute right-0 md:-right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-gray-900/90 backdrop-blur-md border border-white/20 text-white hover:bg-primary hover:border-primary hover:text-gray-950 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 shadow-xl cursor-pointer"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
-        </div>
+        </Reveal>
 
       </div>
     </section>

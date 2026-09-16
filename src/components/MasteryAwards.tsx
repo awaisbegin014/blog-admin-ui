@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight, User } from 'lucide-react';
+import { Reveal } from './ui/Motion';
 
 interface ScreenSlide {
   id: string;
@@ -89,8 +90,6 @@ const MasteryAwards: React.FC = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
-      // Trigger contact form pop-up from below
-      window.dispatchEvent(new CustomEvent('trigger-contact-popup'));
       setTimeout(() => {
         const nameInput = contactSection.querySelector('input[name="name"]') as HTMLInputElement | null;
         if (nameInput) nameInput.focus();
@@ -180,7 +179,7 @@ const MasteryAwards: React.FC = () => {
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* ─── Left Column: Exact Headline, Copy & CTA ─── */}
-          <div className="lg:col-span-6 text-center lg:text-left">
+          <Reveal direction="right" distance={40} className="lg:col-span-6 text-center lg:text-left">
             {/* Main Headline */}
             <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-gray-900 dark:text-gray-900 leading-[1.12] tracking-tight mb-6">
               Mastery Proven <br />
@@ -206,10 +205,10 @@ const MasteryAwards: React.FC = () => {
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
-          </div>
+          </Reveal>
 
           {/* ─── Right Column: Laptop Mockup with Auto-Sliding Screens & Floating Badge ─── */}
-          <div className="lg:col-span-6 flex justify-center items-center">
+          <Reveal direction="left" distance={40} delay={0.15} className="lg:col-span-6 flex justify-center items-center">
             <div
               className="group relative w-full max-w-[540px] sm:max-w-[580px] lg:max-w-[620px] drop-shadow-[0_20px_45px_rgba(0,0,0,0.22)]"
               onMouseEnter={() => setIsPaused(true)}
@@ -335,7 +334,7 @@ const MasteryAwards: React.FC = () => {
               {/* Bottom Edge Reflection Lip */}
               <div className="mx-auto w-[104%] -mt-[2px] h-1 bg-gradient-to-r from-transparent via-[#8e929c] to-transparent opacity-80" />
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

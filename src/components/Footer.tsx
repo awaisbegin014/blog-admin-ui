@@ -318,6 +318,16 @@ const Footer: React.FC = () => {
   const location = useLocation();
 
   // ✅ Same logic as Navbar for smooth scroll + routing
+  // Footer logo: smooth-scroll to the top of the home page (navigating there first if needed)
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+    }
+  };
+
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const href = e.currentTarget.getAttribute('href');
@@ -358,11 +368,17 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-10 gap-y-12">
           {/* Company Info */}
           <div className="lg:col-span-3">
-            <a href="/" onClick={handleNavigation} className="inline-block">
+            <a
+              href="/"
+              onClick={handleLogoClick}
+              aria-label="Back to top"
+              title="Back to top"
+              className="group inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-black"
+            >
               <img
                 src={footerLogo}
                 alt="The Yellow Solutions Logo"
-                className="h-16 w-auto object-contain"
+                className="h-16 w-auto object-contain transition-transform duration-300 ease-out group-hover:-translate-y-1"
               />
             </a>
 
