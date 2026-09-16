@@ -133,17 +133,17 @@ const Portfolio: React.FC = () => {
     <section id="portfolio" className="py-16 md:py-20 bg-white dark:bg-black transition-colors">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Decorative Accent Line (Modeled on reference site) */}
-        <div className="w-16 h-1.5 bg-gradient-to-r from-[#f5781e] via-[#f99820] to-[#fcc319] rounded-full mb-4" />
+        <div className="w-16 h-1.5 bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319] rounded-full mb-4" />
 
         {/* Section Heading & Subtitle */}
         <div className="max-w-4xl mb-12 md:mb-16 text-left">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-950 dark:text-white leading-[1.15]">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f5781e] via-[#f99820] to-[#fcc319]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319]">
               Web Design
             </span>{' '}
             Solutions
             <br className="hidden sm:inline" /> With A History of{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f5781e] via-[#f99820] to-[#fcc319]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319]">
               1000+
             </span>{' '}
             Satisfied Clients
@@ -166,7 +166,7 @@ const Portfolio: React.FC = () => {
                   onClick={() => setActiveTab(cat.id)}
                   className={`group w-full text-left px-5 py-3.5 rounded-xl font-semibold text-base transition-all duration-300 flex items-center justify-between whitespace-nowrap ${
                     isActive
-                      ? 'bg-gradient-to-r from-[#f5781e] via-[#f99820] to-[#fcc319] text-white shadow-lg shadow-[#f5781e]/30 font-bold scale-[1.02]'
+                      ? 'bg-gradient-to-r from-[#f9b918] via-[#fbc02d] to-[#fcc319] text-gray-950 shadow-lg shadow-[#f9b918]/30 font-bold scale-[1.02]'
                       : 'text-gray-700 dark:text-gray-300 hover:text-gray-950 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800/70 border border-transparent'
                   }`}
                 >
@@ -198,7 +198,7 @@ const Portfolio: React.FC = () => {
               {items.map((item) => (
                 <div
                   key={item.id}
-                  className="portfolio-window group relative rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-800 hover:border-[#f5781e] bg-white dark:bg-gray-900 shadow-md hover:shadow-2xl hover:shadow-[#f5781e]/20 transition-all duration-300"
+                  className="portfolio-window group relative rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-800 hover:border-[#f9b918] bg-white dark:bg-gray-900 shadow-md hover:shadow-2xl hover:shadow-[#f9b918]/20 transition-all duration-300"
                 >
                   {/* Window Image Viewport with Hover Scroll Effect */}
                   <div className="h-[270px] w-full overflow-hidden relative bg-gray-50 dark:bg-gray-950 flex items-center justify-center">

@@ -84,7 +84,7 @@ const ReadMoreModal: React.FC<{
                 {product.industries.map((ind) => (
                   <span
                     key={ind}
-                    className="px-3 py-1.5 text-xs font-bold rounded-lg bg-orange-500/10 text-orange-400 border border-orange-500/20"
+                    className="px-3 py-1.5 text-xs font-bold rounded-lg bg-primary/10 text-primary border border-primary/20"
                   >
                     {ind}
                   </span>
@@ -164,7 +164,7 @@ const ReadMoreModal: React.FC<{
           {/* Connect With Expert CTA */}
           <button
             onClick={() => { onClose(); onOpenDemo(product); }}
-            className="w-full mt-10 py-5 bg-gradient-to-r from-primary to-secondary hover:shadow-2xl hover:shadow-primary/20 text-white font-black rounded-2xl transition-all duration-500 text-lg flex items-center justify-center gap-3 group"
+            className="w-full mt-10 py-5 bg-gradient-to-r from-primary to-secondary hover:shadow-2xl hover:shadow-primary/20 text-gray-950 font-black rounded-2xl transition-all duration-500 text-lg flex items-center justify-center gap-3 group"
           >
             Connect With an Expert
             <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
@@ -293,7 +293,7 @@ const DemoModal: React.FC<{
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-4 bg-primary hover:bg-primary/95 text-white font-black rounded-2xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 text-sm md:text-base uppercase tracking-widest shadow-xl shadow-primary/10"
+                      className="w-full py-4 bg-primary hover:bg-primary/95 text-gray-950 font-black rounded-2xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 text-sm md:text-base uppercase tracking-widest shadow-xl shadow-primary/10"
                     >
                       {isSubmitting ? 'Processing...' : 'Send Message'}
                       {!isSubmitting && <ArrowRight className="w-5 h-5" />}
@@ -456,13 +456,13 @@ const AIProductCatalog: React.FC = () => {
               <div className="flex flex-wrap gap-4 mb-8">
                 <button
                   onClick={() => document.querySelector('#catalog-grid')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="px-8 py-3.5 bg-primary hover:bg-primary-600 text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 transform hover:-translate-y-0.5"
+                  className="px-8 py-3.5 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 hover:brightness-105 text-gray-950 font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 transform hover:-translate-y-0.5"
                 >
                   View All Solutions
                 </button>
                 <button
                   onClick={handleContactRedirect}
-                  className="px-8 py-3.5 border-2 border-primary text-primary hover:bg-primary hover:text-white font-black text-xs uppercase tracking-widest rounded-xl transition-all transform hover:-translate-y-0.5"
+                  className="px-8 py-3.5 border-2 border-primary text-primary hover:bg-primary hover:text-gray-950 font-black text-xs uppercase tracking-widest rounded-xl transition-all transform hover:-translate-y-0.5"
                 >
                   Request Custom Solution
                 </button>
@@ -672,7 +672,7 @@ const AIProductCatalog: React.FC = () => {
               <div className="flex flex-wrap justify-center gap-4">
                 <button
                   onClick={handleContactRedirect}
-                  className="btn bg-primary hover:bg-primary/90 text-white px-8 py-3.5 text-base font-bold flex items-center gap-2 shadow-lg shadow-primary/30"
+                  className="btn bg-gradient-to-r from-primary via-amber-400 to-yellow-400 hover:brightness-105 text-gray-950 px-8 py-3.5 text-base font-bold flex items-center gap-2 shadow-lg shadow-primary/30"
                 >
                   Schedule a Consultation
                   <ArrowRight className="w-4 h-4" />
@@ -692,7 +692,7 @@ const AIProductCatalog: React.FC = () => {
       {/* Sticky CTA */}
       {/* <button
         onClick={handleContactRedirect}
-        className="fixed bottom-20 right-6 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 z-50 flex items-center font-semibold"
+        className="fixed bottom-20 right-6 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 hover:brightness-105 text-gray-950 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 z-50 flex items-center font-semibold"
       >
         <span>Get a Demo</span>
         <ArrowRight className="ml-2 w-5 h-5" />

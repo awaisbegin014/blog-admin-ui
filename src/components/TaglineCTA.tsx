@@ -9,7 +9,7 @@ const featuredTier = webTiers.find((t) => t.name === 'Enterprise Web Design') ??
 
 const TaglineCTA: React.FC = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#f5781e] via-[#f99820] to-[#fcc319] py-16 md:py-20">
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#f9b918] via-[#fbc02d] to-[#fcc319] py-16 md:py-20">
       {/* Soft light waves + glows for depth */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none"

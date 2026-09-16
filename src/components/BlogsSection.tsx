@@ -114,7 +114,7 @@ const BlogsSection: React.FC = () => {
             
             <button
               onClick={handleExploreMore}
-              className="btn bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="btn bg-gradient-to-r from-primary via-amber-400 to-yellow-400 hover:brightness-105 text-gray-950 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
               Explore More
             </button>
@@ -162,7 +162,7 @@ const BlogsSection: React.FC = () => {
                     
                     <div className="absolute inset-0 p-4 flex flex-col justify-end">
                       <div className="mb-2">
-                        <span className="bg-primary text-white px-2 py-1 rounded-md text-xs font-medium">
+                        <span className="bg-primary text-gray-950 px-2 py-1 rounded-md text-xs font-medium">
                           Blogs
                         </span>
                       </div>
@@ -196,7 +196,7 @@ const BlogsSection: React.FC = () => {
                     
                     <div className="absolute inset-0 p-4 flex flex-col justify-end">
                       <div className="mb-2">
-                        <span className="bg-primary text-white px-2 py-1 rounded-md text-xs font-medium">
+                        <span className="bg-primary text-gray-950 px-2 py-1 rounded-md text-xs font-medium">
                           Blogs
                         </span>
                       </div>
@@ -233,7 +233,7 @@ const BlogsSection: React.FC = () => {
                     
                     <div className="absolute inset-0 p-4 flex flex-col justify-end">
                       <div className="mb-2">
-                        <span className="bg-primary text-white px-2 py-1 rounded-md text-xs font-medium">
+                        <span className="bg-primary text-gray-950 px-2 py-1 rounded-md text-xs font-medium">
                           Blogs
                         </span>
                       </div>

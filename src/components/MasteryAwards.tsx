@@ -139,7 +139,7 @@ const MasteryAwards: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-gray-900/25" />
             </div>
           </div>
-          <p className="text-[10px] uppercase tracking-widest text-amber-600 font-bold mb-1">Welcome to</p>
+          <p className="text-[10px] uppercase tracking-widest text-primary-600 font-bold mb-1">Welcome to</p>
           <h4 className="font-serif text-lg text-gray-900/80 font-bold leading-tight mb-3">
             California Cuisine in the Heart of the Bay
           </h4>
@@ -164,7 +164,7 @@ const MasteryAwards: React.FC = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="p-3 rounded-xl bg-gray-900/[0.03] border border-gray-900/10">
-              <div className="w-full h-16 rounded-lg bg-amber-500/15 mb-2" />
+              <div className="w-full h-16 rounded-lg bg-primary/15 mb-2" />
               <div className="h-2.5 w-20 bg-gray-900/20 rounded mb-1" />
               <div className="h-2 w-12 bg-gray-900/15 rounded" />
             </div>
@@ -182,14 +182,14 @@ const MasteryAwards: React.FC = () => {
           {/* ─── Left Column: Exact Headline, Copy & CTA ─── */}
           <div className="lg:col-span-6 text-center lg:text-left">
             {/* Main Headline */}
-            <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-gray-900 leading-[1.12] tracking-tight mb-6">
+            <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-gray-900 dark:text-gray-900 leading-[1.12] tracking-tight mb-6">
               Mastery Proven <br />
               Through Multiple <br />
               Awards
             </h2>
 
             {/* Body Copy */}
-            <p className="text-base sm:text-lg text-gray-600 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0 mb-8">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-[#4b5563] leading-relaxed font-normal max-w-xl mx-auto lg:mx-0 mb-8">
               Our team is adept at designing websites that guide, convert, and sell. Today, our web design agency is
               among the best companies in the world, having multiple awards to its name. We are proud that we have
               always been successful in what we wanted.
@@ -200,7 +200,7 @@ const MasteryAwards: React.FC = () => {
               <a
                 href="#contact"
                 onClick={handleGetStarted}
-                className="group inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-4 rounded-full bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 font-bold text-sm tracking-wider uppercase shadow-lg shadow-yellow-400/25 hover:brightness-105 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+                className="group inline-flex items-center justify-center gap-2 px-8 sm:px-9 py-4 rounded-full bg-gray-950 text-primary ring-2 ring-gray-950 font-bold text-sm tracking-wider uppercase shadow-xl shadow-gray-950/30 hover:bg-gray-800 hover:ring-primary hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
               >
                 LET&apos;S GET STARTED
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

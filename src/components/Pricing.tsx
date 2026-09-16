@@ -57,7 +57,7 @@ const Pricing: React.FC = () => {
               onClick={() => setActiveId(category.id)}
               className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
                 activeId === category.id
-                  ? 'bg-gradient-to-r from-primary to-secondary text-white shadow-lg shadow-primary/30'
+                  ? 'bg-gradient-to-r from-primary to-secondary text-gray-950 shadow-lg shadow-primary/30'
                   : 'bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:bg-primary/10 hover:text-primary'
               }`}
             >
@@ -94,7 +94,7 @@ const Pricing: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary via-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
               {tier.highlighted && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-white text-[10px] font-extrabold uppercase tracking-wider shadow-sm z-20 transition-all duration-300 group-hover:bg-gray-950 group-hover:text-yellow-400 group-hover:shadow-md">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-gray-950 text-[10px] font-extrabold uppercase tracking-wider shadow-sm z-20 transition-all duration-300 group-hover:bg-gray-950 group-hover:text-yellow-400 group-hover:shadow-md">
                   Most Popular
                 </span>
               )}
@@ -148,7 +148,7 @@ const Pricing: React.FC = () => {
                 href="#contact"
                 className={`relative z-10 w-full text-center py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-1.5 shadow-sm active:scale-95 ${
                   tier.highlighted
-                    ? 'bg-primary text-white group-hover:bg-gray-950 group-hover:text-white group-hover:border-gray-950'
+                    ? 'bg-primary text-gray-950 group-hover:bg-gray-950 group-hover:text-white group-hover:border-gray-950'
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:border-primary group-hover:bg-gray-950 group-hover:text-white group-hover:border-gray-950'
                 }`}
               >

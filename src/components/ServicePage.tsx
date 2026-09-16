@@ -1160,7 +1160,7 @@ if (title.includes('customer support')) {
                     <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="w-8 h-8 text-white" />
                     </div>
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-gray-950 font-bold text-sm">
                       {index + 1}
                     </div>
                   </div>
@@ -1211,7 +1211,7 @@ if (title.includes('customer support')) {
           </p>
           <button
             onClick={handleContactRedirect}
-            className="btn bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 shadow-xl"
+            className="btn bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 text-lg px-8 py-4 shadow-xl"
           >
             Contact Us
           </button>

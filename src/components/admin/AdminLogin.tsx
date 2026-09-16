@@ -123,7 +123,7 @@ const AdminLogin: React.FC = () => {
               disabled={loading}
               className="
                 w-full flex items-center justify-center gap-3
-                px-8 py-4 bg-primary text-white font-black
+                px-8 py-4 bg-primary text-gray-950 font-black
                 rounded-2xl transition-all shadow-xl shadow-primary/20
                 hover:shadow-2xl hover:shadow-primary/30
                 hover:-translate-y-1 active:translate-y-0

@@ -30,7 +30,7 @@ const YellowMarketing: React.FC = () => {
       icon: TrendingUp,
       description: 'SEO, PPC, social media, and online advertising strategies',
       // color: 'from-blue-500 to-cyan-500'
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
     },
     {
       id: 'advertising-marketing',
@@ -38,7 +38,7 @@ const YellowMarketing: React.FC = () => {
       icon: Target,
       description: 'Paid advertising campaigns across multiple platforms',
       // color: 'from-purple-500 to-pink-500'
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
     },
     {
       id: 'traditional-marketing',
@@ -46,7 +46,7 @@ const YellowMarketing: React.FC = () => {
       icon: Radio,
       description: 'Print, radio, TV, and outdoor advertising solutions',
       // color: 'from-green-500 to-emerald-500'
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
     },
     {
       id: 'pr-branding',
@@ -54,7 +54,7 @@ const YellowMarketing: React.FC = () => {
       icon: Award,
       description: 'Brand identity, public relations, and reputation management',
       // color: 'from-orange-500 to-red-500'
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
     },
     {
       id: 'ai-data-marketing',
@@ -62,14 +62,14 @@ const YellowMarketing: React.FC = () => {
       icon: Brain,
       description: 'Machine learning insights and predictive analytics',
       // color: 'from-indigo-500 to-purple-500'
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
     },
     {
       id: 'specialized-marketing',
       title: 'Specialized Marketing',
       icon: Zap,
       description: 'Niche market strategies and industry-specific campaigns',
-      color: 'from-yellow-500 to-orange-500'
+      color: 'from-yellow-500 to-amber-400'
     },
     {
       id: 'emerging-niche',
@@ -77,7 +77,7 @@ const YellowMarketing: React.FC = () => {
       icon: Sparkles,
       description: 'Cutting-edge marketing trends and innovative approaches',
       // color: 'from-pink-500 to-rose-500'
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
     },
     {
       id: 'content-creation',
@@ -85,7 +85,7 @@ const YellowMarketing: React.FC = () => {
       icon: PenTool,
       description: 'Creative content planning and strategic storytelling',
       // color: 'from-teal-500 to-blue-500'
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
     }
   ];
 
@@ -237,7 +237,7 @@ const YellowMarketing: React.FC = () => {
                 >
                   {pkg.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-primary text-white px-6 py-2 rounded-full text-sm font-bold flex items-center">
+                      <span className="bg-primary text-gray-950 px-6 py-2 rounded-full text-sm font-bold flex items-center">
                         <Star className="w-4 h-4 mr-2 fill-current" />
                         Most Popular
                       </span>
@@ -273,7 +273,7 @@ const YellowMarketing: React.FC = () => {
                     onClick={handleContactRedirect}
                     className={`w-full btn ${
                       pkg.popular 
-                        ? 'bg-primary hover:bg-primary/90 text-white' 
+                        ? 'bg-gradient-to-r from-primary via-amber-400 to-yellow-400 hover:brightness-105 text-gray-950' 
                         : 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100'
                     } py-4 text-lg font-semibold`}
                   >
@@ -289,7 +289,7 @@ const YellowMarketing: React.FC = () => {
       {/* Sticky CTA Button */}
       <button
         onClick={handleContactRedirect}
-        className="fixed bottom-20 right-6 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 z-50 flex items-center font-semibold"
+        className="fixed bottom-20 right-6 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 hover:brightness-105 text-gray-950 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 z-50 flex items-center font-semibold"
       >
         <span>Contact Us</span>
         <ArrowRight className="ml-2 w-5 h-5" />

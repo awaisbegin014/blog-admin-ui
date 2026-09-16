@@ -10,10 +10,10 @@ const CallBand: React.FC = () => {
     <a
       href="tel:+19342035115"
       aria-label="Ready? Click to call +1 (934) 203-5115"
-      className="call-band call-band-slide fixed inset-x-0 bottom-0 z-40 flex h-12 md:h-14 items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-[#f5781e]/90 via-[#f99820]/90 to-[#fcc319]/90 backdrop-blur-sm shadow-[0_-4px_20px_rgba(245,120,30,0.25)] hover:[animation-play-state:paused]"
+      className="call-band call-band-slide fixed inset-x-0 bottom-0 z-40 flex h-12 md:h-14 items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-primary/90 via-amber-400/90 to-yellow-400/90 backdrop-blur-sm shadow-[0_-4px_20px_rgba(249,185,24,0.25)] hover:[animation-play-state:paused]"
     >
-      <Phone className="w-5 h-5 md:w-6 md:h-6 fill-white" strokeWidth={0} />
-      <span className="whitespace-nowrap font-poppins text-base md:text-2xl font-extrabold uppercase tracking-wide text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.25)]">
+      <Phone className="w-5 h-5 md:w-6 md:h-6 fill-gray-950" strokeWidth={0} />
+      <span className="whitespace-nowrap font-poppins text-base md:text-2xl font-extrabold uppercase tracking-wide text-gray-950">
         Ready? Click to Call
       </span>
     </a>

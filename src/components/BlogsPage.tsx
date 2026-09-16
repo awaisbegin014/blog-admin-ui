@@ -233,7 +233,7 @@ const BlogsPage: React.FC = () => {
 
                       {/* Category Badge */}
                       <div className="absolute top-4 left-4">
-                        <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+                        <span className="bg-primary text-gray-950 px-3 py-1 rounded-full text-sm font-medium">
                           {blog.category}
                         </span>
                       </div>
@@ -241,7 +241,7 @@ const BlogsPage: React.FC = () => {
                       {/* Featured Badge */}
                       {blog.featured && (
                         <div className="absolute top-4 right-4">
-                          <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">
+                          <span className="bg-secondary text-gray-950 px-3 py-1 rounded-full text-sm font-medium">
                             Featured
                           </span>
                         </div>
@@ -345,7 +345,7 @@ const BlogsPage: React.FC = () => {
                     key={page}
                     onClick={() => handlePageNavigation(page)}
                     className={`w-10 h-10 rounded-full transition-colors ${page === currentPage
-                        ? 'bg-primary text-white'
+                        ? 'bg-primary text-gray-950'
                         : 'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
                       }`}
                   >
@@ -357,7 +357,7 @@ const BlogsPage: React.FC = () => {
               {currentPage < totalPages && (
                 <button
                   onClick={() => handlePageNavigation(currentPage + 1)}
-                  className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors"
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 rounded-full hover:brightness-105 transition-colors"
                 >
                   <span>Next</span>
                   <ArrowRight className="w-4 h-4" />

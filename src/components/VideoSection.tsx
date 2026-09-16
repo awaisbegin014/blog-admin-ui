@@ -153,14 +153,14 @@ const VideoSection = () => {
           className="absolute right-0 top-0 w-1/2 h-full flex items-center justify-center pl-2 p-0 lg:p-8 mt-20 lg:mt-20"
         >
           <motion.div
-            className="bg-[#111111]/90 backdrop-blur-md border border-[#F79031]/40 shadow-2xl rounded-2xl p-10 max-w-lg"
+            className="bg-[#111111]/90 backdrop-blur-md border border-[#F9B918]/40 shadow-2xl rounded-2xl p-10 max-w-lg"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <motion.h2
               className="text-lg lg:text-4xl font-extrabold mb-6 tracking-tight"
-              style={{ color: "#F79031" }} // fixed color
+              style={{ color: "#F9B918" }} // fixed color
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}

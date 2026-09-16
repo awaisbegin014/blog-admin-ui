@@ -186,7 +186,7 @@ const AdminBlogList: React.FC<AdminBlogListProps> = ({ onCreateNew, onEdit }) =>
           </button>
           <button
             onClick={onCreateNew}
-            className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-xl font-semibold text-sm hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-primary/20"
+            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 rounded-xl font-semibold text-sm hover:brightness-105 active:scale-95 transition-all shadow-md shadow-primary/20"
           >
             <PlusCircle className="w-4 h-4" />
             New Post

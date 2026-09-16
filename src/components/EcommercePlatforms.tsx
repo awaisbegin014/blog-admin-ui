@@ -59,7 +59,7 @@ const EcommercePlatforms: React.FC = () => {
           {platforms.map((platform) => (
             <div
               key={platform.name}
-              className="group bg-white rounded-3xl p-8 sm:p-10 border border-gray-100/90 hover:border-primary/40 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_45px_rgba(247,144,49,0.14)] hover:-translate-y-2 transition-all duration-300 flex items-center justify-center aspect-square min-h-[220px]"
+              className="group bg-white rounded-3xl p-8 sm:p-10 border border-gray-100/90 hover:border-primary/40 shadow-[0_10px_35px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_45px_rgba(249,185,24,0.14)] hover:-translate-y-2 transition-all duration-300 flex items-center justify-center aspect-square min-h-[220px]"
             >
               <img
                 src={platform.logo}

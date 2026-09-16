@@ -44,15 +44,15 @@
   }
 
   .btn-primary {
-    @apply btn bg-primary hover:bg-primary/90 text-white focus:ring-primary/50 hover:shadow-lg;
+    @apply btn bg-primary hover:bg-primary/90 text-gray-950 focus:ring-primary/50 hover:shadow-lg;
   }
 
   .btn-secondary {
-    @apply btn bg-secondary hover:bg-secondary/90 text-white focus:ring-secondary/50 hover:shadow-lg;
+    @apply btn bg-secondary hover:bg-secondary/90 text-gray-950 focus:ring-secondary/50 hover:shadow-lg;
   }
 
   .btn-outline {
-    @apply btn border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary/50 hover:shadow-lg dark:hover:text-white;
+    @apply btn border-2 border-primary text-primary hover:bg-primary hover:text-gray-950 focus:ring-primary/50 hover:shadow-lg dark:hover:text-gray-950;
   }
 
   .card {
@@ -136,7 +136,7 @@
   /* Glass morphism */
   .glass {
     @apply backdrop-blur-lg bg-white/30 dark:bg-black/30;
-    border: 1px solid rgba(247, 144, 49, 0.18);
+    border: 1px solid rgba(249, 185, 24, 0.18);
   }
 
   /* Enhanced hover effects */
@@ -145,7 +145,7 @@
   }
 
   .hover-glow {
-    @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(247,144,49,0.3)];
+    @apply transition-all duration-300 hover:shadow-[0_0_15px_rgba(249,185,24,0.3)];
   }
 
   .hover-expand {
@@ -280,10 +280,10 @@
   }
   @keyframes pulse-glow {
     0%, 100% { 
-      box-shadow: 0 0 20px rgba(247, 144, 49, 0.3);
+      box-shadow: 0 0 20px rgba(249, 185, 24, 0.3);
     }
     50% { 
-      box-shadow: 0 0 40px rgba(247, 144, 49, 0.6);
+      box-shadow: 0 0 40px rgba(249, 185, 24, 0.6);
     }
   }
 
@@ -363,14 +363,14 @@
     box-shadow: 
       0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -1px rgba(0, 0, 0, 0.06),
-      0 0 0 1px rgba(247, 144, 49, 0.05);
+      0 0 0 1px rgba(249, 185, 24, 0.05);
   }
 
   .shadow-elegant:hover {
     box-shadow: 
       0 20px 25px -5px rgba(0, 0, 0, 0.1),
       0 10px 10px -5px rgba(0, 0, 0, 0.04),
-      0 0 0 1px rgba(247, 144, 49, 0.1);
+      0 0 0 1px rgba(249, 185, 24, 0.1);
   }
 
   /* Dark mode enhancements */
@@ -378,26 +378,26 @@
     box-shadow: 
       0 4px 6px -1px rgba(0, 0, 0, 0.3),
       0 2px 4px -1px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(247, 144, 49, 0.1);
+      0 0 0 1px rgba(249, 185, 24, 0.1);
   }
 
   .dark .shadow-elegant:hover {
     box-shadow: 
       0 20px 25px -5px rgba(0, 0, 0, 0.4),
       0 10px 10px -5px rgba(0, 0, 0, 0.3),
-      0 0 0 1px rgba(247, 144, 49, 0.2);
+      0 0 0 1px rgba(249, 185, 24, 0.2);
   }
 
   /* Background patterns */
   .bg-pattern-dots {
-    background-image: radial-gradient(circle, rgba(247, 144, 49, 0.1) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(249, 185, 24, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
   }
 
   .bg-pattern-grid {
     background-image: 
-      linear-gradient(rgba(247, 144, 49, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(247, 144, 49, 0.05) 1px, transparent 1px);
+      linear-gradient(rgba(249, 185, 24, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249, 185, 24, 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
   }
 
@@ -498,7 +498,7 @@
 /* ── Tiptap WYSIWYG editor styles ─────────────────────────────────────────── */
 .tiptap {
   outline: none;
-  caret-color: #F79031; /* brand primary */
+  caret-color: #F9B918; /* brand primary */
 }
 
 .tiptap p.is-editor-empty:first-child::before {
@@ -520,7 +520,7 @@
 .tiptap li  { margin-bottom: 0.25rem; }
 
 .tiptap blockquote {
-  border-left: 4px solid #F79031;
+  border-left: 4px solid #F9B918;
   padding-left: 1rem;
   margin: 1rem 0;
   color: #6b7280;
@@ -557,7 +557,7 @@
 .dark .tiptap hr     { border-color: #374151; }
 
 /* Selection highlight */
-.tiptap ::selection { background: rgba(247, 144, 49, 0.2); }
+.tiptap ::selection { background: rgba(249, 185, 24, 0.2); }
 
 /* Portfolio Window Smooth Hover Scroll & Zoom */
 .portfolio-window-img {

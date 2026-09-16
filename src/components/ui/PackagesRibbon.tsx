@@ -45,7 +45,7 @@ const PackagesRibbon: React.FC = () => (
     <svg viewBox="0 0 560 480" className="w-full h-auto overflow-visible" role="img" aria-label="Our packages">
       <defs>
         <linearGradient id="packages-ribbon-top" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#F79031" />
+          <stop offset="0" stopColor="#F9B918" />
           <stop offset="1" stopColor="#FBBF24" />
         </linearGradient>
         <radialGradient id="packages-ribbon-floor" cx="0.5" cy="0.5" r="0.5">
@@ -69,7 +69,7 @@ const PackagesRibbon: React.FC = () => (
         <g transform="rotate(-22 280 240)">
           {/* Fold wedges — drawn first so the ribbons cover all but the fold */}
           <polygon points="110,232 125,168 190,232" className="fill-black dark:fill-zinc-900" />
-          <polygon points="430,230 495,210 450,305" fill="#B34E09" />
+          <polygon points="430,230 495,210 450,305" fill="#92650A" />
 
           {/* Bottom ribbon */}
           <rect x="20" y="222" width="440" height="120" rx="60" className="fill-gray-900 dark:fill-zinc-700" />

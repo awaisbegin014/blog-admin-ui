@@ -110,7 +110,7 @@ const Testimonials: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="py-16 md:py-20 relative overflow-hidden bg-gradient-to-b from-[#fcc319] via-[#f79a20] to-[#ef6c14] text-gray-950 select-none"
+      className="py-16 md:py-20 relative overflow-hidden bg-gradient-to-b from-[#fcc319] via-[#fabd1c] to-[#f5ad0c] text-gray-950 select-none"
     >
       {/* Ambient background glows for premium depth */}
       <div className="absolute -top-32 -left-32 w-96 h-96 bg-white/20 rounded-full blur-3xl pointer-events-none" />
@@ -120,7 +120,7 @@ const Testimonials: React.FC = () => {
         {/* Section Header */}
         <div className="mb-10 md:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-3xl">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-950 tracking-tight leading-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-950 dark:text-gray-950 tracking-tight leading-tight">
               Proven Results, Real Impact — See Why Fast-Growing Brands Trust Us
             </h2>
           </div>
@@ -181,13 +181,13 @@ const Testimonials: React.FC = () => {
                   </div>
 
                   {/* 5 Solid Gold Stars */}
-                  <div className="flex justify-center items-center gap-1.5 mb-4 text-[#f59e0b]">
+                  <div className="flex justify-center items-center gap-1.5 mb-4 text-[#F9B918]">
                     {[...Array(5)].map((_, starIndex) => (
                       <Star
                         key={starIndex}
                         className={`w-5 h-5 ${
                           starIndex < item.rating
-                            ? 'fill-[#f59e0b] text-[#f59e0b]'
+                            ? 'fill-[#F9B918] text-[#F9B918]'
                             : 'fill-gray-200 text-gray-200'
                         }`}
                       />

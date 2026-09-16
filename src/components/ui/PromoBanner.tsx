@@ -155,7 +155,7 @@ const PromoBanner: React.FC<PromoBannerProps> = ({ onClose }) => {
                 className="text-4xl md:text-5xl font-black tracking-tighter mb-1"
               >
                 <span className="text-white">50% FLAT</span>{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-600">OFF</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400">OFF</span>
               </motion.h2>
               
               <motion.p
@@ -238,7 +238,7 @@ const PromoBanner: React.FC<PromoBannerProps> = ({ onClose }) => {
                 onClick={handleCTA}
                 className="group relative flex items-center justify-center gap-2 w-full md:w-auto md:min-w-[340px] px-8 py-3.5 bg-primary rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-xl shadow-primary/20"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <Zap className="relative z-10 w-4 h-4 text-white fill-white animate-pulse" />
                 <span className="relative z-10 text-white font-black text-base tracking-tight uppercase">
                   Claim 50% Flat Discount

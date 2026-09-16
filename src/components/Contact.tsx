@@ -1,44 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ChevronDown, Search } from 'lucide-react';
+import React, { useRef, useEffect } from 'react';
 import anime from 'animejs';
-import { countries, defaultCountry, Country } from '../data/countries';
+import ContactForm from './ContactForm';
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<Country>(defaultCountry);
-  const [isCountryOpen, setIsCountryOpen] = useState(false);
-  const [countrySearch, setCountrySearch] = useState('');
-
   const containerRef = useRef<HTMLDivElement>(null);
-  const countryDropdownRef = useRef<HTMLDivElement>(null);
-
-  const filteredCountries = countries.filter(
-    (c) =>
-      c.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
-      c.dial.includes(countrySearch) ||
-      c.code.toLowerCase().includes(countrySearch.toLowerCase())
-  );
-
-  // Close the country dropdown when clicking outside it
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (countryDropdownRef.current && !countryDropdownRef.current.contains(e.target as Node)) {
-        setIsCountryOpen(false);
-        setCountrySearch('');
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
@@ -120,53 +85,6 @@ const Contact: React.FC = () => {
     };
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Create FormData for Google Forms submission
-    const googleFormData = new FormData();
-
-    // Replace these entry IDs with your actual Google Form entry IDs
-    // You can find these by inspecting your Google Form's HTML
-    googleFormData.append('entry.1036662758', formData.name);    // Name field entry ID
-    googleFormData.append('entry.1211344924', formData.email);   // Email field entry ID
-    googleFormData.append('entry.1305445798', formData.phone ? `${selectedCountry.dial} ${formData.phone}` : ''); // Phone field entry ID
-    googleFormData.append('entry.1574019631', formData.message); // Description field entry ID
-
-    try {
-      // Replace this URL with your actual Google Form URL
-      await fetch(
-        'https://docs.google.com/forms/d/e/1FAIpQLSdZfNLaKKp1IYRGWFDT2Bb5nMrNPONm83MhB371wnPCciKWNw/formResponse',
-        {
-          method: 'POST',
-          mode: 'no-cors',
-          body: googleFormData,
-        }
-      );
-
-      setSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', message: '' });
-
-      // Hide success message after 5 seconds
-      setTimeout(() => setSubmitted(false), 5000);
-
-    } catch (error) {
-      console.error('Form submission failed:', error);
-      // You might want to show an error message to the user here
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
   return (
     <section id="contact" className="relative bg-white dark:bg-gray-950">
       {/* Dark brand-tinted band behind the headline, sized to fit it (not the taller form card) */}
@@ -184,166 +102,13 @@ const Contact: React.FC = () => {
               You&apos;ve Got <span className="gradient-text">Questions?</span>
             </h2>
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-md">
-              It is easier. It is free. Fill out the form and discuss your queries with us. Our team is always ready to help you move forward.
+              Share a few details about what you need and our team will get back to you with ideas, next steps and a free estimate.
             </p>
           </div>
 
           {/* Right: raised white card — taller than the band, so it pops out below it */}
-          <div className="contact-form opacity-0 relative w-full lg:max-w-[540px] lg:ml-auto rounded-3xl bg-white border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-5 sm:p-6">
-            {submitted ? (
-              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-8 text-center">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-green-800 dark:text-green-200 mb-2">
-                  Message Sent Successfully!
-                </h3>
-                <p className="text-green-600 dark:text-green-300">
-                  Thank you for your message! We'll get back to you soon.
-                </p>
-              </div>
-            ) : (
-              <>
-                <h3 className="text-gray-900 text-2xl font-bold mb-4">
-                  It's Quick &amp; <span className="gradient-text">Easy</span>
-                </h3>
-
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Enter your name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                      required
-                    />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Enter your Email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                      required
-                    />
-                  </div>
-
-                  <div className="flex items-stretch rounded-xl bg-gray-50 border border-gray-200 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-colors">
-                    <div className="relative shrink-0" ref={countryDropdownRef}>
-                      <button
-                        type="button"
-                        onClick={() => setIsCountryOpen((prev) => !prev)}
-                        aria-haspopup="listbox"
-                        aria-expanded={isCountryOpen}
-                        className="h-full flex items-center gap-1.5 pl-3.5 pr-2.5 border-r border-gray-200 text-gray-700 hover:text-primary transition-colors"
-                      >
-                        <span className="text-xs font-bold tracking-wide px-1.5 py-0.5 rounded bg-primary/10 text-primary">
-                          {selectedCountry.code}
-                        </span>
-                        <span className="font-medium">{selectedCountry.dial}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 text-gray-400 transition-transform ${isCountryOpen ? 'rotate-180' : ''}`} />
-                      </button>
-
-                      {isCountryOpen && (
-                        <div className="absolute z-20 top-full left-0 mt-2 w-64 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xl overflow-hidden">
-                          <div className="flex items-center gap-2 px-3 py-2 border-b border-gray-200 dark:border-gray-700">
-                            <Search className="w-4 h-4 text-gray-400 shrink-0" />
-                            <input
-                              type="text"
-                              autoFocus
-                              value={countrySearch}
-                              onChange={(e) => setCountrySearch(e.target.value)}
-                              placeholder="Search country or code"
-                              className="w-full bg-transparent text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none"
-                            />
-                          </div>
-                          <ul role="listbox" className="max-h-60 overflow-y-auto py-1">
-                            {filteredCountries.length === 0 ? (
-                              <li className="px-4 py-3 text-sm text-gray-400">No countries found</li>
-                            ) : (
-                              filteredCountries.map((country) => (
-                                <li key={country.code}>
-                                  <button
-                                    type="button"
-                                    role="option"
-                                    aria-selected={country.code === selectedCountry.code}
-                                    onClick={() => {
-                                      setSelectedCountry(country);
-                                      setIsCountryOpen(false);
-                                      setCountrySearch('');
-                                    }}
-                                    className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left hover:bg-primary/10 hover:text-primary transition-colors ${
-                                      country.code === selectedCountry.code
-                                        ? 'text-primary font-semibold bg-primary/5'
-                                        : 'text-gray-700 dark:text-gray-300'
-                                    }`}
-                                  >
-                                    <span className="w-8 shrink-0 text-xs font-bold tracking-wide text-gray-500 dark:text-gray-400">
-                                      {country.code}
-                                    </span>
-                                    <span className="flex-1 truncate">{country.name}</span>
-                                    <span className="font-medium text-gray-500 dark:text-gray-400">{country.dial}</span>
-                                  </button>
-                                </li>
-                              ))
-                            )}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="(021) 23456789"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="flex-1 min-w-0 px-4 py-3 bg-transparent text-gray-900 placeholder-gray-400 focus:outline-none"
-                    />
-                  </div>
-
-                  <textarea
-                    name="message"
-                    placeholder="Enter a Brief Description"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={3}
-                    className="w-full rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"
-                    required
-                  ></textarea>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3.5 text-base rounded-xl font-bold flex items-center justify-center transition-all duration-300 transform hover:scale-[1.02] bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20 group disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
-                  >
-                    {isSubmitting ? (
-                      <span className="inline-flex items-center justify-center">
-                        <svg
-                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-950"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          />
-                        </svg>
-                        Sending...
-                      </span>
-                    ) : (
-                      <span>Submit</span>
-                    )}
-                  </button>
-                </form>
-              </>
-            )}
+          <div className="contact-form opacity-0 relative w-full lg:max-w-[540px] lg:ml-auto rounded-3xl bg-white dark:bg-gray-950 border-2 sm:border-[3px] border-yellow-400 shadow-2xl p-5 sm:p-6">
+            <ContactForm title={<>Tell Us About Your <span className="gradient-text">Project</span></>} submitLabel="Send Message" />
           </div>
         </div>
       </div>

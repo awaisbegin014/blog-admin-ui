@@ -2,7 +2,7 @@
  * Illustrations for each service card, keyed by the exact service title in
  * `data/content.ts`. Sourced from unDraw (https://undraw.co — free for
  * commercial use, no attribution required) and recolored from unDraw's
- * default purple accent to the site's primary orange (#F79031).
+ * default purple accent to the site's primary orange (#F9B918).
  * Files live in `public/images/services/`.
  */
 export const serviceImages: Record<string, string> = {

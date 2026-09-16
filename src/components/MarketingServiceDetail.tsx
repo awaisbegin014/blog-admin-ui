@@ -125,7 +125,7 @@ const MarketingServiceDetail: React.FC = () => {
       description: 'Comprehensive digital marketing strategies that drive online growth, engagement, and measurable ROI across all digital channels.',
       image: 'https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       // color: 'from-blue-500 to-cyan-500',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
       stats: [
         { label: 'Average ROI Increase', value: '340%', icon: TrendingUp },
         { label: 'Campaigns Managed', value: '500+', icon: Target },
@@ -208,7 +208,7 @@ const MarketingServiceDetail: React.FC = () => {
       description: 'Strategic paid advertising campaigns that maximize ROI and reach your target audience with precision targeting and compelling creative.',
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       // color: 'from-purple-500 to-pink-500',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
       stats: [
         { label: 'Ad Spend Managed', value: '$2M+', icon: TrendingUp },
         { label: 'ROAS Average', value: '4.2x', icon: Target },
@@ -269,7 +269,7 @@ const MarketingServiceDetail: React.FC = () => {
       description: 'Time-tested marketing approaches that build lasting brand recognition and trust through proven traditional channels.',
       image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       // color: 'from-green-500 to-emerald-500',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
       stats: [
         { label: 'Print Campaigns', value: '300+', icon: TrendingUp },
         { label: 'TV/Radio Spots', value: '150+', icon: Target },
@@ -330,7 +330,7 @@ const MarketingServiceDetail: React.FC = () => {
       description: 'Build and protect your brand reputation with strategic public relations and comprehensive branding solutions.',
       image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       // color: 'from-orange-500 to-red-500',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
       stats: [
         { label: 'Media Mentions', value: '1000+', icon: TrendingUp },
         { label: 'Brand Campaigns', value: '200+', icon: Target },
@@ -381,7 +381,7 @@ const MarketingServiceDetail: React.FC = () => {
       description: 'Leverage artificial intelligence and data analytics for smarter marketing decisions and automated campaign optimization.',
       image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       // color: 'from-indigo-500 to-purple-500',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
       stats: [
         { label: 'AI Models Deployed', value: '50+', icon: TrendingUp },
         { label: 'Data Points Analyzed', value: '10M+', icon: BarChart3 },
@@ -436,7 +436,7 @@ const MarketingServiceDetail: React.FC = () => {
       subtitle: 'Industry-Specific Excellence',
       description: 'Industry-specific marketing strategies tailored to your unique market with specialized expertise and proven methodologies.',
       image: 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
       stats: [
         { label: 'Industries Served', value: '25+', icon: Target },
         { label: 'Specialized Campaigns', value: '400+', icon: TrendingUp },
@@ -502,7 +502,7 @@ const MarketingServiceDetail: React.FC = () => {
       description: 'Stay ahead with cutting-edge marketing trends and innovative approaches that position your brand at the forefront of industry evolution.',
       image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       // color: 'from-pink-500 to-rose-500',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
       stats: [
         { label: 'Innovative Campaigns', value: '100+', icon: Zap },
         { label: 'Community Members', value: '50K+', icon: Users },
@@ -563,7 +563,7 @@ const MarketingServiceDetail: React.FC = () => {
       description: 'Creative content planning and strategic storytelling that resonates with your audience and drives meaningful engagement.',
       image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       // color: 'from-teal-500 to-blue-500',
-      color: 'from-yellow-500 to-orange-500',
+      color: 'from-yellow-500 to-amber-400',
       stats: [
         { label: 'Content Pieces Created', value: '5000+', icon: TrendingUp },
         { label: 'Engagement Rate', value: '18%', icon: Target },
@@ -965,7 +965,7 @@ const MarketingServiceDetail: React.FC = () => {
         <div className="container">
           <div className="text-center mb-12 md:mb-16 lg:mb-20">
             <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white">
-              <span className="heading">Core</span> <span className="text-orange-500">Services</span>
+              <span className="heading">Core</span> <span className="text-primary">Services</span>
             </h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
               Comprehensive solutions designed to elevate your marketing strategy
@@ -1024,7 +1024,7 @@ const MarketingServiceDetail: React.FC = () => {
         <div className="container relative z-10">
           <div className="text-center mb-12 md:mb-16 lg:mb-20">
             <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white">
-              <span className="heading">Content</span> <span className="text-orange-500">Strategy</span>
+              <span className="heading">Content</span> <span className="text-primary">Strategy</span>
             </h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
               Strategic content frameworks that drive engagement and conversions
@@ -1071,7 +1071,7 @@ const MarketingServiceDetail: React.FC = () => {
         <div className="container">
           <div className="text-center mb-12 md:mb-16 lg:mb-20">
             <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white">
-              <span className="heading">Our</span> <span className="text-orange-500">Process</span>
+              <span className="heading">Our</span> <span className="text-primary">Process</span>
             </h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
               A proven methodology that delivers consistent results
@@ -1118,7 +1118,7 @@ const MarketingServiceDetail: React.FC = () => {
         <div className="container">
           <div className="text-center mb-12 md:mb-16 lg:mb-20">
             <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white">
-              <span className="heading">Campaign</span> <span className="text-orange-500">Timeline</span>
+              <span className="heading">Campaign</span> <span className="text-primary">Timeline</span>
             </h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
               Your journey from strategy to success
@@ -1237,7 +1237,7 @@ const MarketingServiceDetail: React.FC = () => {
       {/* Enhanced Floating Action Button */}
       <button
         onClick={handleContactRedirect}
-        className="fixed bottom-16 right-4 md:bottom-20 md:right-6 lg:bottom-24 lg:right-8 bg-primary hover:bg-primary/90 text-white p-3 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 z-50 flex items-center font-bold text-sm md:text-base group"
+        className="fixed bottom-16 right-4 md:bottom-20 md:right-6 lg:bottom-24 lg:right-8 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 hover:brightness-105 text-gray-950 p-3 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 z-50 flex items-center font-bold text-sm md:text-base group"
       >
         <span className="hidden md:inline">Contact Us</span>
         <span className="md:hidden text-xl">💬</span>

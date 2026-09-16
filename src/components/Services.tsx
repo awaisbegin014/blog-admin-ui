@@ -296,7 +296,7 @@ const Services: React.FC = () => {
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 px-3.5 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800/80">
               <span
                 className={`w-2 h-2 rounded-full ${
-                  isHovered ? "bg-amber-500" : "bg-primary animate-pulse"
+                  isHovered ? "bg-yellow-400" : "bg-primary animate-pulse"
                 }`}
               />
               <span>{isHovered ? "Paused on Hover" : "Auto-sliding"}</span>
@@ -350,8 +350,8 @@ const Services: React.FC = () => {
                 <div
                   onClick={() => handleServiceClick(service)}
                   className="service-card relative min-h-[350px] sm:min-h-[370px] h-full flex flex-col justify-between p-5 sm:p-6 rounded-2xl overflow-hidden
-                  bg-white dark:bg-gray-900 border-4 border-yellow-400 dark:border-yellow-400 shadow-sm hover:shadow-2xl hover:shadow-primary/25
-                  hover:border-yellow-400
+                  bg-white dark:bg-gray-900 border border-gray-200 dark:border-white/10 shadow-sm hover:shadow-2xl hover:shadow-primary/25
+                  hover:border-primary dark:hover:border-primary
                   transition-all duration-300 transform hover:-translate-y-1.5
                   cursor-pointer group"
                 >

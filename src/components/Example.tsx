@@ -363,7 +363,7 @@ const OfficePage: React.FC = () => {
                         >
                           {card.popular && (
                             <div className="absolute -top-3 left-6">
-                              <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+                              <span className="bg-primary text-gray-950 px-3 py-1 rounded-full text-sm font-medium">
                                 Popular
                               </span>
                             </div>
@@ -640,7 +640,7 @@ const OfficePage: React.FC = () => {
                   onClick={() => handleTimeSlotSelect(slot)}
                   className={`p-3 md:p-4 rounded-xl border-2 transition-all duration-300 transform hover:scale-105 flex items-center justify-center ${
                     selectedTimeSlot === slot
-                      ? 'border-primary bg-primary text-white shadow-lg'
+                      ? 'border-primary bg-primary text-gray-950 shadow-lg'
                       : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-primary/10'
                   }`}
                 >
@@ -654,7 +654,7 @@ const OfficePage: React.FC = () => {
               <div className="text-center">
                 <button
                   onClick={handleBookNow}
-                  className="btn bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg font-semibold transform transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="btn bg-gradient-to-r from-primary via-amber-400 to-yellow-400 hover:brightness-105 text-gray-950 px-8 py-4 text-lg font-semibold transform transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   Book Now - {selectedTimeSlot}
                 </button>

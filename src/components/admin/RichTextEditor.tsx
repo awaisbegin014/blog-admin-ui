@@ -34,7 +34,7 @@ const ToolBtn: React.FC<{
     className={`
       p-1 rounded-lg transition-all text-sm
       ${active
-        ? 'bg-primary text-white shadow-sm shadow-primary/30'
+        ? 'bg-primary text-gray-950 shadow-sm shadow-primary/30'
         : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
       }
       ${disabled ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer'}

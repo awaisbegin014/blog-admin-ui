@@ -545,17 +545,20 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Menu, X, ChevronDown, PhoneCall } from 'lucide-react';
 import { navItems, services } from '../data/content';
 import Logo from './ui/Logo';
 import ThemeToggle from './ui/ThemeToggle';
+import QuoteModal from './QuoteModal';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const closeQuote = useCallback(() => setQuoteOpen(false), []);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -619,14 +622,15 @@ const Navbar: React.FC = () => {
           : 'bg-white dark:bg-black shadow-md py-2'
       }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
+      {/* Logo left · links centred between logo and actions · actions right */}
+      <div className="container mx-auto px-4 flex justify-between items-center md:grid md:grid-cols-[auto_1fr_auto] md:gap-6">
         {/* 🔹 Logo always redirects to home */}
-        <a href="/" onClick={handleNavigation} className="cursor-pointer">
+        <a href="/" onClick={handleNavigation} className="cursor-pointer justify-self-start">
           <Logo />
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex flex-1 items-center gap-1 lg:gap-2 ml-6 lg:ml-12 xl:ml-16 relative">
+        <nav className="hidden md:flex items-center justify-center gap-1 lg:gap-2 relative">
           <a
             href="#home"
             onClick={handleNavigation}
@@ -688,7 +692,7 @@ const Navbar: React.FC = () => {
                             onClick={handleNavigation}
                             className="block px-3 py-2 text-sm 
                                        text-gray-800 dark:text-white/90
-                                       hover:text-primary dark:hover:text-orange-400
+                                       hover:text-primary dark:hover:text-primary
                                        rounded-md border border-transparent 
                                        hover:border-primary/30 transition-all duration-300"
                           >
@@ -759,44 +763,37 @@ const Navbar: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <div className="flex items-center gap-3 xl:gap-4 ml-auto pl-4">
-            <ThemeToggle />
-
-            {/* Click-to-call — no handleNavigation, so the dialer opens normally */}
-            <a
-              href="tel:+19342035115"
-              className={`hidden xl:flex items-center gap-2 text-sm font-semibold whitespace-nowrap transition-colors ${
-                isTransparent
-                  ? 'text-white hover:text-white/80'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary'
-              }`}
-            >
-              <PhoneCall className="w-4 h-4 text-primary" />
-              +1 (934) 203-5115
-            </a>
-            <span
-              aria-hidden="true"
-              className={`hidden xl:block h-6 w-px ${isTransparent ? 'bg-white/60' : 'bg-gray-300 dark:bg-gray-700'}`}
-            />
-
-            <a
-              href="/yellowmarketing"
-              onClick={handleNavigation}
-              className="px-5 py-2.5 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 text-sm bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20"
-            >
-              Yellow Marketing
-            </a>
-
-            <a
-              href="#contact"
-              onClick={handleNavigation}
-              className="px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-yellow-400 via-amber-400 to-primary text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20"
-            >
-              Get Started
-            </a>
-          </div>
         </nav>
+
+        {/* Desktop actions */}
+        <div className="hidden md:flex items-center justify-self-end gap-3 xl:gap-4">
+          <ThemeToggle />
+
+          {/* Click-to-call — no handleNavigation, so the dialer opens normally */}
+          <a
+            href="tel:+19342035115"
+            className={`hidden xl:flex items-center gap-2 text-sm font-semibold whitespace-nowrap transition-colors ${
+              isTransparent
+                ? 'text-white hover:text-white/80'
+                : 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary'
+            }`}
+          >
+            <PhoneCall className="w-4 h-4 text-primary" />
+            +1 (934) 203-5115
+          </a>
+          <span
+            aria-hidden="true"
+            className={`hidden xl:block h-6 w-px ${isTransparent ? 'bg-white/60' : 'bg-gray-300 dark:bg-gray-700'}`}
+          />
+
+          <button
+            type="button"
+            onClick={() => setQuoteOpen(true)}
+            className="px-6 py-2.5 text-sm font-bold rounded-xl whitespace-nowrap transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 hover:brightness-105 shadow-lg shadow-yellow-400/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            Get a Free Quote
+          </button>
+        </div>
 
         {/* Mobile click-to-call + menu button */}
         <div className="md:hidden flex items-center gap-3">
@@ -844,20 +841,11 @@ const Navbar: React.FC = () => {
               </a>
             ))}
 
-            {/* ✅ Yellow Marketing button added for mobile */}
-            <a
-              href="/yellowmarketing"
-              onClick={handleNavigation}
-              className="block w-full text-center px-4 py-3 mt-2 rounded-lg font-bold bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 shadow-lg shadow-yellow-400/20 hover:brightness-105 transition-all"
-            >
-              Yellow Marketing
-            </a>
-
             {/* ✅ AI Products button for mobile */}
             <a
               href="/ai-products"
               onClick={handleNavigation}
-              className="block w-full text-center px-4 py-3 mt-2 rounded-lg font-medium border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all"
+              className="block w-full text-center px-4 py-3 mt-2 rounded-lg font-medium border-2 border-primary text-primary hover:bg-primary hover:text-gray-950 transition-all"
             >
               AI Products
             </a>
@@ -872,16 +860,21 @@ const Navbar: React.FC = () => {
               <ThemeToggle />
             </div>
 
-            <a
-              href="#contact"
-              onClick={handleNavigation}
-              className="block w-full text-center mt-6 py-3 rounded-lg font-bold bg-gradient-to-r from-yellow-400 via-amber-400 to-primary text-gray-950 shadow-lg shadow-yellow-400/20 hover:brightness-105 transition-all"
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false);
+                setQuoteOpen(true);
+              }}
+              className="block w-full text-center mt-6 py-3 rounded-lg font-bold bg-gradient-to-r from-primary via-amber-400 to-yellow-400 text-gray-950 shadow-lg shadow-yellow-400/20 hover:brightness-105 transition-all"
             >
-              Get Started
-            </a>
+              Get a Free Quote
+            </button>
           </div>
         </div>
       )}
+
+      <QuoteModal open={quoteOpen} onClose={closeQuote} />
     </header>
   );
 };

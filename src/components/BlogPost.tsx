@@ -244,7 +244,7 @@ const BlogPost: React.FC = () => {
           <div className="max-w-5xl mx-auto">
             {/* Category Badge */}
             <div className="mb-6">
-              <span className="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium">
+              <span className="bg-primary text-gray-950 px-4 py-2 rounded-full text-sm font-medium">
                 {blog.category}
               </span>
             </div>
@@ -393,7 +393,7 @@ const BlogPost: React.FC = () => {
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                         <div className="absolute top-4 left-4">
-                          <span className="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+                          <span className="bg-primary text-gray-950 px-3 py-1 rounded-full text-sm font-medium">
                             {relatedBlog.category}
                           </span>
                         </div>
