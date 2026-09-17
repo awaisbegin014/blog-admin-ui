@@ -580,6 +580,27 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 🔹 Logo: reload the home page and land at the very top (hero section)
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsOpen(false);
+    setDropdownOpen(false);
+    // Browsers restore the previous scroll position on reload — force the top
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    // Full page refresh so the home page starts fresh at the hero.
+    // Dropping only a #hash is a same-document navigation, so reload explicitly
+    // once we are already on "/" to guarantee the refresh.
+    if (window.location.pathname === '/') {
+      window.history.replaceState(null, '', '/');
+      window.location.reload();
+    } else {
+      window.location.assign('/');
+    }
+  };
+
   // 🔹 Handle smooth navigation + logo redirect to home
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -633,7 +654,12 @@ const Navbar: React.FC = () => {
           columns keep the links truly centred; tablets fall back to auto columns. */}
       <div className="container mx-auto px-4 flex justify-between items-center md:grid md:grid-cols-[auto_1fr_auto] lg:grid-cols-[1fr_auto_1fr] md:gap-6">
         {/* 🔹 Logo always redirects to home */}
-        <a href="/" onClick={handleNavigation} className="cursor-pointer justify-self-start">
+        <a
+          href="/"
+          onClick={handleLogoClick}
+          aria-label="The Yellow Solutions — reload home page"
+          className="cursor-pointer justify-self-start"
+        >
           <Logo className="h-12 md:h-16 w-auto object-contain transition-opacity duration-300" />
         </a>
 

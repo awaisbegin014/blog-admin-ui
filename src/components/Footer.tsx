@@ -323,6 +323,11 @@ const usefulLinks = [
   { title: 'Contact Us', href: '#contact' },
 ];
 
+const legalLinks = [
+  { title: 'Privacy Policy', href: '/privacy-policy' },
+  { title: 'Terms & Conditions', href: '/terms-and-conditions' },
+];
+
 const socialLinks = [
   { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61563924716395', Icon: Facebook },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/yellow-solutionss/', Icon: Linkedin },
@@ -510,6 +515,20 @@ const Footer: React.FC = () => {
                   </li>
                 ))}
               </ul>
+
+              <h4 className="mt-7 mb-4 text-sm font-bold uppercase tracking-[0.14em] text-white">
+                Legal
+                <span className="mt-2 block h-0.5 w-8 rounded-full bg-primary" aria-hidden="true" />
+              </h4>
+              <ul className="space-y-2.5">
+                {legalLinks.map((item) => (
+                  <li key={item.title}>
+                    <a href={item.href} onClick={handleNavigation} className={linkClass}>
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </StaggerItem>
 
             {/* Contact */}
@@ -544,9 +563,23 @@ const Footer: React.FC = () => {
 
           {/* Bottom bar */}
           <div className="mt-10 flex flex-col-reverse items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
-            <p className="text-center text-xs text-gray-500 sm:text-left">
-              © {new Date().getFullYear()} Yellow Solutions. All rights reserved.
-            </p>
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-5">
+              <p className="text-center text-xs text-gray-500 sm:text-left">
+                © {new Date().getFullYear()} Yellow Solutions. All rights reserved.
+              </p>
+              <nav className="flex items-center gap-4" aria-label="Legal">
+                {legalLinks.map((item) => (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    onClick={handleNavigation}
+                    className="text-xs text-gray-500 hover:text-primary transition-colors"
+                  >
+                    {item.title}
+                  </a>
+                ))}
+              </nav>
+            </div>
             <button
               type="button"
               onClick={handleBackToTop}

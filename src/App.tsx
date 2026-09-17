@@ -24,6 +24,8 @@ import OfficePage from './components/OfficePage';
 import ServicePage from './components/ServicePage';
 import YellowMarketing from './components/YellowMarketing';
 import AIProductCatalog from './components/AIProductCatalog';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsConditions from './components/TermsConditions';
 import MarketingServiceDetail from './components/MarketingServiceDetail';
 import AdminPage from './components/admin/AdminPage';
 import AdminLogin from './components/admin/AdminLogin';
@@ -99,6 +101,8 @@ function App() {
               <Route path="/yellowmarketing" element={<YellowMarketing />} />
               <Route path="/yellowmarketing/:serviceId" element={<MarketingServiceDetail />} />
               <Route path="/ai-products" element={<AIProductCatalog />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-and-conditions" element={<TermsConditions />} />
               <Route path="/blogs" element={<BlogsPage />} />
               <Route path="/blogs/:slug" element={<BlogPost />} />
             </Routes>

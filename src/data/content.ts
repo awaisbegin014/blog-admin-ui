@@ -421,6 +421,109 @@ export const pricingCategories: PricingCategory[] = [
     ]
   },
   {
+    id: 'app',
+    label: 'App Development',
+    heading: 'Application Development Packages',
+    subheading:
+      'Native and cross-platform mobile apps for iOS and Android — from a first MVP to a full enterprise platform, built, tested and shipped to the app stores.',
+    tiers: [
+      {
+        name: 'App Discovery & Prototype',
+        price: '$799.00 USD',
+        originalPrice: '$1,200.00 ONLY',
+        description: 'Validate your idea with a clickable prototype before you build.',
+        features: [
+          'Product Discovery Workshop',
+          'User Flow & Feature Mapping',
+          'Wireframes for up to 8 Screens',
+          'Clickable Interactive Prototype (iOS & Android)',
+          'App Icon & Splash Screen Design',
+          'Tech Stack Recommendation',
+          'Development Roadmap & Cost Estimate',
+          '2 Revision Rounds',
+          '7-10 Days Turnaround Time'
+        ]
+      },
+      {
+        name: 'MVP Mobile App',
+        price: '$2,499.00 USD',
+        originalPrice: '$3,800.00 ONLY',
+        description: 'Launch-ready cross-platform app for startups testing the market.',
+        features: [
+          'Cross-Platform Build (React Native / Flutter)',
+          'Up to 10 App Screens',
+          'Custom UI/UX Design',
+          'User Login & Signup (Email + Social)',
+          'Push Notifications Setup',
+          'REST API Integration',
+          'Admin Dashboard (Basic)',
+          'Cloud Database Setup',
+          'App Store & Play Store Submission',
+          'QA Testing on Real Devices',
+          '30 Days Post-Launch Bug Support'
+        ]
+      },
+      {
+        name: 'Business Mobile App',
+        price: '$5,499.00 USD',
+        originalPrice: '$8,200.00 ONLY',
+        description: 'Feature-rich app with payments, analytics and a full admin panel.',
+        features: [
+          'Up to 20 Custom App Screens',
+          'iOS & Android Native Performance',
+          'Payment Gateway Integration (Stripe / PayPal)',
+          'In-App Purchases & Subscriptions',
+          'Real-Time Chat or Booking Module',
+          'Full Admin Panel with User Roles',
+          'Advanced Push & In-App Notifications',
+          'Firebase / Google Analytics Integration',
+          'Offline Mode & Local Caching',
+          'Third-Party API Integrations',
+          'Store Submission & ASO Basics',
+          '60 Days Post-Launch Support'
+        ],
+        highlighted: true
+      },
+      {
+        name: 'Enterprise App Platform',
+        price: '$11,999.00 USD',
+        originalPrice: '$17,500.00 ONLY',
+        description: 'Scalable multi-module platform with custom backend architecture.',
+        features: [
+          'Unlimited Screens & Modules',
+          'Native iOS (Swift) & Android (Kotlin) Builds',
+          'Custom Backend & Microservices Architecture',
+          'Multi-Role & Multi-Tenant User System',
+          'AI / ML Feature Integration (Optional)',
+          'ERP, CRM & Third-Party System Integrations',
+          'Advanced Security, Encryption & SSO',
+          'Real-Time Sync & Live Data Dashboards',
+          'Automated CI/CD Pipeline & Testing Suite',
+          'Load Testing & Performance Tuning',
+          'Dedicated Project Manager',
+          '90 Days SLA-Backed Support'
+        ]
+      },
+      {
+        name: 'App Care & Growth',
+        price: '$349.00 USD',
+        period: '/month',
+        description: 'Keep your live app fast, secure and improving every month.',
+        features: [
+          'OS & SDK Version Updates (iOS / Android)',
+          'Bug Fixes & Crash Monitoring',
+          'Monthly Feature Enhancement Hours',
+          'Store Listing & ASO Optimization',
+          'Performance & Load Speed Tuning',
+          'Security Patches & Dependency Updates',
+          'Analytics Reporting & Insights',
+          'Backup & Recovery Management',
+          'Priority Support Channel'
+        ]
+      }
+    ]
+  },
+  {
     id: 'hosting',
     label: 'Hosting & Domain',
     heading: 'Hosting & Domain Packages',

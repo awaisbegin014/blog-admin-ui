@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight, MapPin, Phone, Mail, Star, Calendar, Video, MessageSquare, Send, ChevronDown, Clock, MessageCircle } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, MapPin, Phone, Mail, Star, Calendar, Video, MessageSquare, Send, ChevronDown, Clock, MessageCircle, Check, Building2, Users, ArrowRight } from 'lucide-react';
 // import { ArrowLeft, ChevronLeft, ChevronRight, MapPin, Phone, Mail, Star, Calendar, Video, MessageSquare, Send, ChevronDown, MessageCircle } from 'lucide-react';
 import anime from 'animejs';
 
@@ -11,6 +11,7 @@ interface OfficeData {
   address: string;
   phone: string;
   email: string;
+  whatsapp: string;
   description: string;
   bannerImage: string;
   galleryImages: string[];
@@ -70,6 +71,49 @@ const consultationCards: ConsultationCard[] = [
   }
 ];
 
+// Same consultation line-up for the US office, priced in USD
+const usaConsultationCards: ConsultationCard[] = [
+  {
+    id: 'consultation',
+    title: '1:1 Online Video Meeting Consultation',
+    rating: 5,
+    duration: '15 mins',
+    type: 'Video Meeting',
+    originalPrice: '$20',
+    price: 'Free for 1st time',
+    icon: 'calendar',
+    popular: true
+  },
+  {
+    id: 'career',
+    title: '1:1 Physical Face to Face Consultation',
+    rating: 5,
+    duration: '30 mins',
+    type: 'In-Person Meeting',
+    price: '$25',
+    popular: true,
+    icon: 'calendar'
+  },
+  {
+    id: 'visa',
+    title: '1:1 Voice Call Consultation',
+    rating: 5,
+    duration: '15 mins',
+    type: 'Voice Call',
+    price: '$12',
+    icon: 'video'
+  },
+  {
+    id: 'priority',
+    title: 'Priority DM',
+    rating: 5,
+    duration: 'Replies in 2 days',
+    type: 'Priority DM',
+    price: '$6',
+    icon: 'message'
+  }
+];
+
 const officesData: Record<string, OfficeData> = {
   pakistan: {
     country: 'Pakistan',
@@ -101,8 +145,89 @@ const officesData: Record<string, OfficeData> = {
       '/images/germany/IMG_7038.webp',
       '/images/germany/IMG_7040.webp'
     ]
+  },
+  usa: {
+    country: 'United States',
+    flag: '/images/us.svg',
+    city: 'Coram, NY',
+    address: '675 Hawkins Road East, Coram, NY 11727',
+    phone: '+1 (934) 203-5115',
+    email: 'info@theyellowsolutions.com',
+    whatsapp: '+19342035115',
+    description:
+      'Our United States office on Long Island, New York is the hub for all North American operations. From here we run client strategy, product delivery and account management for businesses across the US and Canada — combining a local, same-timezone team with the full engineering strength of our global studio.',
+    bannerImage: '/images/us-banner.svg',
+    galleryImages: []
   }
 };
+
+// Highlights shown on the United States office page
+const usaHighlights = [
+  {
+    title: 'Same-Timezone Delivery',
+    description:
+      'Standups, reviews and support run on Eastern Time, so your team never waits overnight for an answer.'
+  },
+  {
+    title: 'Full-Stack Product Teams',
+    description:
+      'Web, mobile, cloud and AI engineers working as one squad — design, build, launch and iterate under a single roof.'
+  },
+  {
+    title: 'US Business & Compliance',
+    description:
+      'US-registered contracts, invoicing in USD, NDAs, and builds that respect CCPA, ADA/WCAG and industry standards.'
+  },
+  {
+    title: 'Growth From Day One',
+    description:
+      'SEO, paid media and conversion work paired with every build, so launches turn into measurable revenue.'
+  }
+];
+
+const usaIndustries = [
+  'Healthcare & Wellness',
+  'Real Estate & Construction',
+  'E-commerce & Retail',
+  'Finance & Insurance',
+  'Logistics & Transport',
+  'Education & E-learning',
+  'Hospitality & Food Service',
+  'Professional Services'
+];
+
+const usaFaqs = [
+  {
+    question: 'Where is your US office located?',
+    answer:
+      'Our United States office is at 675 Hawkins Road East, Coram, NY 11727 — on Long Island, roughly an hour from Manhattan and easy to reach from anywhere in the New York metro area.'
+  },
+  {
+    question: 'Which time zone does the US team work in?',
+    answer:
+      'The US team works Eastern Time (ET), Monday through Friday, 8:00 AM – 6:00 PM. Our global studio extends coverage beyond those hours for urgent support and active launches.'
+  },
+  {
+    question: 'Do you work with clients outside New York?',
+    answer:
+      'Yes. We serve clients across all 50 states and Canada. Most projects run remotely over video calls and shared boards, and we travel for on-site kickoffs and workshops when a project calls for it.'
+  },
+  {
+    question: 'What services does the US office provide?',
+    answer:
+      'Website and web application development, mobile apps, e-commerce builds, AI and business automation, UI/UX design, plus SEO, paid advertising and social media marketing.'
+  },
+  {
+    question: 'How do contracts and payments work?',
+    answer:
+      'Contracts are issued from our US entity and billed in USD. We accept ACH, wire and major credit cards, and most projects run on milestone-based billing agreed up front.'
+  },
+  {
+    question: 'How do I start a project with the US office?',
+    answer:
+      'Call +1 (934) 203-5115, email info@theyellowsolutions.com, or book a free consultation below. We reply within one business day with next steps and a free estimate.'
+  }
+];
 
 const faqs = [
   {
@@ -163,7 +288,12 @@ const OfficePage: React.FC = () => {
   const timeSlots = generateTimeSlots();
 
 
-  const officeData = country ? officesData[country] : null;
+  // URLs are matched case-insensitively, so /office/USA works like /office/usa
+  const slug = country?.toLowerCase() ?? '';
+  const officeData = slug ? officesData[slug] : null;
+
+  // The US office quotes the same consultations in USD
+  const activeConsultationCards = slug === 'usa' ? usaConsultationCards : consultationCards;
 
 
   useEffect(() => {
@@ -227,7 +357,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   setIsSubmitting(true);
 
-  const selectedService = consultationCards.find(card => card.id === selectedCard);
+  const selectedService = activeConsultationCards.find(card => card.id === selectedCard);
   const consultationTitle = selectedService ? selectedService.title : '';
 
   const googleFormData = new FormData();
@@ -409,8 +539,121 @@ const handleSubmit = async (e: React.FormEvent) => {
         </div>
       </section>
 
-      {/* Consultation Services Section - Only for Germany */}
-      {country === 'germany' && (
+      {/* Why work with our US team — United States only */}
+      {slug === 'usa' && (
+        <>
+          <section className="section-padding bg-gray-50 dark:bg-gray-900">
+            <div className="container">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+                <span className="heading">Why Work With Our</span>{' '}
+                <span className="gradient-text">
+                  US Team
+                </span>
+              </h2>
+              <p className="text-center text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
+                A local partner on Eastern Time, backed by the delivery power of our global studio.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                {usaHighlights.map((item) => (
+                  <div
+                    key={item.title}
+                    className="group relative bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 overflow-hidden"
+                  >
+                    {/* Stars & Stripes top edge */}
+                    <span className="absolute top-0 left-0 right-0 flex h-1" aria-hidden="true">
+                      <span className="w-1/3 bg-gray-950 dark:bg-white" />
+                      <span className="flex-1 bg-gradient-to-r from-primary via-amber-400 to-yellow-400" />
+                    </span>
+
+                    <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Check className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Quick stats band */}
+              <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                {[
+                  { value: '50 States', label: 'Clients Served', Icon: Users },
+                  { value: 'Eastern Time', label: 'Working Hours', Icon: Clock },
+                  { value: '1 Business Day', label: 'Reply Time', Icon: MessageSquare },
+                  { value: 'USD', label: 'Billing Currency', Icon: Building2 }
+                ].map(({ value, label, Icon }) => (
+                  <div
+                    key={label}
+                    className="rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-5 py-4 text-center"
+                  >
+                    <Icon className="w-5 h-5 text-primary mx-auto mb-2" />
+                    <p className="text-gray-900 dark:text-white font-bold">{value}</p>
+                    <p className="text-gray-400 text-xs font-medium uppercase tracking-wider mt-0.5">{label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Industries we serve from the US office */}
+          <section className="section-padding">
+            <div className="container">
+              <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+                <span className="heading">Industries We</span>{' '}
+                <span className="gradient-text">Serve</span>
+              </h2>
+              <p className="text-center text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
+                From Long Island startups to nationwide brands — here is where our US team does its best work.
+              </p>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                {usaIndustries.map((industry) => (
+                  <div
+                    key={industry}
+                    className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-5 py-4 text-sm font-semibold text-gray-700 dark:text-gray-300 text-center hover:border-primary hover:text-primary transition-colors duration-300"
+                  >
+                    {industry}
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA strip */}
+              <div className="relative mt-14 max-w-5xl mx-auto rounded-3xl overflow-hidden bg-gray-950 ring-1 ring-white/10 px-6 sm:px-10 py-10 text-center">
+                {/* Soft brand glow, matching the footer and other dark panels */}
+                <div className="pointer-events-none absolute -top-32 -right-24 h-72 w-72 rounded-full bg-primary/20 blur-3xl" aria-hidden="true" />
+                <div className="pointer-events-none absolute -bottom-32 -left-24 h-64 w-64 rounded-full bg-yellow-400/10 blur-3xl" aria-hidden="true" />
+
+                <h3 className="relative text-2xl md:text-3xl font-bold text-white mb-3">
+                  Ready to start your project in the States?
+                </h3>
+                <p className="relative text-gray-300 max-w-xl mx-auto mb-7">
+                  Tell us what you need and our New York team will come back with a plan, a timeline and a free estimate.
+                </p>
+                <div className="relative flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <button
+                    onClick={() => navigate('/?subject=US%20Office%20Enquiry#contact')}
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-primary to-yellow-500 text-gray-950 font-bold text-sm shadow-lg hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
+                  >
+                    Get a Free Quote
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <a
+                    href="tel:+19342035115"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl text-white font-semibold text-sm ring-1 ring-white/30 hover:ring-white hover:bg-white/10 transition-all duration-300"
+                  >
+                    <Phone className="w-4 h-4" />
+                    +1 (934) 203-5115
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* Consultation Services Section - Germany & USA */}
+      {(slug === 'germany' || slug === 'usa') && (
         <>
           <section className="section-padding bg-gray-50 dark:bg-gray-900">
             <div className="container">
@@ -419,7 +662,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-                {consultationCards.map((card) => (
+                {activeConsultationCards.map((card) => (
                   <div
                     key={card.id}
                     onClick={() => handleCardSelect(card.id)}
@@ -506,7 +749,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     ) : (
       <form onSubmit={handleSubmit}>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-          Book: {consultationCards.find(card => card.id === selectedCard)?.title}
+          Book: {activeConsultationCards.find(card => card.id === selectedCard)?.title}
         </h3>
 
         {/* Only Email Field */}
@@ -584,6 +827,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
           
           {/* Gallery Section - Only Germany */}
+          {slug === 'germany' && (
 <section className="section-padding">
   <div className="container">
     <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
@@ -638,6 +882,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     </div>
   </div>
 </section>
+          )}
         </>
       )}
 
@@ -646,8 +891,41 @@ const handleSubmit = async (e: React.FormEvent) => {
       
 
 
+
+      {/* FAQ Section - United States */}
+      {slug === 'usa' && (
+        <section className="section-padding bg-gray-50 dark:bg-gray-900">
+          <div className="container max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+              <span className="heading">Frequently Asked</span> <span className="gradient-text">Questions</span>
+            </h2>
+
+            <div className="space-y-4">
+              {usaFaqs.map((faq, index) => (
+                <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                    className="w-full flex items-center justify-between px-6 py-4 text-left bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <span className="font-semibold text-gray-900 dark:text-white">{faq.question}</span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-gray-500 transition-transform ${openFaq === index ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                  {openFaq === index && (
+                    <div className="px-6 pb-4 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-900">
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Meeting Booking Section - Only for Pakistan */}
-{country === 'pakistan' && (
+{slug === 'pakistan' && (
   <section className="section-padding bg-white dark:bg-gray-800">
     <div className="container max-w-4xl mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
@@ -778,7 +1056,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
       {/* FAQ Section - Only for Pakistan */}
-      {country === 'pakistan' && (
+      {slug === 'pakistan' && (
         <section className="section-padding bg-gray-50 dark:bg-gray-900">
           <div className="container max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
